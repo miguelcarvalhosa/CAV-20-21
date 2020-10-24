@@ -1,0 +1,6 @@
+/home/miguel/Desktop/CAV-20-21/examples/classes/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/miguel/Desktop/CAV-20-21/examples/classes/cmake-build-debug/CMakeFiles/example.dir
+/home/miguel/Desktop/CAV-20-21/examples/classes/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/miguel/Desktop/CAV-20-21/examples/classes/cmake-build-debug/CMakeFiles/image.dir
+/home/miguel/Desktop/CAV-20-21/examples/classes/cmake-build-debug/CMakeFiles/video.dir
+/home/miguel/Desktop/CAV-20-21/examples/classes/cmake-build-debug/CMakeFiles/player.dir

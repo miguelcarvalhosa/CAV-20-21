@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/miguel/Desktop/CAV-20-21/examples/classes/Img.h
+iostream
+-
+
+/home/miguel/Desktop/CAV-20-21/examples/classes/example.cpp
+Img.h
+/home/miguel/Desktop/CAV-20-21/examples/classes/Img.h
+iostream
+-
+

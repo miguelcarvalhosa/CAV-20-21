@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -std=c++17 -L/usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28 -O3  -rdynamic CMakeFiles/wavcp.dir/wavcp.cpp.o  -o wavcp  -lsndfile 
