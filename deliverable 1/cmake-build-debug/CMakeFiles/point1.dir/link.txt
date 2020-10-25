@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -std=c++17 -L/usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28 -O3  -rdynamic CMakeFiles/point1.dir/point1.cpp.o CMakeFiles/point1.dir/point5.cpp.o  -o point1  -lsndfile 
