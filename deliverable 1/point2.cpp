@@ -11,20 +11,48 @@ int main(int argc, char *argv[])
 {
     string line; // store the header
     int yCols, yRows; /* frame dimension */
+    int end = 0;
 
-    /* Opening video file */
-    ifstream myfile (argv[1]);
+    /* Opening input and output video file */
+    ifstream infile (argv[1]);
+    ofstream outfile (argv[2]);
 
     /* Processing header */
-    getline (myfile,line);
-
-    /* Processing header */
-    getline (myfile,line);
-    cout << line << endl;
+    getline (infile,line);
+    cout << line;
     cout << line.substr(line.find(" W") + 2, line.find(" H") - line.find(" W") - 2) << endl;
     yCols = stoi(line.substr(line.find(" W") + 2, line.find(" H") - line.find(" W") - 2));
     yRows = stoi(line.substr(line.find(" H") + 2, line.find(" F") - line.find(" H") - 2));
     cout << yCols << ", " << yRows << endl;
 
+    /* write line header in dest file*/
+    outfile << line << endl;
+
+    /* buffer to store the frame in packet mode */
+    unsigned char *frameData = new unsigned char[yCols * yRows * 3];
+
+    while(!end) {
+
+        getline (infile,line); // Skipping word FRAME
+        /* load one frame into buffer frameData */
+        infile.read((char *)frameData, yCols * yRows * 3);
+        outfile << line << endl;
+
+        /* stop process when last frame is detected */
+        if(infile.eof())
+        {
+            cout << "-----------------------------------------------------------" << endl;
+            cout << "INPUT FILE " << argv[1] << " COPIED TO " << argv[2] <<endl;
+            cout << "TRY RUNNING $ ffplay <argv[1]>.y4m" << endl;
+            cout << "            $ ffplay <argv[2]>.y4m" << endl;
+            waitKey();
+            outfile.close();
+            infile.close();
+            end = 1;
+            break;
+        }
+        outfile << frameData << endl; //or outfile.write(reinterpret_cast<const char*>(frameData), yCols * yRows * 3);
+    }
     return 0;
 }
+
