@@ -17,8 +17,6 @@ target_link_libraries (point1 sndfile)
 # POINT 2 COMPILATION
 add_executable (point2 point2.cpp)
 target_link_libraries(point2 ${OpenCV_LIBS} )
-#add_executable (wavhist wavhist.cpp)
-#target_link_libraries (wavhist sndfile)
 
 # POINT 5 COMPILATION
 add_executable (point5 point5.cpp)
