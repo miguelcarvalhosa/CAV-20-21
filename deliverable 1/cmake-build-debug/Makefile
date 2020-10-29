@@ -59,19 +59,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/tania/clion-2020.2.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/goncalo/clion-2020.2.4/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/tania/clion-2020.2.4/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/goncalo/clion-2020.2.4/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/tania/Desktop/CAV-20-21/deliverable 1"
+CMAKE_SOURCE_DIR = "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,7 +79,7 @@ CMAKE_BINARY_DIR = "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debu
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/tania/clion-2020.2.4/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/goncalo/clion-2020.2.4/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -90,7 +90,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/tania/clion-2020.2.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/goncalo/clion-2020.2.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -100,9 +100,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -131,19 +131,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named point2
-
-# Build rule for target.
-point2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 point2
-.PHONY : point2
-
-# fast build rule for target.
-point2/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/build
-.PHONY : point2/fast
-
-#=============================================================================
 # Target rules for targets named point5
 
 # Build rule for target.
@@ -157,6 +144,19 @@ point5/fast:
 .PHONY : point5/fast
 
 #=============================================================================
+# Target rules for targets named point3_420
+
+# Build rule for target.
+point3_420: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 point3_420
+.PHONY : point3_420
+
+# fast build rule for target.
+point3_420/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/build
+.PHONY : point3_420/fast
+
+#=============================================================================
 # Target rules for targets named point1
 
 # Build rule for target.
@@ -168,6 +168,58 @@ point1: cmake_check_build_system
 point1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/build
 .PHONY : point1/fast
+
+#=============================================================================
+# Target rules for targets named point2
+
+# Build rule for target.
+point2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 point2
+.PHONY : point2
+
+# fast build rule for target.
+point2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/build
+.PHONY : point2/fast
+
+#=============================================================================
+# Target rules for targets named point4
+
+# Build rule for target.
+point4: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 point4
+.PHONY : point4
+
+# fast build rule for target.
+point4/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/build
+.PHONY : point4/fast
+
+#=============================================================================
+# Target rules for targets named point3_444
+
+# Build rule for target.
+point3_444: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 point3_444
+.PHONY : point3_444
+
+# fast build rule for target.
+point3_444/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_444.dir/build.make CMakeFiles/point3_444.dir/build
+.PHONY : point3_444/fast
+
+#=============================================================================
+# Target rules for targets named point3_422
+
+# Build rule for target.
+point3_422: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 point3_422
+.PHONY : point3_422
+
+# fast build rule for target.
+point3_422/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/build
+.PHONY : point3_422/fast
 
 point1.o: point1.cpp.o
 
@@ -223,6 +275,114 @@ point2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/point2.cpp.s
 .PHONY : point2.cpp.s
 
+point3_420.o: point3_420.cpp.o
+
+.PHONY : point3_420.o
+
+# target to build an object file
+point3_420.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/point3_420.cpp.o
+.PHONY : point3_420.cpp.o
+
+point3_420.i: point3_420.cpp.i
+
+.PHONY : point3_420.i
+
+# target to preprocess a source file
+point3_420.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/point3_420.cpp.i
+.PHONY : point3_420.cpp.i
+
+point3_420.s: point3_420.cpp.s
+
+.PHONY : point3_420.s
+
+# target to generate assembly for a file
+point3_420.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/point3_420.cpp.s
+.PHONY : point3_420.cpp.s
+
+point3_422.o: point3_422.cpp.o
+
+.PHONY : point3_422.o
+
+# target to build an object file
+point3_422.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/point3_422.cpp.o
+.PHONY : point3_422.cpp.o
+
+point3_422.i: point3_422.cpp.i
+
+.PHONY : point3_422.i
+
+# target to preprocess a source file
+point3_422.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/point3_422.cpp.i
+.PHONY : point3_422.cpp.i
+
+point3_422.s: point3_422.cpp.s
+
+.PHONY : point3_422.s
+
+# target to generate assembly for a file
+point3_422.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/point3_422.cpp.s
+.PHONY : point3_422.cpp.s
+
+point3_444.o: point3_444.cpp.o
+
+.PHONY : point3_444.o
+
+# target to build an object file
+point3_444.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_444.dir/build.make CMakeFiles/point3_444.dir/point3_444.cpp.o
+.PHONY : point3_444.cpp.o
+
+point3_444.i: point3_444.cpp.i
+
+.PHONY : point3_444.i
+
+# target to preprocess a source file
+point3_444.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_444.dir/build.make CMakeFiles/point3_444.dir/point3_444.cpp.i
+.PHONY : point3_444.cpp.i
+
+point3_444.s: point3_444.cpp.s
+
+.PHONY : point3_444.s
+
+# target to generate assembly for a file
+point3_444.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_444.dir/build.make CMakeFiles/point3_444.dir/point3_444.cpp.s
+.PHONY : point3_444.cpp.s
+
+point4.o: point4.cpp.o
+
+.PHONY : point4.o
+
+# target to build an object file
+point4.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/point4.cpp.o
+.PHONY : point4.cpp.o
+
+point4.i: point4.cpp.i
+
+.PHONY : point4.i
+
+# target to preprocess a source file
+point4.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/point4.cpp.i
+.PHONY : point4.cpp.i
+
+point4.s: point4.cpp.s
+
+.PHONY : point4.s
+
+# target to generate assembly for a file
+point4.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/point4.cpp.s
+.PHONY : point4.cpp.s
+
 point5.o: point5.cpp.o
 
 .PHONY : point5.o
@@ -230,7 +390,6 @@ point5.o: point5.cpp.o
 # target to build an object file
 point5.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/point5.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/point5.cpp.o
 .PHONY : point5.cpp.o
 
 point5.i: point5.cpp.i
@@ -240,7 +399,6 @@ point5.i: point5.cpp.i
 # target to preprocess a source file
 point5.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/point5.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/point5.cpp.i
 .PHONY : point5.cpp.i
 
 point5.s: point5.cpp.s
@@ -250,7 +408,6 @@ point5.s: point5.cpp.s
 # target to generate assembly for a file
 point5.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/point5.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/point5.cpp.s
 .PHONY : point5.cpp.s
 
 # Help Target
@@ -263,6 +420,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... point1"
 	@echo "... point2"
+	@echo "... point3_420"
+	@echo "... point3_422"
+	@echo "... point3_444"
+	@echo "... point4"
 	@echo "... point5"
 	@echo "... point1.o"
 	@echo "... point1.i"
@@ -270,6 +431,18 @@ help:
 	@echo "... point2.o"
 	@echo "... point2.i"
 	@echo "... point2.s"
+	@echo "... point3_420.o"
+	@echo "... point3_420.i"
+	@echo "... point3_420.s"
+	@echo "... point3_422.o"
+	@echo "... point3_422.i"
+	@echo "... point3_422.s"
+	@echo "... point3_444.o"
+	@echo "... point3_444.i"
+	@echo "... point3_444.s"
+	@echo "... point4.o"
+	@echo "... point4.i"
+	@echo "... point4.s"
 	@echo "... point5.o"
 	@echo "... point5.i"
 	@echo "... point5.s"

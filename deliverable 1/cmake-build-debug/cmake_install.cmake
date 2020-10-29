@@ -1,4 +1,4 @@
-# Install script for directory: /home/tania/Desktop/CAV-20-21/deliverable 1
+# Install script for directory: /home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

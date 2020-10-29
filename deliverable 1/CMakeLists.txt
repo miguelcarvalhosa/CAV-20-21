@@ -11,12 +11,28 @@ SET (CMAKE_CXX_FLAGS_RELEASE "-O3")
 SET (CMAKE_CXX_FLAGS_DEBUG "-g3 -fsanitize=address")
 
 # POINT 1 COMPILATION
-add_executable (point1 point1.cpp point5.cpp)
+add_executable (point1 point1.cpp sndfile.hh)
 target_link_libraries (point1 sndfile)
 
 # POINT 2 COMPILATION
 add_executable (point2 point2.cpp)
 target_link_libraries(point2 ${OpenCV_LIBS} )
+
+# POINT 3 COMPILATION
+add_executable (point3_444 point3_444.cpp)
+target_link_libraries(point3_444 ${OpenCV_LIBS} )
+
+# POINT 3 COMPILATION
+add_executable (point3_422 point3_422.cpp)
+target_link_libraries(point3_422 ${OpenCV_LIBS} )
+
+# POINT 3 COMPILATION
+add_executable (point3_420 point3_420.cpp)
+target_link_libraries(point3_420 ${OpenCV_LIBS} )
+
+# POINT 4 COMPILATION
+add_executable (point4 point4.cpp sndfile.hh)
+target_link_libraries(point4 sndfile ${OpenCV_LIBS} )
 
 # POINT 5 COMPILATION
 add_executable (point5 point5.cpp)

@@ -54,19 +54,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/tania/clion-2020.2.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/goncalo/clion-2020.2.4/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/tania/clion-2020.2.4/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/goncalo/clion-2020.2.4/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/tania/Desktop/CAV-20-21/deliverable 1"
+CMAKE_SOURCE_DIR = "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/point1.dir/depend.make
@@ -79,43 +79,28 @@ include CMakeFiles/point1.dir/flags.make
 
 CMakeFiles/point1.dir/point1.cpp.o: CMakeFiles/point1.dir/flags.make
 CMakeFiles/point1.dir/point1.cpp.o: ../point1.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/point1.dir/point1.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/point1.dir/point1.cpp.o -c "/home/tania/Desktop/CAV-20-21/deliverable 1/point1.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/point1.dir/point1.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/point1.dir/point1.cpp.o -c "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/point1.cpp"
 
 CMakeFiles/point1.dir/point1.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/point1.dir/point1.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV-20-21/deliverable 1/point1.cpp" > CMakeFiles/point1.dir/point1.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/point1.cpp" > CMakeFiles/point1.dir/point1.cpp.i
 
 CMakeFiles/point1.dir/point1.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/point1.dir/point1.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV-20-21/deliverable 1/point1.cpp" -o CMakeFiles/point1.dir/point1.cpp.s
-
-CMakeFiles/point1.dir/point5.cpp.o: CMakeFiles/point1.dir/flags.make
-CMakeFiles/point1.dir/point5.cpp.o: ../point5.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/point1.dir/point5.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/point1.dir/point5.cpp.o -c "/home/tania/Desktop/CAV-20-21/deliverable 1/point5.cpp"
-
-CMakeFiles/point1.dir/point5.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/point1.dir/point5.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV-20-21/deliverable 1/point5.cpp" > CMakeFiles/point1.dir/point5.cpp.i
-
-CMakeFiles/point1.dir/point5.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/point1.dir/point5.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV-20-21/deliverable 1/point5.cpp" -o CMakeFiles/point1.dir/point5.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/point1.cpp" -o CMakeFiles/point1.dir/point1.cpp.s
 
 # Object files for target point1
 point1_OBJECTS = \
-"CMakeFiles/point1.dir/point1.cpp.o" \
-"CMakeFiles/point1.dir/point5.cpp.o"
+"CMakeFiles/point1.dir/point1.cpp.o"
 
 # External object files for target point1
 point1_EXTERNAL_OBJECTS =
 
 point1: CMakeFiles/point1.dir/point1.cpp.o
-point1: CMakeFiles/point1.dir/point5.cpp.o
 point1: CMakeFiles/point1.dir/build.make
 point1: CMakeFiles/point1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable point1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable point1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/point1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -128,6 +113,6 @@ CMakeFiles/point1.dir/clean:
 .PHONY : CMakeFiles/point1.dir/clean
 
 CMakeFiles/point1.dir/depend:
-	cd "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/tania/Desktop/CAV-20-21/deliverable 1" "/home/tania/Desktop/CAV-20-21/deliverable 1" "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug" "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug" "/home/tania/Desktop/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles/point1.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1" "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1" "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug" "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug" "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles/point1.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/point1.dir/depend
 

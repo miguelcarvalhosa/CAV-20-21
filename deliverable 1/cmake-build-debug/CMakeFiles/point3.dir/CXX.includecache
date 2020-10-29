@@ -6,8 +6,8 @@
 
 #IncludeRegexTransform: 
 
-/home/tania/Desktop/CAV-20-21/deliverable 1/point2.cpp
-iostream
+/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/point3.cpp
+stdio.h
 -
 opencv2/opencv.hpp
 -
