@@ -1,0 +1,149 @@
+\hypertarget{classSndfileHandle}{}\doxysection{Sndfile\+Handle Class Reference}
+\label{classSndfileHandle}\index{SndfileHandle@{SndfileHandle}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a60e5ec8dac736c5f3a2fdc95e7e9c70e}\label{classSndfileHandle_a60e5ec8dac736c5f3a2fdc95e7e9c70e}} 
+{\bfseries Sndfile\+Handle} (const char $\ast$path, int mode=S\+F\+M\+\_\+\+R\+E\+AD, int format=0, int channels=0, int samplerate=0)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_af782c1d529a09587c127272bd96cb42a}\label{classSndfileHandle_af782c1d529a09587c127272bd96cb42a}} 
+{\bfseries Sndfile\+Handle} (std\+::string const \&path, int mode=S\+F\+M\+\_\+\+R\+E\+AD, int format=0, int channels=0, int samplerate=0)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a3cbcef78befb00c3ad7391754a9c0343}\label{classSndfileHandle_a3cbcef78befb00c3ad7391754a9c0343}} 
+{\bfseries Sndfile\+Handle} (int fd, bool close\+\_\+desc, int mode=S\+F\+M\+\_\+\+R\+E\+AD, int format=0, int channels=0, int samplerate=0)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a4c0aa4c1c1403c8ee28287a40eda0ddc}\label{classSndfileHandle_a4c0aa4c1c1403c8ee28287a40eda0ddc}} 
+{\bfseries Sndfile\+Handle} (S\+F\+\_\+\+V\+I\+R\+T\+U\+A\+L\+\_\+\+IO \&sfvirtual, void $\ast$user\+\_\+data, int mode=S\+F\+M\+\_\+\+R\+E\+AD, int format=0, int channels=0, int samplerate=0)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_af9c8bc95a16a9cc913586623c29a3bcd}\label{classSndfileHandle_af9c8bc95a16a9cc913586623c29a3bcd}} 
+{\bfseries Sndfile\+Handle} (const \mbox{\hyperlink{classSndfileHandle}{Sndfile\+Handle}} \&orig)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_af7f77c3dbd655daed9648b702329ca86}\label{classSndfileHandle_af7f77c3dbd655daed9648b702329ca86}} 
+\mbox{\hyperlink{classSndfileHandle}{Sndfile\+Handle}} \& {\bfseries operator=} (const \mbox{\hyperlink{classSndfileHandle}{Sndfile\+Handle}} \&rhs)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a6b56dc2dbe66af6b1fe44adf0f4f371a}\label{classSndfileHandle_a6b56dc2dbe66af6b1fe44adf0f4f371a}} 
+int {\bfseries ref\+Count} (void) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a7f99c56f1af1f6d74c1312a05aaf1a12}\label{classSndfileHandle_a7f99c56f1af1f6d74c1312a05aaf1a12}} 
+{\bfseries operator bool} () const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a37b4778ae0a0e7125f68ea872cecc8e0}\label{classSndfileHandle_a37b4778ae0a0e7125f68ea872cecc8e0}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classSndfileHandle}{Sndfile\+Handle}} \&rhs) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a12c7de95fd3134419bf755020d5a018c}\label{classSndfileHandle_a12c7de95fd3134419bf755020d5a018c}} 
+sf\+\_\+count\+\_\+t {\bfseries frames} (void) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a72b47b9aee449744817a2d6d702ab457}\label{classSndfileHandle_a72b47b9aee449744817a2d6d702ab457}} 
+int {\bfseries format} (void) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a710add6f87468ca8f9dc444bf35e7ebc}\label{classSndfileHandle_a710add6f87468ca8f9dc444bf35e7ebc}} 
+int {\bfseries channels} (void) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_aa4db003e80513fff2f861cc17d459911}\label{classSndfileHandle_aa4db003e80513fff2f861cc17d459911}} 
+int {\bfseries samplerate} (void) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a3918868973e847faad5427697a2ed610}\label{classSndfileHandle_a3918868973e847faad5427697a2ed610}} 
+int {\bfseries error} (void) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a1405842e7e672b9789075bf8a4983a13}\label{classSndfileHandle_a1405842e7e672b9789075bf8a4983a13}} 
+const char $\ast$ {\bfseries str\+Error} (void) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a3646fc2e30b01abefe91524e80da6d6e}\label{classSndfileHandle_a3646fc2e30b01abefe91524e80da6d6e}} 
+int {\bfseries command} (int cmd, void $\ast$data, int datasize)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a0751c210cba5d0d757ce801381743ef3}\label{classSndfileHandle_a0751c210cba5d0d757ce801381743ef3}} 
+sf\+\_\+count\+\_\+t {\bfseries seek} (sf\+\_\+count\+\_\+t frames, int whence)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a7d7e6ec33d07dfae354c2909fafcdbb2}\label{classSndfileHandle_a7d7e6ec33d07dfae354c2909fafcdbb2}} 
+void {\bfseries write\+Sync} (void)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a6fa21cda95c6016c9f2f133d2e94da8b}\label{classSndfileHandle_a6fa21cda95c6016c9f2f133d2e94da8b}} 
+int {\bfseries set\+String} (int str\+\_\+type, const char $\ast$str)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a22653a8f3f77584ae027179371d6bd9b}\label{classSndfileHandle_a22653a8f3f77584ae027179371d6bd9b}} 
+const char $\ast$ {\bfseries get\+String} (int str\+\_\+type) const
+\item 
+\mbox{\Hypertarget{classSndfileHandle_ae3125a94ea83be0193dead02b151d008}\label{classSndfileHandle_ae3125a94ea83be0193dead02b151d008}} 
+sf\+\_\+count\+\_\+t {\bfseries read} (short $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_af6d8fa499d36a9bd68301023800ac8b9}\label{classSndfileHandle_af6d8fa499d36a9bd68301023800ac8b9}} 
+sf\+\_\+count\+\_\+t {\bfseries read} (int $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_aa2ee9aaafe7baa6b7e5d26e9dd2a0321}\label{classSndfileHandle_aa2ee9aaafe7baa6b7e5d26e9dd2a0321}} 
+sf\+\_\+count\+\_\+t {\bfseries read} (float $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a44892d06c66e34bfc5f1948ee58b43ac}\label{classSndfileHandle_a44892d06c66e34bfc5f1948ee58b43ac}} 
+sf\+\_\+count\+\_\+t {\bfseries read} (double $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_ae7aac54beecd7eb08d080f4e6cd171f4}\label{classSndfileHandle_ae7aac54beecd7eb08d080f4e6cd171f4}} 
+sf\+\_\+count\+\_\+t {\bfseries write} (const short $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a6c787b63a36e8c432c38aad125444239}\label{classSndfileHandle_a6c787b63a36e8c432c38aad125444239}} 
+sf\+\_\+count\+\_\+t {\bfseries write} (const int $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a25f654f209d8ef92c988be402384dbff}\label{classSndfileHandle_a25f654f209d8ef92c988be402384dbff}} 
+sf\+\_\+count\+\_\+t {\bfseries write} (const float $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_aa659622dcc3b1c838c8395b008e80416}\label{classSndfileHandle_aa659622dcc3b1c838c8395b008e80416}} 
+sf\+\_\+count\+\_\+t {\bfseries write} (const double $\ast$ptr, sf\+\_\+count\+\_\+t items)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_aea11dfe64ff49f514068969cd8f8ed38}\label{classSndfileHandle_aea11dfe64ff49f514068969cd8f8ed38}} 
+sf\+\_\+count\+\_\+t {\bfseries readf} (short $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a3484df57698b0fc6f8835c864e48c8e0}\label{classSndfileHandle_a3484df57698b0fc6f8835c864e48c8e0}} 
+sf\+\_\+count\+\_\+t {\bfseries readf} (int $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_af8214c9c6501fb05bc64df83ba85fb6e}\label{classSndfileHandle_af8214c9c6501fb05bc64df83ba85fb6e}} 
+sf\+\_\+count\+\_\+t {\bfseries readf} (float $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a00da31b8ed6ac1da69330c27adb9297c}\label{classSndfileHandle_a00da31b8ed6ac1da69330c27adb9297c}} 
+sf\+\_\+count\+\_\+t {\bfseries readf} (double $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_aaeef77f4a93210244e21f913b3c378b4}\label{classSndfileHandle_aaeef77f4a93210244e21f913b3c378b4}} 
+sf\+\_\+count\+\_\+t {\bfseries writef} (const short $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a841acc6961dcca46bbb88aee97ebaeb2}\label{classSndfileHandle_a841acc6961dcca46bbb88aee97ebaeb2}} 
+sf\+\_\+count\+\_\+t {\bfseries writef} (const int $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a8f862bf6d6d48246fa5cbb46464bf4c2}\label{classSndfileHandle_a8f862bf6d6d48246fa5cbb46464bf4c2}} 
+sf\+\_\+count\+\_\+t {\bfseries writef} (const float $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a96ff069df0294554fb906a8b04bad662}\label{classSndfileHandle_a96ff069df0294554fb906a8b04bad662}} 
+sf\+\_\+count\+\_\+t {\bfseries writef} (const double $\ast$ptr, sf\+\_\+count\+\_\+t frames)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a5dfeda9653d5c9c70552fb67f60d52c4}\label{classSndfileHandle_a5dfeda9653d5c9c70552fb67f60d52c4}} 
+sf\+\_\+count\+\_\+t {\bfseries read\+Raw} (void $\ast$ptr, sf\+\_\+count\+\_\+t bytes)
+\item 
+sf\+\_\+count\+\_\+t \mbox{\hyperlink{classSndfileHandle_a2557a434e75581b864635088f9de4ee5}{write\+Raw}} (const void $\ast$ptr, sf\+\_\+count\+\_\+t bytes)
+\item 
+S\+N\+D\+F\+I\+LE $\ast$ \mbox{\hyperlink{classSndfileHandle_a605153c4c3e84557cd60eb3978fc8539}{raw\+Handle}} (void)
+\item 
+\mbox{\Hypertarget{classSndfileHandle_a9461ef4669a8df24945e846fb28875b2}\label{classSndfileHandle_a9461ef4669a8df24945e846fb28875b2}} 
+S\+N\+D\+F\+I\+LE $\ast$ {\bfseries take\+Ownership} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSndfileHandle_aeffce59efad6081b25cd1bb24bf37ef1}\label{classSndfileHandle_aeffce59efad6081b25cd1bb24bf37ef1}} 
+static int {\bfseries format\+Check} (int format, int channels, int samplerate)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSndfileHandle_a605153c4c3e84557cd60eb3978fc8539}\label{classSndfileHandle_a605153c4c3e84557cd60eb3978fc8539}} 
+\index{SndfileHandle@{SndfileHandle}!rawHandle@{rawHandle}}
+\index{rawHandle@{rawHandle}!SndfileHandle@{SndfileHandle}}
+\doxysubsubsection{\texorpdfstring{rawHandle()}{rawHandle()}}
+{\footnotesize\ttfamily S\+N\+D\+F\+I\+LE $\ast$ Sndfile\+Handle\+::raw\+Handle (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Take ownership of handle, if reference count is 1. \mbox{\Hypertarget{classSndfileHandle_a2557a434e75581b864635088f9de4ee5}\label{classSndfileHandle_a2557a434e75581b864635088f9de4ee5}} 
+\index{SndfileHandle@{SndfileHandle}!writeRaw@{writeRaw}}
+\index{writeRaw@{writeRaw}!SndfileHandle@{SndfileHandle}}
+\doxysubsubsection{\texorpdfstring{writeRaw()}{writeRaw()}}
+{\footnotesize\ttfamily sf\+\_\+count\+\_\+t Sndfile\+Handle\+::write\+Raw (\begin{DoxyParamCaption}\item[{const void $\ast$}]{ptr,  }\item[{sf\+\_\+count\+\_\+t}]{bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Raw access to the handle. \mbox{\hyperlink{classSndfileHandle}{Sndfile\+Handle}} keeps ownership. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sndfile.\+hh\end{DoxyCompactItemize}
