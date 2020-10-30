@@ -32,7 +32,7 @@ constexpr size\+\_\+t {\bfseries F\+R\+A\+M\+E\+S\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\
 \doxysubsection{Detailed Description}
 Contains the resolution of points 6 and 8 of Deliverable 1. This program reads an audio file in .wav format, applies a quantization algorithm to reduce the number of bits used to represent each audio sample and saves the quantized file. To use the program, the user must pass three arguments\+: the input file path, the output file path and the number of bits to use in the quantizer. 
 
-Usage\+: wavcp $<$input file$>$ $<$output file$>$ $<$nbits$>$
+Usage\+: point6 $<$input file$>$ $<$output file$>$ $<$nbits$>$
 
 At the end, the program prints the signal-\/to-\/noise ration (S\+NR), as well as the maximum per sample absolute error.
 

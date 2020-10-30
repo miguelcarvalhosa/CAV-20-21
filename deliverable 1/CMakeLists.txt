@@ -41,3 +41,7 @@ target_link_libraries(point5 ${OpenCV_LIBS} )
 # POINT 6 COMPILATION
 add_executable(point6 point6.cpp sndfile.hh point6.cpp)
 target_link_libraries(point6 sndfile)
+
+# POINT 7 COMPILATION
+add_executable (point7 point7.cpp point7.cpp)
+target_link_libraries(point7 ${OpenCV_LIBS} )

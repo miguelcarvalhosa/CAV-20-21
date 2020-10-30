@@ -7,7 +7,7 @@
  *        To use the program, the user must pass three arguments: the input file path, the output file path and the
  *        number of bits to use in the quantizer.
  *
- *        Usage: wavcp <input file> <output file> <nbits>
+ *        Usage: point6 <input file> <output file> <nbits>
  *
  *        At the end, the program prints the signal-to-noise ration (SNR), as well as the maximum per sample absolute
  *        error.
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 
     // Validate the number of arguments
     if(argc < 4) {
-        cerr << "Usage: wavcp <input file> <output file> <nbits>" << endl;
+        cerr << "Usage: point6 <input file> <output file> <nbits>" << endl;
         return 1;
     }
 

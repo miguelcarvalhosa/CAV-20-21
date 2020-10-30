@@ -1,0 +1,64 @@
+\hypertarget{point7_8cpp}{}\doxysection{point7.\+cpp File Reference}
+\label{point7_8cpp}\index{point7.cpp@{point7.cpp}}
+
+
+Contains the resolution of points 7 and 9 of Deliverable 1. This program reads a video in .y4m format with Y\+U\+V\+\_\+444 color coding and applies a quantization algorithm to reduce the number of bits used to represent each pixel. The program plays both the input and reduced videos. To use the program, the user must pass two arguments\+: the input file path and the number of bits to use in the quantizer.  
+
+
+{\ttfamily \#include \char`\"{}opencv2/highgui.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}opencv2/core.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for point7.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+short \mbox{\hyperlink{point7_8cpp_a244e001e3be3c284ea92b24a3bc7a649}{quantizer}} (unsigned short nbits, long min, long max, short value)
+\begin{DoxyCompactList}\small\item\em A function to quantize a sample. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{point7_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{point7_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the resolution of points 7 and 9 of Deliverable 1. This program reads a video in .y4m format with Y\+U\+V\+\_\+444 color coding and applies a quantization algorithm to reduce the number of bits used to represent each pixel. The program plays both the input and reduced videos. To use the program, the user must pass two arguments\+: the input file path and the number of bits to use in the quantizer. 
+
+Usage\+: point7 $<$input file$>$ $<$nbits$>$
+
+At the end, the program prints the signal-\/to-\/noise ration (S\+NR), as well as the maximum per sample absolute error.
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{point7_8cpp_a244e001e3be3c284ea92b24a3bc7a649}\label{point7_8cpp_a244e001e3be3c284ea92b24a3bc7a649}} 
+\index{point7.cpp@{point7.cpp}!quantizer@{quantizer}}
+\index{quantizer@{quantizer}!point7.cpp@{point7.cpp}}
+\doxysubsubsection{\texorpdfstring{quantizer()}{quantizer()}}
+{\footnotesize\ttfamily short quantizer (\begin{DoxyParamCaption}\item[{unsigned short}]{nbits,  }\item[{long}]{min,  }\item[{long}]{max,  }\item[{short}]{value }\end{DoxyParamCaption})}
+
+
+
+A function to quantize a sample. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nbits} & Number of bits to represent the quantized sample \\
+\hline
+{\em min} & Mininum value of the input sample range \\
+\hline
+{\em max} & Maximun value of the input sample range \\
+\hline
+{\em value} & Sample to be quantized\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The quantized value 
+\end{DoxyReturn}

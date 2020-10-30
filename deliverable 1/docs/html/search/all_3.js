@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sndfilehandle_4',['SndfileHandle',['../classSndfileHandle.html',1,'']]]
+  ['sndfilehandle_5',['SndfileHandle',['../classSndfileHandle.html',1,'']]]
 ];
