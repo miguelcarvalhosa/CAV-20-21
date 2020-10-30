@@ -108,8 +108,8 @@ int main(int argc, char** argv)
             for(int c = 0 ; c < uvCols ; c++) {
                 for(i = 0 ; i < colInter ; i++) {
                     for(int j = 0 ; j < rowInter ; j++) {
-                        imgData[(r * 2 + i * yCols + (c * 2 + j) + yCols * yRows)] =  imgDataOriginal[(r * uvCols + c) + yCols * yRows];
-                        imgData[(r * 2 + i * yCols + (c * 2 + j) + yCols * yRows + yCols * yRows)] = imgDataOriginal[(r * uvCols + c) + yCols * yRows + uvCols * uvRows];
+                        imgData[(r * 2 + i) * yCols + (c * 2 + j) + yCols * yRows] =  imgDataOriginal[(r * uvCols + c) + yCols * yRows];
+                        imgData[(r * 2 + i) * yCols + (c * 2 + j) + yCols * yRows + yCols * yRows] = imgDataOriginal[(r * uvCols + c) + yCols * yRows + uvCols * uvRows];
                     }
                 }
             }

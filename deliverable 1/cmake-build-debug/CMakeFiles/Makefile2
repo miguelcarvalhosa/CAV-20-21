@@ -73,13 +73,15 @@ CMAKE_BINARY_DIR = "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-buil
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/point5.dir/all
-all: CMakeFiles/point3_420.dir/all
-all: CMakeFiles/point1.dir/all
-all: CMakeFiles/point2.dir/all
-all: CMakeFiles/point4.dir/all
-all: CMakeFiles/point3_444.dir/all
 all: CMakeFiles/point3_422.dir/all
+all: CMakeFiles/point3_444.dir/all
+all: CMakeFiles/point2.dir/all
+all: CMakeFiles/point1.dir/all
+all: CMakeFiles/point3_420.dir/all
+all: CMakeFiles/point5.dir/all
+all: CMakeFiles/point4.dir/all
+all: CMakeFiles/point6.dir/all
+all: CMakeFiles/point7.dir/all
 
 .PHONY : all
 
@@ -89,150 +91,44 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/point5.dir/clean
-clean: CMakeFiles/point3_420.dir/clean
-clean: CMakeFiles/point1.dir/clean
-clean: CMakeFiles/point2.dir/clean
-clean: CMakeFiles/point4.dir/clean
-clean: CMakeFiles/point3_444.dir/clean
 clean: CMakeFiles/point3_422.dir/clean
+clean: CMakeFiles/point3_444.dir/clean
+clean: CMakeFiles/point2.dir/clean
+clean: CMakeFiles/point1.dir/clean
+clean: CMakeFiles/point3_420.dir/clean
+clean: CMakeFiles/point5.dir/clean
+clean: CMakeFiles/point4.dir/clean
+clean: CMakeFiles/point6.dir/clean
+clean: CMakeFiles/point7.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/point5.dir
+# Target rules for target CMakeFiles/point3_422.dir
 
 # All Build rule for target.
-CMakeFiles/point5.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=13,14 "Built target point5"
-.PHONY : CMakeFiles/point5.dir/all
+CMakeFiles/point3_422.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=7,8 "Built target point3_422"
+.PHONY : CMakeFiles/point3_422.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/point5.dir/rule: cmake_check_build_system
+CMakeFiles/point3_422.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point5.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point3_422.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/point5.dir/rule
+.PHONY : CMakeFiles/point3_422.dir/rule
 
 # Convenience name for target.
-point5: CMakeFiles/point5.dir/rule
+point3_422: CMakeFiles/point3_422.dir/rule
 
-.PHONY : point5
-
-# clean rule for target.
-CMakeFiles/point5.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/clean
-.PHONY : CMakeFiles/point5.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/point3_420.dir
-
-# All Build rule for target.
-CMakeFiles/point3_420.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=5,6 "Built target point3_420"
-.PHONY : CMakeFiles/point3_420.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/point3_420.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point3_420.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/point3_420.dir/rule
-
-# Convenience name for target.
-point3_420: CMakeFiles/point3_420.dir/rule
-
-.PHONY : point3_420
+.PHONY : point3_422
 
 # clean rule for target.
-CMakeFiles/point3_420.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/clean
-.PHONY : CMakeFiles/point3_420.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/point1.dir
-
-# All Build rule for target.
-CMakeFiles/point1.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target point1"
-.PHONY : CMakeFiles/point1.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/point1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point1.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/point1.dir/rule
-
-# Convenience name for target.
-point1: CMakeFiles/point1.dir/rule
-
-.PHONY : point1
-
-# clean rule for target.
-CMakeFiles/point1.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/clean
-.PHONY : CMakeFiles/point1.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/point2.dir
-
-# All Build rule for target.
-CMakeFiles/point2.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target point2"
-.PHONY : CMakeFiles/point2.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/point2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/point2.dir/rule
-
-# Convenience name for target.
-point2: CMakeFiles/point2.dir/rule
-
-.PHONY : point2
-
-# clean rule for target.
-CMakeFiles/point2.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/clean
-.PHONY : CMakeFiles/point2.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/point4.dir
-
-# All Build rule for target.
-CMakeFiles/point4.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=11,12 "Built target point4"
-.PHONY : CMakeFiles/point4.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/point4.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point4.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/point4.dir/rule
-
-# Convenience name for target.
-point4: CMakeFiles/point4.dir/rule
-
-.PHONY : point4
-
-# clean rule for target.
-CMakeFiles/point4.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/clean
-.PHONY : CMakeFiles/point4.dir/clean
+CMakeFiles/point3_422.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/clean
+.PHONY : CMakeFiles/point3_422.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/point3_444.dir
@@ -262,31 +158,193 @@ CMakeFiles/point3_444.dir/clean:
 .PHONY : CMakeFiles/point3_444.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/point3_422.dir
+# Target rules for target CMakeFiles/point2.dir
 
 # All Build rule for target.
-CMakeFiles/point3_422.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=7,8 "Built target point3_422"
-.PHONY : CMakeFiles/point3_422.dir/all
+CMakeFiles/point2.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target point2"
+.PHONY : CMakeFiles/point2.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/point3_422.dir/rule: cmake_check_build_system
+CMakeFiles/point2.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point3_422.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point2.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/point3_422.dir/rule
+.PHONY : CMakeFiles/point2.dir/rule
 
 # Convenience name for target.
-point3_422: CMakeFiles/point3_422.dir/rule
+point2: CMakeFiles/point2.dir/rule
 
-.PHONY : point3_422
+.PHONY : point2
 
 # clean rule for target.
-CMakeFiles/point3_422.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_422.dir/build.make CMakeFiles/point3_422.dir/clean
-.PHONY : CMakeFiles/point3_422.dir/clean
+CMakeFiles/point2.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point2.dir/build.make CMakeFiles/point2.dir/clean
+.PHONY : CMakeFiles/point2.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/point1.dir
+
+# All Build rule for target.
+CMakeFiles/point1.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target point1"
+.PHONY : CMakeFiles/point1.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/point1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/point1.dir/rule
+
+# Convenience name for target.
+point1: CMakeFiles/point1.dir/rule
+
+.PHONY : point1
+
+# clean rule for target.
+CMakeFiles/point1.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point1.dir/build.make CMakeFiles/point1.dir/clean
+.PHONY : CMakeFiles/point1.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/point3_420.dir
+
+# All Build rule for target.
+CMakeFiles/point3_420.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=5,6 "Built target point3_420"
+.PHONY : CMakeFiles/point3_420.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/point3_420.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point3_420.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/point3_420.dir/rule
+
+# Convenience name for target.
+point3_420: CMakeFiles/point3_420.dir/rule
+
+.PHONY : point3_420
+
+# clean rule for target.
+CMakeFiles/point3_420.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point3_420.dir/build.make CMakeFiles/point3_420.dir/clean
+.PHONY : CMakeFiles/point3_420.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/point5.dir
+
+# All Build rule for target.
+CMakeFiles/point5.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=13,14 "Built target point5"
+.PHONY : CMakeFiles/point5.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/point5.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point5.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/point5.dir/rule
+
+# Convenience name for target.
+point5: CMakeFiles/point5.dir/rule
+
+.PHONY : point5
+
+# clean rule for target.
+CMakeFiles/point5.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point5.dir/build.make CMakeFiles/point5.dir/clean
+.PHONY : CMakeFiles/point5.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/point4.dir
+
+# All Build rule for target.
+CMakeFiles/point4.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=11,12 "Built target point4"
+.PHONY : CMakeFiles/point4.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/point4.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point4.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/point4.dir/rule
+
+# Convenience name for target.
+point4: CMakeFiles/point4.dir/rule
+
+.PHONY : point4
+
+# clean rule for target.
+CMakeFiles/point4.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point4.dir/build.make CMakeFiles/point4.dir/clean
+.PHONY : CMakeFiles/point4.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/point6.dir
+
+# All Build rule for target.
+CMakeFiles/point6.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point6.dir/build.make CMakeFiles/point6.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point6.dir/build.make CMakeFiles/point6.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=15,16 "Built target point6"
+.PHONY : CMakeFiles/point6.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/point6.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point6.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/point6.dir/rule
+
+# Convenience name for target.
+point6: CMakeFiles/point6.dir/rule
+
+.PHONY : point6
+
+# clean rule for target.
+CMakeFiles/point6.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point6.dir/build.make CMakeFiles/point6.dir/clean
+.PHONY : CMakeFiles/point6.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/point7.dir
+
+# All Build rule for target.
+CMakeFiles/point7.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point7.dir/build.make CMakeFiles/point7.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point7.dir/build.make CMakeFiles/point7.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" --progress-num=17,18 "Built target point7"
+.PHONY : CMakeFiles/point7.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/point7.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/point7.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/point7.dir/rule
+
+# Convenience name for target.
+point7: CMakeFiles/point7.dir/rule
+
+.PHONY : point7
+
+# clean rule for target.
+CMakeFiles/point7.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/point7.dir/build.make CMakeFiles/point7.dir/clean
+.PHONY : CMakeFiles/point7.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

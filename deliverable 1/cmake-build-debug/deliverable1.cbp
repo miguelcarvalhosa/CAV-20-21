@@ -17,18 +17,8 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="rebuild_cache">
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point5">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point5" prefix_auto="0" extension_auto="0"/>
+			<Target title="point3_422">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_422" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -45,14 +35,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point5"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_422"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="point5/fast">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point5" prefix_auto="0" extension_auto="0"/>
+			<Target title="point3_422/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_422" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -69,207 +59,7 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point5/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point3_420">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_420" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_420"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point3_420/fast">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_420" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_420/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point1">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point1"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point1/fast">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point1/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point2">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point2"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point2/fast">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point2/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point4">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point4" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point4"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="point4/fast">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point4" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point4/fast"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_422/fast"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -323,32 +113,18 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="point3_422">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_422" prefix_auto="0" extension_auto="0"/>
+			<Target title="rebuild_cache">
 				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/local/include/opencv4"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
+				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_422"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="point3_422/fast">
-				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_422" prefix_auto="0" extension_auto="0"/>
+			<Target title="point2">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point2" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -365,7 +141,325 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_422/fast"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point2"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point2/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point2/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point1">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point1"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point1/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point1/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point3_420">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_420" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_420"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point3_420/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point3_420" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point3_420/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point5">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point5" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point5"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point5/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point5" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point5/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point4">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point4" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point4"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point4/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point4" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point4/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point6">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point6" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point6"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point6/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point6" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point6/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point7">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point7" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point7"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="point7/fast">
+				<Option output="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug/point7" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 point7/fast"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/goncalo/Desktop/CAV/CAV-20-21/deliverable\ 1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -393,9 +487,16 @@
 		<Unit filename="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/point5.cpp">
 			<Option target="point5"/>
 		</Unit>
+		<Unit filename="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/point6.cpp">
+			<Option target="point6"/>
+		</Unit>
+		<Unit filename="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/point7.cpp">
+			<Option target="point7"/>
+		</Unit>
 		<Unit filename="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/sndfile.hh">
 			<Option target="point1"/>
 			<Option target="point4"/>
+			<Option target="point6"/>
 		</Unit>
 		<Unit filename="/home/goncalo/Desktop/CAV/CAV-20-21/deliverable 1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
