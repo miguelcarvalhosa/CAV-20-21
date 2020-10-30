@@ -120,7 +120,6 @@ int main(int argc, char *argv[])
 
         /* convert color image to grayscale*/
         cvtColor(color_img, gray_img, COLOR_RGB2GRAY);
-
         /* calculate histogram for each plane: BGR */
         calcHist( &bgr_planes[0], nImages, &channels, Mat(), b_hist, 1, &histSize, &histRange, uniform, accumulate );
         calcHist( &bgr_planes[1], nImages, &channels, Mat(), g_hist, 1, &histSize, &histRange, uniform, accumulate );
@@ -172,7 +171,6 @@ int main(int argc, char *argv[])
             end = 1;
             break;
         }
-
 
         b_ent = entropy(b_hist);
         g_ent = entropy(g_hist);

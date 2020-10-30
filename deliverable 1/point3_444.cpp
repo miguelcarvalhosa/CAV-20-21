@@ -125,6 +125,7 @@ int main(int argc, char** argv)
         {
             /* wait according to the frame rate */
             inputKey = waitKey(1.0 / fps * 1000);
+            cout << 1;
         }
         else
         {

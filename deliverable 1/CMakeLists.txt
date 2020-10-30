@@ -24,7 +24,7 @@ target_link_libraries(point3_444 ${OpenCV_LIBS} )
 
 # POINT 3 COMPILATION
 add_executable (point3_422 point3_422.cpp)
-target_link_libraries(point3_422 ${OpenCV_LIBS} )
+target_link_libraries(point3_422  ${OpenCV_LIBS} )
 
 # POINT 3 COMPILATION
 add_executable (point3_420 point3_420.cpp)
