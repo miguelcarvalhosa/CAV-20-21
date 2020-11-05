@@ -1,3 +1,17 @@
+/**
+ * \file point1.cpp
+ *
+ * \brief Contains the resolution of point 1 of Deliverable 1.
+ *        This program reads an audio file sample by sample and writes it to a new audio file.
+ *        To use the program, the user must pass two arguments: the input file path and the output file path
+ *
+ *        Usage: point1 <input file> <output file>
+ *
+ *
+ * \author António Neves
+ */
+
+
 #include <iostream>
 #include <vector>
 #include <sndfile.hh>
