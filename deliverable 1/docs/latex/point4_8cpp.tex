@@ -1,0 +1,43 @@
+\hypertarget{point4_8cpp}{}\doxysection{point4.\+cpp File Reference}
+\label{point4_8cpp}\index{point4.cpp@{point4.cpp}}
+
+
+Contains the resolution of point 4 of Deliverable 1. This program reads a .wav audio file and computes the histogram for each possible sample value \mbox{[}-\/2$^\wedge$(15) .. 2$^\wedge$(15)-\/1\mbox{]}.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$sndfile.\+hh$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include \char`\"{}opencv2/imgproc.\+hpp\char`\"{}}\newline
+Include dependency graph for point4.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{point4_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{point4_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{point4_8cpp_a18e2a4e5b26bae28c09ffed307b6f57e}\label{point4_8cpp_a18e2a4e5b26bae28c09ffed307b6f57e}} 
+constexpr size\+\_\+t {\bfseries F\+R\+A\+M\+E\+S\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE} = 65536
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the resolution of point 4 of Deliverable 1. This program reads a .wav audio file and computes the histogram for each possible sample value \mbox{[}-\/2$^\wedge$(15) .. 2$^\wedge$(15)-\/1\mbox{]}. 
+
+To use the program, the user must pass two arguments\+: the input audio file path and the output histogram count file path
+
+Usage\+: point5 $<$input audio file$>$ $<$output histogram file$>$
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
