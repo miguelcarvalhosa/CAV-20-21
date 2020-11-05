@@ -31,7 +31,7 @@ using namespace cv;
 /*
  * Function prototypes
  */
-short quantizer(unsigned short nbits, long min, long max, short value);
+short quantizer(short value, unsigned char nbits);
 
 
 int main(int argc, char *argv[])
@@ -46,12 +46,18 @@ int main(int argc, char *argv[])
     string header; // store the header
     int yCols, yRows; /* frame dimension */
     int end = 0;
-    int y, u, v, r, g, b;
+    int y, u, v, r, g, b, rQ, gQ, bQ;
     int nbits = stoi(argv[argc-1]);     // Number of bits to represent the reduced pixel
 
-    long energyIn = 0;      // Input file energy value
-    long energyNoise = 0;   // Noise energy value
-    int maxError = 0;       // Maximum per sample absolute error
+    vector<long> energyIn(3);      // Input file energy value
+    vector<long> energyNoise(3);   // Noise energy value
+    vector<int> maxError(3);       // Maximum per sample absolute error
+
+    for(int i=0; i<3; i++) {
+        energyIn[i] = 0;
+        energyNoise[i] = 0;
+        maxError[i] = 0;
+    }
 
     char inputKey = '?'; /* parse the pressed key */
 
@@ -103,10 +109,20 @@ int main(int argc, char *argv[])
             u = frameData[(i / 3) + (yRows * yCols)];
             v = frameData[(i / 3) + (yRows * yCols) * 2];
 
+            // Quantize each component (YUV)
+            int yQ = quantizer(y, nbits);
+            int uQ = quantizer(u, nbits);
+            int vQ = quantizer(v, nbits);
+
             /* convert to RGB */
             b = (int)(1.164*(y - 16) + 2.018*(u-128));
             g = (int)(1.164*(y - 16) - 0.813*(u-128) - 0.391*(v-128));
             r = (int)(1.164*(y - 16) + 1.596*(v-128));
+
+            bQ = (int)(1.164*(yQ - 16) + 2.018*(uQ-128));
+            gQ = (int)(1.164*(yQ - 16) - 0.813*(uQ-128) - 0.391*(vQ-128));
+            rQ = (int)(1.164*(yQ - 16) + 1.596*(vQ-128));
+
 
             /* clipping to [0 ... 255] */
             if(r < 0) r = 0;
@@ -115,23 +131,27 @@ int main(int argc, char *argv[])
             if(r > 255) r = 255;
             if(g > 255) g = 255;
             if(b > 255) b = 255;
+            if(rQ < 0) rQ = 0;
+            if(gQ < 0) gQ = 0;
+            if(bQ < 0) bQ = 0;
+            if(rQ > 255) rQ = 255;
+            if(gQ > 255) gQ = 255;
+            if(bQ > 255) bQ = 255;
 
-            // Quantize each component (BGR)
-            char bQ = quantizer(nbits, 0, 255, b);
-            char gQ = quantizer(nbits, 0, 255, g);
-            char rQ = quantizer(nbits, 0, 255, r);
+            energyIn[0] += pow(y, 2);            // Accumulate the input signal energy
+            energyIn[1] += pow(u, 2);            // Accumulate the input signal energy
+            energyIn[2] += pow(v, 2);            // Accumulate the input signal energy
 
-            int pixelIn = sqrt(pow(b, 2)+pow(g, 2)+pow(r, 2));        // Norm of the input pixel
-            int pixelQ = sqrt(pow(bQ, 2)+pow(gQ, 2)+pow(rQ, 2));      // Norm of the quantized pixel
-
-            energyIn += pow(pixelIn, 2);            // Accumulate the input signal energy
-            int noise = abs(pixelIn - pixelQ);      // Calculate the error between the input and quantized pixel
-
-            if(noise > maxError) {          // Calculate the maximum error
-                maxError = noise;
+            vector<int> noise(3);        // Calculate the error between the input and quantized pixel
+            noise[0] = abs(y - yQ);
+            noise[1] = abs(u - uQ);
+            noise[2] = abs(v - vQ);
+            for(int i=0; i<3; i++) {
+                if (noise[i] > maxError[i]) {          // Calculate the maximum error
+                    maxError[i] = noise[i];
+                }
+                energyNoise[i] += pow(noise[i], 2);           // Accumulate the quantized signal energy
             }
-
-            energyNoise += pow(noise, 2);           // Accumulate the quantized signal energy
 
             /* Fill the OpenCV input frame buffer - packed mode: BGRBGR...BGR */
             buffer[i] = b;
@@ -156,9 +176,12 @@ int main(int argc, char *argv[])
     }
 
     // Print the results
-    double SNR = 10*log10((double)(energyIn) / (double)(energyNoise));
-    cout << "SNR: " << SNR << " dB" << endl;
-    cout << "Max per sample absolute error: " << maxError << endl;
+    vector<double> SNR(3);
+    for(int i=0; i<3; i++) {
+        SNR[i] = 10 * log10((double) (energyIn[i]) / (double) (energyNoise[i]));
+        cout << "SNR: " << SNR[i] << " dB" << endl;
+        cout << "Max per sample absolute error: " << maxError[i] << endl;
+    }
 
     return EXIT_SUCCESS;
 }
@@ -167,18 +190,13 @@ int main(int argc, char *argv[])
 /**
  * \brief A function to quantize a sample.
  *
- * \param nbits         Number of bits to represent the quantized sample
- * \param min           Mininum value of the input sample range
- * \param max           Maximun value of the input sample range
  * \param value         Sample to be quantized
+ * \param nbits         Number of bits to reduce in the quantized sample
  *
  * \return The quantized value
  *
  */
-short quantizer(unsigned short nbits, long min, long max, short value) {
-    short delta = abs(max-min) / pow(2, nbits);     // Delta, the quantizer level interval, is calculated as
-                                                         // 'delta = A / 2^b', where A is the input range and b is the
-                                                         // number of bits
-    return min + floor((value-min)/delta)*delta + delta/2;
+short quantizer(short value, unsigned char nbits) {
+    return ((value >> nbits) << nbits);
 }
 
