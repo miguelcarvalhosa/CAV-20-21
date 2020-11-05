@@ -1,5 +1,24 @@
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgcodecs.hpp"
+/**
+ * \file point5.cpp
+ *
+ * \brief Contains the resolution of point 5 of Deliverable 1.
+ *        This program reads a 4:4:4 video file and computes, for each frame, the histogram
+ *        of three color planes [B,G,R] as well as its grayscale version and its corresponding
+ *        entropy.
+ *
+ *        To use the program, the user must pass two arguments: the input video file
+ *        path and the output histogram count file path
+ *
+ *        Usage: point5 <input video file> <output histogram file>
+ *
+ *        At the end the program prints, for each frame, the entropy of three color channels as well as
+ *        its grayscale version
+ *
+ * \author Miguel Carvalhosa
+ * \author Tânia Ferreira
+ * \author Gonçalo Cardoso
+ */
+
 #include "opencv2/imgproc.hpp"
 #include "opencv2/core.hpp"
 #include <iostream>
@@ -8,31 +27,18 @@
 using namespace std;
 using namespace cv;
 
-float entropy(Mat hist) {
-    float Pi, ent = 0;
-    int count = 0;
-
-    for (int i=0;i<257;i++) {
-        count += hist.at<float>(i);
-    }
-
-    for (int i=0;i<256;i++)
-    {
-        if(hist.at<float>(i) > 0) {
-            Pi = (hist.at<float>(i))/count;
-            //cout << i << " " << Pi << endl;
-            ent -= Pi*log2(Pi);
-        }
-    }
-    return ent;
-}
+/*
+ * Function Prototypes
+ */
+float entropy(Mat hist);
 
 int main(int argc, char *argv[])
 {
     string header; // store the header
     int yCols, yRows; /* frame dimension */
-    int end = 0, pause = 0;
+    int end = 0;
     int y, u, v, r, g, b;
+    unsigned char *frameData;
 
     /* set number of bins and range of values*/
     int histSize = 256;
@@ -46,7 +52,6 @@ int main(int argc, char *argv[])
     /* list of dims channels */
     int channels = 0; // there is only one channel, the intensity
     float b_ent, g_ent, r_ent, gray_ent;
-    char inputKey = '?'; /* parse the pressed key */
 
     /* Opening input and output video file */
     ifstream infile (argv[1]);
@@ -65,7 +70,7 @@ int main(int argc, char *argv[])
     Mat color_img = Mat(Size(yCols, yRows), CV_8UC3);
     Mat gray_img = Mat(Size(yCols, yRows), CV_8UC1);
     /* buffer to store the frame in packet mode */
-    unsigned char *frameData = new unsigned char[yCols * yRows * 3];
+    frameData = new unsigned char[yCols * yRows * 3];
 
     /* pointer to Mat structure data */
     uchar *buffer;
@@ -74,7 +79,6 @@ int main(int argc, char *argv[])
 
     cout << "-------------------------- ENTROPY -----------------------" << endl;
 
-    vector<uchar> rr, gg, bb, gray;
     while(!end) {
         count++;
         getline (infile,header); // Skipping word FRAME
@@ -130,6 +134,7 @@ int main(int argc, char *argv[])
         /* calculate histogram for the gray scale version */
         calcHist( &gray_img, nImages, &channels, Mat(), gray_hist, 1, &histSize, &histRange, uniform, accumulate );
 
+        /* write the calculated element count for each bin of each histogram in the output file specified */
         for (int k=0; k<histSize; k++) {
             outfile << count << " " << b_hist.at<float>(k) << " " << g_hist.at<float>(k) << " " << r_hist.at<float>(k) << " " << gray_hist.at<float>(k) << endl;
         }
@@ -144,4 +149,28 @@ int main(int argc, char *argv[])
     }
 
     return EXIT_SUCCESS;
+}
+/**
+ * \brief A function to calculate entropy of an image from its Mat histogram.
+ *        It is assumed that the Mat histogram only has the element count of
+ *        one of the three channels in the RBG image case.
+ * \param hist          Mat structure returned by the calcHist() function
+ *
+ */
+float entropy(Mat hist) {
+    float Pi, ent = 0;
+    int count = 0;
+
+    for (int i=0;i<256;i++) {
+        count += hist.at<float>(i);
+    }
+
+    for (int i=0;i<256;i++)
+    {
+        if(hist.at<float>(i) > 0) {
+            Pi = (hist.at<float>(i))/count;
+            ent -= Pi*log2(Pi);
+        }
+    }
+    return ent;
 }

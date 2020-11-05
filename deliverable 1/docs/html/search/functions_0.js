@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['printfileinfo_10',['printFileInfo',['../point6_8cpp.html#aa8c211e3c21f0fdb1ee08dd1f672eb18',1,'point6.cpp']]]
+  ['entropy_19',['entropy',['../point5_8cpp.html#a1c776e1363ba31e38fa582eb4c1cd910',1,'point5.cpp']]]
 ];

@@ -1,0 +1,57 @@
+\hypertarget{point5_8cpp}{}\doxysection{point5.\+cpp File Reference}
+\label{point5_8cpp}\index{point5.cpp@{point5.cpp}}
+
+
+Contains the resolution of point 5 of Deliverable 1. This program reads a 4\+:4\+:4 video file and computes, for each frame, the histogram of three color planes \mbox{[}B,G,R\mbox{]} as well as its grayscale version and its corresponding entropy.  
+
+
+{\ttfamily \#include \char`\"{}opencv2/imgproc.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}opencv2/core.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for point5.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{point5_8cpp_a1c776e1363ba31e38fa582eb4c1cd910}{entropy}} (Mat hist)
+\begin{DoxyCompactList}\small\item\em A function to calculate entropy of an image from its Mat histogram. It is assumed that the Mat histogram only has the element count of one of the three channels in the R\+BG image case. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{point5_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{point5_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the resolution of point 5 of Deliverable 1. This program reads a 4\+:4\+:4 video file and computes, for each frame, the histogram of three color planes \mbox{[}B,G,R\mbox{]} as well as its grayscale version and its corresponding entropy. 
+
+To use the program, the user must pass two arguments\+: the input video file path and the output histogram count file path
+
+Usage\+: point5 $<$input video file$>$ $<$output histogram file$>$
+
+At the end the program prints, for each frame, the entropy of three color channels as well as its grayscale version
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{point5_8cpp_a1c776e1363ba31e38fa582eb4c1cd910}\label{point5_8cpp_a1c776e1363ba31e38fa582eb4c1cd910}} 
+\index{point5.cpp@{point5.cpp}!entropy@{entropy}}
+\index{entropy@{entropy}!point5.cpp@{point5.cpp}}
+\doxysubsubsection{\texorpdfstring{entropy()}{entropy()}}
+{\footnotesize\ttfamily float entropy (\begin{DoxyParamCaption}\item[{Mat}]{hist }\end{DoxyParamCaption})}
+
+
+
+A function to calculate entropy of an image from its Mat histogram. It is assumed that the Mat histogram only has the element count of one of the three channels in the R\+BG image case. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hist} & Mat structure returned by the calc\+Hist() function \\
+\hline
+\end{DoxyParams}

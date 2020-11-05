@@ -1,3 +1,17 @@
+/**
+ * \file point2.cpp
+ *
+ * \brief Contains the resolution of point 2 of Deliverable 1.
+ *        This program copies a 4:4:4 video file pixel by pixel.
+ *        To use the program, the user must pass two arguments: the input file path and the output file path
+ *
+ *        Usage: point2 <input file> <output file>
+ *
+ *
+ * \author Miguel Carvalhosa
+ * \author Tânia Ferreira
+ * \author Gonçalo Cardoso
+ */
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
