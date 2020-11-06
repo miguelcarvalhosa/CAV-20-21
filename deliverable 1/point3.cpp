@@ -1,4 +1,4 @@
-// Function prototype
+
 void VideoPlayer(int argc, char **argv, int uvRows, int uvCols, int format);
 
 int main(int argc, char** argv) {
