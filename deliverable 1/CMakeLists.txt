@@ -18,17 +18,21 @@ target_link_libraries (point1 sndfile)
 add_executable (point2 point2.cpp)
 target_link_libraries(point2 ${OpenCV_LIBS} )
 
-# POINT 3 COMPILATION
+# POINT 3 444 COMPILATION
 add_executable (point3_444 point3_444.cpp)
 target_link_libraries(point3_444 ${OpenCV_LIBS} )
 
-# POINT 3 COMPILATION
+# POINT 3 422 COMPILATION
 add_executable (point3_422 point3_422.cpp)
 target_link_libraries(point3_422  ${OpenCV_LIBS} )
 
-# POINT 3 COMPILATION
+# POINT 3 420 COMPILATION
 add_executable (point3_420 point3_420.cpp)
 target_link_libraries(point3_420 ${OpenCV_LIBS} )
+
+# Point 3 COMPILATION
+add_executable (point3 point3.cpp Video_Player.h Video_Player.cpp)
+target_link_libraries(point3 ${OpenCV_LIBS} )
 
 # POINT 4 COMPILATION
 add_executable (point4 point4.cpp sndfile.hh)

@@ -1,3 +1,29 @@
+/**
+ * \file Video_Player.cpp
+ *
+ * \brief Contains the resolution of point 3 of Deliverable 1.
+ *        This program reads and displays videos of three different formats: 4:4:4, 4:2:2 and 4:2:0.
+ *
+ *        To use the program, the user must pass five arguments: the input video file path, a running mode, the number
+ *        of vertical pixels of the video format chosen, the number of horizontal pixels and the format of the video being read.
+ *
+ *        Usage: point3 <input video file> <running mode>(optional)
+ *
+ *        In standard mode, the video runs until the end and afterwards it stops.
+ *
+ * \param argc             Path to the input video
+ * \param argv             Running modes for the video reproduction
+ * \param uvRows           Number of vertical pixels of the input video
+ * \param uvCols           Number of horizontal pixels of the input video
+ * \param format           Format of the input video
+ *
+ * \author Miguel Carvalhosa
+ * \author Tânia Ferreira
+ * \author Gonçalo Cardoso
+ *
+ */
+#include "Video_Player.h"
+#include <stdio.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 #include <fstream>
@@ -6,7 +32,7 @@ using namespace cv;
 using namespace std;
 
 
-int main(int argc, char** argv)
+void VideoPlayer(int argc, char** argv, int uvRows, int uvCols, int format)
 {
     string line; // store the header
     int yCols, yRows; /* frame dimension */
@@ -17,18 +43,11 @@ int main(int argc, char** argv)
     uchar *buffer; // unsigned char pointer to the Mat data
     char inputKey = '?'; /* parse the pressed key */
     int end = 0, playing = 1, loop = 0; /* control variables */
-    int uvRows;
-    uvRows = 360;
-    int uvCols;
-    uvCols = 640;
 
-    int rowInter = 2;
-    int colInter = 2;
 
     /* check for the mandatory arguments */
     if( argc < 2 ) {
-        cerr << "Usage: PlayerYUV444 filename" << endl;
-        return 1;
+        cerr << "Usage: PlayerYUV filename" << endl;
     }
 
     /* Opening video file */
@@ -96,19 +115,36 @@ int main(int argc, char** argv)
             }
         }
 
-        //4:4:4
-        //unsigned char *imageDate = imageDataOriginal;
+        // Analysing a 4:4:4 video
+        if(format == 444) {
+           imgData = imgDataOriginal;
+        }
 
-        //4:2:2 ou 4:2:0 componente y
-        memcpy(imgData, imgDataOriginal, yCols * yRows);
-
-         //4:2:0
-        for(int r = 0 ; r < uvRows ; r++) {
-            for(int c = 0 ; c < uvCols ; c++) {
-                for(i = 0 ; i < colInter ; i++) {
-                    for(int j = 0 ; j < rowInter ; j++) {
-                        imgData[(r * 2 + i) * yCols + (c * 2 + j) + yCols * yRows] =  imgDataOriginal[(r * uvCols + c) + yCols * yRows];
-                        imgData[(r * 2 + i) * yCols + (c * 2 + j) + yCols * yRows + yCols * yRows] = imgDataOriginal[(r * uvCols + c) + yCols * yRows + uvCols * uvRows];
+        // Analysing a 4:2:2 video
+        else if(format == 422){
+            memcpy(imgData, imgDataOriginal, yCols * yRows);
+            for(int r = 0 ; r < uvRows ; r++) {
+                for(int c = 0 ; c < uvCols ; c++){
+                    for(int j = 0 ; j < 2 ; j++) {
+                        imgData[(r * yCols + (c * 2) + j + yCols * yRows)] = imgDataOriginal[(r * uvCols + c) + yCols * yRows];
+                        imgData[(r * yCols + (c * 2) + j + yCols * yRows + yCols * yRows)] = imgDataOriginal[(r * uvCols + c) + yCols * yRows + uvCols * uvRows];
+                    }
+                }
+            }
+        }
+        // Analysing a 4:2:0 vídeo
+        else if(format == 420) {
+            memcpy(imgData, imgDataOriginal, yCols * yRows);
+            for (int r = 0; r < uvRows; r++) {
+                for (int c = 0; c < uvCols; c++) {
+                    for (i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            imgData[(r * 2 + i) * yCols + (c * 2 + j) + yCols * yRows] = imgDataOriginal[
+                                    (r * uvCols + c) + yCols * yRows];
+                            imgData[(r * 2 + i) * yCols + (c * 2 + j) + yCols * yRows +
+                                    yCols * yRows] = imgDataOriginal[(r * uvCols + c) + yCols * yRows +
+                                                                     uvCols * uvRows];
+                        }
                     }
                 }
             }
@@ -171,5 +207,5 @@ int main(int argc, char** argv)
                 break;
         }
     }
-    return 0;
+
 }
