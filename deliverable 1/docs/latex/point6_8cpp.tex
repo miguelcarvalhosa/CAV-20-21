@@ -2,7 +2,7 @@
 \label{point6_8cpp}\index{point6.cpp@{point6.cpp}}
 
 
-Contains the resolution of points 6 and 8 of Deliverable 1. This program reads an audio file in .wav format, applies a quantization algorithm to reduce the number of bits used to represent each audio sample and saves the quantized file. To use the program, the user must pass three arguments\+: the input file path, the output file path and the number of bits to use in the quantizer.  
+Contains the resolution of points 6 and 8 of Deliverable 1. This program reads an audio file in .wav format, applies a quantization algorithm to reduce the number of bits used to represent each audio sample and saves the quantized file. To use the program, the user must pass three arguments\+: the input file path, the output file path and the number of bits to reduce each audio sample (The number of bits to remove of the sample, not the final number of bits).  
 
 
 {\ttfamily \#include $<$iostream$>$}\newline
@@ -16,7 +16,7 @@ Include dependency graph for point6.\+cpp\+:
 \item 
 void \mbox{\hyperlink{point6_8cpp_aa8c211e3c21f0fdb1ee08dd1f672eb18}{print\+File\+Info}} (\mbox{\hyperlink{classSndfileHandle}{Sndfile\+Handle}} file)
 \begin{DoxyCompactList}\small\item\em A function to print some information about the audio file. \end{DoxyCompactList}\item 
-short \mbox{\hyperlink{point6_8cpp_a244e001e3be3c284ea92b24a3bc7a649}{quantizer}} (unsigned short nbits, long min, long max, short value)
+short \mbox{\hyperlink{point6_8cpp_a330e75e7f78167f1745feaf7ad38d863}{quantizer}} (short value, unsigned char nbits)
 \begin{DoxyCompactList}\small\item\em A function to quantize a sample. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{point6_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{point6_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
 int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
@@ -30,11 +30,11 @@ constexpr size\+\_\+t {\bfseries F\+R\+A\+M\+E\+S\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\
 
 
 \doxysubsection{Detailed Description}
-Contains the resolution of points 6 and 8 of Deliverable 1. This program reads an audio file in .wav format, applies a quantization algorithm to reduce the number of bits used to represent each audio sample and saves the quantized file. To use the program, the user must pass three arguments\+: the input file path, the output file path and the number of bits to use in the quantizer. 
+Contains the resolution of points 6 and 8 of Deliverable 1. This program reads an audio file in .wav format, applies a quantization algorithm to reduce the number of bits used to represent each audio sample and saves the quantized file. To use the program, the user must pass three arguments\+: the input file path, the output file path and the number of bits to reduce each audio sample (The number of bits to remove of the sample, not the final number of bits). 
 
 Usage\+: point6 $<$input file$>$ $<$output file$>$ $<$nbits$>$
 
-At the end, the program prints the signal-\/to-\/noise ration (S\+NR), as well as the maximum per sample absolute error.
+At the end, the program prints the signal-\/to-\/noise ratio (S\+NR), as well as the maximum per sample absolute error of each audio channel.
 
 \begin{DoxyAuthor}{Author}
 Miguel Carvalhosa 
@@ -61,11 +61,11 @@ A function to print some information about the audio file.
 {\em file} & Handler for the audio file \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{point6_8cpp_a244e001e3be3c284ea92b24a3bc7a649}\label{point6_8cpp_a244e001e3be3c284ea92b24a3bc7a649}} 
+\mbox{\Hypertarget{point6_8cpp_a330e75e7f78167f1745feaf7ad38d863}\label{point6_8cpp_a330e75e7f78167f1745feaf7ad38d863}} 
 \index{point6.cpp@{point6.cpp}!quantizer@{quantizer}}
 \index{quantizer@{quantizer}!point6.cpp@{point6.cpp}}
 \doxysubsubsection{\texorpdfstring{quantizer()}{quantizer()}}
-{\footnotesize\ttfamily short quantizer (\begin{DoxyParamCaption}\item[{unsigned short}]{nbits,  }\item[{long}]{min,  }\item[{long}]{max,  }\item[{short}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily short quantizer (\begin{DoxyParamCaption}\item[{short}]{value,  }\item[{unsigned char}]{nbits }\end{DoxyParamCaption})}
 
 
 
@@ -73,13 +73,9 @@ A function to quantize a sample.
 
 
 \begin{DoxyParams}{Parameters}
-{\em nbits} & Number of bits to represent the quantized sample \\
+{\em value} & Sample to be quantized \\
 \hline
-{\em min} & Mininum value of the input sample range \\
-\hline
-{\em max} & Maximun value of the input sample range \\
-\hline
-{\em value} & Sample to be quantized\\
+{\em nbits} & Number of bits to reduce in the quantized sample\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

@@ -14,7 +14,7 @@ Include dependency graph for point7.\+cpp\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-short \mbox{\hyperlink{point7_8cpp_a244e001e3be3c284ea92b24a3bc7a649}{quantizer}} (unsigned short nbits, long min, long max, short value)
+short \mbox{\hyperlink{point7_8cpp_a330e75e7f78167f1745feaf7ad38d863}{quantizer}} (short value, unsigned char nbits)
 \begin{DoxyCompactList}\small\item\em A function to quantize a sample. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{point7_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{point7_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
 int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
@@ -38,11 +38,11 @@ Gonçalo Cardoso
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{point7_8cpp_a244e001e3be3c284ea92b24a3bc7a649}\label{point7_8cpp_a244e001e3be3c284ea92b24a3bc7a649}} 
+\mbox{\Hypertarget{point7_8cpp_a330e75e7f78167f1745feaf7ad38d863}\label{point7_8cpp_a330e75e7f78167f1745feaf7ad38d863}} 
 \index{point7.cpp@{point7.cpp}!quantizer@{quantizer}}
 \index{quantizer@{quantizer}!point7.cpp@{point7.cpp}}
 \doxysubsubsection{\texorpdfstring{quantizer()}{quantizer()}}
-{\footnotesize\ttfamily short quantizer (\begin{DoxyParamCaption}\item[{unsigned short}]{nbits,  }\item[{long}]{min,  }\item[{long}]{max,  }\item[{short}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily short quantizer (\begin{DoxyParamCaption}\item[{short}]{value,  }\item[{unsigned char}]{nbits }\end{DoxyParamCaption})}
 
 
 
@@ -50,13 +50,9 @@ A function to quantize a sample.
 
 
 \begin{DoxyParams}{Parameters}
-{\em nbits} & Number of bits to represent the quantized sample \\
+{\em value} & Sample to be quantized \\
 \hline
-{\em min} & Mininum value of the input sample range \\
-\hline
-{\em max} & Maximun value of the input sample range \\
-\hline
-{\em value} & Sample to be quantized\\
+{\em nbits} & Number of bits to reduce in the quantized sample\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
