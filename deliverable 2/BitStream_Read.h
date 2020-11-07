@@ -1,8 +1,5 @@
 /**
- * \file BitStream_Read.h
- *
  * \brief A class to read a stream of bits from a file.
- *
  *        Includes methods to read single bits and strings.
  *
  * \author Miguel Carvalhosa

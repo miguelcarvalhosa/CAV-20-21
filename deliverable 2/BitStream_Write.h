@@ -1,8 +1,5 @@
 /**
- * \file BitStream_Write.h
- *
  * \brief A class to write a stream of bits to a file.
- *
  *        Includes methods to write single bits and strings.
  *
  * \author Miguel Carvalhosa
