@@ -23,10 +23,6 @@
  *
  */
 #include "Video_Player.h"
-#include <stdio.h>
-#include <opencv2/opencv.hpp>
-#include <opencv2/videoio.hpp>
-#include <fstream>
 
 using namespace cv;
 using namespace std;
