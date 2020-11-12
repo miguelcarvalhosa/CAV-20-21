@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['writebit_16',['writeBit',['../classBitStream__Write.html#af9da8d3b0fb28a3ac6d63310a99f9b9b',1,'BitStream_Write']]],
-  ['writenbits_17',['writeNBits',['../classBitStream__Write.html#ab97a6273f0ca4faa9e69b8888562f24c',1,'BitStream_Write']]]
+  ['encode_25',['encode',['../classGolombEncoder.html#a9a84bd032a45776e74d1cd206a13bfa4',1,'GolombEncoder']]]
 ];

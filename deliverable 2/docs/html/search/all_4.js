@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_7ebitstream_5fread_7',['~BitStream_Read',['../classBitStream__Read.html#aadd993daae89d79194e91d41e76e4785',1,'BitStream_Read']]],
-  ['_7ebitstream_5fwrite_8',['~BitStream_Write',['../classBitStream__Write.html#afce1f934c943afaf99f41d426980abbb',1,'BitStream_Write']]]
+  ['golombdecoder_5',['GolombDecoder',['../classGolombDecoder.html',1,'GolombDecoder'],['../classGolombDecoder.html#a47c6186e0a42b05fe8b959c7fe875eab',1,'GolombDecoder::GolombDecoder()']]],
+  ['golombencoder_6',['GolombEncoder',['../classGolombEncoder.html',1,'GolombEncoder'],['../classGolombEncoder.html#aabc61456c2ff282042b7d7e9e83588ac',1,'GolombEncoder::GolombEncoder()']]]
 ];

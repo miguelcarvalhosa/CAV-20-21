@@ -23,7 +23,9 @@ void \mbox{\hyperlink{classBitStream__Write_a7de7f8a3b769738f1ab15018e8b2134e}{c
 void \mbox{\hyperlink{classBitStream__Write_af9da8d3b0fb28a3ac6d63310a99f9b9b}{write\+Bit}} (uint8\+\_\+t val)
 \begin{DoxyCompactList}\small\item\em A function to write a bit to the file. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classBitStream__Write_ab97a6273f0ca4faa9e69b8888562f24c}{write\+N\+Bits}} (uint64\+\_\+t val, uint8\+\_\+t nbits)
-\begin{DoxyCompactList}\small\item\em A function to write a number of bits to the file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A function to write a number of bits to the file. Can be used to write integer numbers with up to 64 bits. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBitStream__Write_aa7236be57a32d06b7b3c2395c16bed20}{write\+String}} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em A function to write a string to the file in binary. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -80,13 +82,28 @@ A function to write a bit to the file.
 
 
 
-A function to write a number of bits to the file. 
+A function to write a number of bits to the file. Can be used to write integer numbers with up to 64 bits. 
 
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em val} & The value to be written \\
 \hline
 \mbox{\texttt{ in}}  & {\em nbits} & The number of bits to be written, in range \mbox{[}1 \+: 64\mbox{]} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBitStream__Write_aa7236be57a32d06b7b3c2395c16bed20}\label{classBitStream__Write_aa7236be57a32d06b7b3c2395c16bed20}} 
+\index{BitStream\_Write@{BitStream\_Write}!writeString@{writeString}}
+\index{writeString@{writeString}!BitStream\_Write@{BitStream\_Write}}
+\doxysubsubsection{\texorpdfstring{writeString()}{writeString()}}
+{\footnotesize\ttfamily void Bit\+Stream\+\_\+\+Write\+::write\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str }\end{DoxyParamCaption})}
+
+
+
+A function to write a string to the file in binary. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str} & The input string to be written \\
 \hline
 \end{DoxyParams}
 

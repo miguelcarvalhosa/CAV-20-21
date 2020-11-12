@@ -23,7 +23,9 @@ void \mbox{\hyperlink{classBitStream__Read_a90141d9fa19c6530c4dd1cf51bae139b}{cl
 uint8\+\_\+t \mbox{\hyperlink{classBitStream__Read_a7d06fa61f96e67b65f459518dd2e188d}{read\+Bit}} ()
 \begin{DoxyCompactList}\small\item\em A function to read a bit from the file. \end{DoxyCompactList}\item 
 uint64\+\_\+t \mbox{\hyperlink{classBitStream__Read_a8a3c1c2e745ae2a3f447613b31aa6ad8}{read\+N\+Bits}} (uint8\+\_\+t nbits)
-\begin{DoxyCompactList}\small\item\em A function to read a number of bits from the file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A function to read a number of bits from the file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBitStream__Read_a9321b14fd43f837211950239cccd1869}{read\+String}} (std\+::string \&str, uint8\+\_\+t nchars)
+\begin{DoxyCompactList}\small\item\em A function to read a string from the file in binary. It reads \textquotesingle{}nchars\textquotesingle{} characters from the file and stores them in string \textquotesingle{}str\textquotesingle{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -91,12 +93,29 @@ A function to read a number of bits from the file.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em nbits} & The number of bits to be written \\
+\mbox{\texttt{ in}}  & {\em nbits} & The number of bits to be read \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The value read 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classBitStream__Read_a9321b14fd43f837211950239cccd1869}\label{classBitStream__Read_a9321b14fd43f837211950239cccd1869}} 
+\index{BitStream\_Read@{BitStream\_Read}!readString@{readString}}
+\index{readString@{readString}!BitStream\_Read@{BitStream\_Read}}
+\doxysubsubsection{\texorpdfstring{readString()}{readString()}}
+{\footnotesize\ttfamily void Bit\+Stream\+\_\+\+Read\+::read\+String (\begin{DoxyParamCaption}\item[{std\+::string \&}]{str,  }\item[{uint8\+\_\+t}]{nchars }\end{DoxyParamCaption})}
+
+
+
+A function to read a string from the file in binary. It reads \textquotesingle{}nchars\textquotesingle{} characters from the file and stores them in string \textquotesingle{}str\textquotesingle{}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em str} & The output string \\
+\hline
+\mbox{\texttt{ in}}  & {\em nchars} & The number of characters to be read \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
