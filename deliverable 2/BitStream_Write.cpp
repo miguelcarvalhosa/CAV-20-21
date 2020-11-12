@@ -55,3 +55,11 @@ void BitStream_Write::writeNBits(uint64_t val, uint8_t nbits) {
         std::cerr << "ERROR in BitStream_Write::writeNBits: invalid value of argument 'nbits'." << std::endl;
     }
 }
+
+void BitStream_Write::writeString(const std::string &str) {
+    // Iterate through each string character and write it to the file using writeNBits.
+    for(int i=0; i<str.length(); i++) {
+        writeNBits(str[i], 8);  // Using operator[] to access the character instead of at(). It is faster, however
+                                     // it does not check if 'i' is a valid position or not. Must be used with caution.
+    }
+}

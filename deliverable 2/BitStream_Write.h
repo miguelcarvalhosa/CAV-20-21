@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 
 class BitStream_Write {
@@ -46,11 +47,19 @@ public:
 
     /**
      * \brief A function to write a number of bits to the file.
+     *        Can be used to write integer numbers with up to 64 bits.
      *
      * \param[in] val       The value to be written
      * \param[in] nbits     The number of bits to be written, in range [1 : 64]
      */
     void writeNBits(uint64_t val, uint8_t nbits);
+
+    /**
+     * \brief A function to write a string to the file in binary
+     *
+     * \param[in] str       The input string to be written
+     */
+     void writeString(const std::string &str);
 
 
 private:

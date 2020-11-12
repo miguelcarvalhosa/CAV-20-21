@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 
 class BitStream_Read {
@@ -51,10 +52,18 @@ public:
     /**
      * \brief A function to read a number of bits from the file.
      *
-     * \param[in] nbits     The number of bits to be written
+     * \param[in] nbits     The number of bits to be read
      * \return The value read
      */
     uint64_t readNBits(uint8_t nbits);
+
+    /**
+     * \brief A function to read a string from the file in binary.
+     *
+     * \param[out] str      The output string to read to
+     * \param[in] nbits     The number of characters to be read
+     */
+     void readString(std::string &str, uint8_t nbits);
 
 
 private:
