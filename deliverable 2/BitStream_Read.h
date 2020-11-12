@@ -59,11 +59,12 @@ public:
 
     /**
      * \brief A function to read a string from the file in binary.
+     * It reads 'nchars' characters from the file and stores them in string 'str'
      *
-     * \param[out] str      The output string to read to
-     * \param[in] nbits     The number of characters to be read
+     * \param[out] str      The output string
+     * \param[in] nchars    The number of characters to be read
      */
-     void readString(std::string &str, uint8_t nbits);
+     void readString(std::string &str, uint8_t nchars);
 
 
 private:

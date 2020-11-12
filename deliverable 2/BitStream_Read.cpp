@@ -52,3 +52,13 @@ uint64_t BitStream_Read::readNBits(uint8_t nbits) {
     }
     return word;
 }
+
+
+void BitStream_Read::readString(std::string &str, uint8_t nchars) {
+    std::string _str;                               // Create a string
+    for(int i=0; i<nchars; i++) {                   // Iterate through each 'nchars'
+        uint8_t readChar = readNBits(8);      // Read a character (8 bits) from the file
+        _str.append(1, readChar);               // Append the character to the string
+    }
+    str = _str;                                     // Copy the created string to the output string
+}

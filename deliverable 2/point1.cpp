@@ -6,25 +6,21 @@ using namespace std;
 
 int main() {
 
-    string str("Hello World");
-    BitStream_Write bsw("file.test");
-    bsw.writeString(str);
-    bsw.close();
-
-    /*
     BitStream_Write bsw("file.test");
     bsw.writeNBits(65535, 16);
     bsw.writeNBits(0xABCD, 16);
     bsw.writeNBits(8, 8);
+    string str("Hello World");
+    bsw.writeString(str);
     bsw.close();
 
     BitStream_Read bsr("file.test");
-    //for(int i=0; i<40; i++) {
-    //    cout << (char)(48+bsr.readBit());
-    //}
     uint64_t word = bsr.readNBits(40);
-    cout << bitset<40>(word);
+    cout << bitset<40>(word) << endl;
+    string str1;
+    bsr.readString(str1, str.length());
+    cout << str1 << endl;
     bsr.close();
-    */
+
     return 0;
 }
