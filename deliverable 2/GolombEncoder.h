@@ -1,6 +1,4 @@
-//
-// Created by joao on 09/11/20.
-//
+
 #include <stdio.h>
 #include <stdint.h>
 #include <fstream>
@@ -18,7 +16,7 @@ class GolombEncoder {
         *
         * \param[in] fileName      A string with the file name of the input stream to be encoded
         */
-        GolombEncoder(uint32_t m);
+        GolombEncoder(unsigned int m);
 
         /**
          * \brief Destructor.
@@ -30,11 +28,12 @@ class GolombEncoder {
         *
         * \param[in] val       The value to be encoded
         */
-        void encode(uint64_t val);
+        //void encode(uint64_t val);
+        void encode(signed int value);
     private:
         BitStream_Write bsw {"file.test"};
-        uint32_t m;
-        uint32_t b;
+        unsigned int m;
+        unsigned int b;
 };
 
 

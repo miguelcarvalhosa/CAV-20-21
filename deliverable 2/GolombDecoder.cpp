@@ -1,26 +1,36 @@
-//
-// Created by joao on 09/11/20.
-//
-
 #include "GolombDecoder.h"
 #include "math.h"
-#include <bitset>
 
+using namespace  std;
 
-GolombDecoder::GolombDecoder(uint32_t m) {
+GolombDecoder::GolombDecoder(unsigned int m) {
     this->m = m;
     b = ceil(log2(m));
-    cout << "b: " << b << endl;
 };
 
 GolombDecoder::~GolombDecoder() {
     // ?
 }
-uint64_t GolombDecoder::decode() {
 
-    uint32_t q, r;
-    uint64_t word = bsr.readNBits(64);
-    cout << bitset<64>(word) << endl;
+signed int GolombDecoder::decode() {
+    unsigned long int q=0, r;
+    signed int n;
+    signed char signal;
+
+    if(bsr.readBit()==0) {
+        signal = 1;
+    } else {
+        signal = -1;
+    }
+    uint8_t bit = bsr.readBit();
+    while(bit!=0){
+        q++;
+        bit=bsr.readBit();
+    }
+
+    r=bsr.readNBits(b);
     bsr.close();
-}
 
+    n = (signed int) signal * (q*m+r);
+    return n;
+}

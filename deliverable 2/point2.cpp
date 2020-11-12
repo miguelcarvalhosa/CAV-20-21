@@ -1,20 +1,23 @@
 #include "BitStream_Write.h"
-#include "BitStream_Read.h"
 #include "GolombEncoder.h"
 #include "GolombDecoder.h"
-#include <bitset>
 
 using namespace std;
 
 int main() {
 
-    uint32_t m = 4;
-    GolombEncoder enc(m);
-    enc.encode(206);
-    GolombDecoder dec(m);
-    uint64_t res = dec.decode();
+    unsigned int m;
+    signed int value, result;
+    m = 5;
+    value = -1007;
 
+    GolombEncoder encoder(m);
+    encoder.encode(value);
+    GolombDecoder decoder(m);
 
+    result = decoder.decode();
+    cout << "Valor a codificar  : " << value << endl;
+    cout << "Valor descodificado: " << result << endl;
 
     return 0;
 }

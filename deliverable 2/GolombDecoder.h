@@ -1,12 +1,8 @@
-//
-// Created by joao on 09/11/20.
-//
 #include <stdio.h>
 #include <stdint.h>
 #include <fstream>
 #include <iostream>
 
-#include <bitset>
 #include "BitStream_Read.h"
 
 using namespace std;
@@ -20,9 +16,9 @@ class GolombDecoder {
         /**
         * \brief Constructor.
         *
-        * \param[in] fileName      A string with the file name of the input stream to be encoded
+        * \param[in] m      parameter of the encoder
         */
-        GolombDecoder(uint32_t m);
+        GolombDecoder(unsigned int m);
 
         /**
          * \brief Destructor.
@@ -32,14 +28,14 @@ class GolombDecoder {
         /**
         * \brief A function to
         *
-        * \param[in] val       The value to be encoded
+        * \param[in] val       The value to be decoded
         */
-        uint64_t decode();
+        signed int decode();
 
     private:
         BitStream_Read bsr {"file.test"};
-        uint32_t m;
-    uint32_t b;
+        unsigned int m;
+        unsigned int b;
 };
 
 
