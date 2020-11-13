@@ -12,3 +12,6 @@ add_executable(point2 point2.cpp BitStream_Write.cpp BitStream_Write.h BitStream
 
 add_executable(test_BitStream test_BitStream.cpp main_test.cpp BitStream_Write.h BitStream_Read.h BitStream_Write.cpp BitStream_Read.cpp)
 target_link_libraries (test_BitStream CppUTest)
+
+add_executable(test_Golomb test_Golomb.cpp main_test.cpp BitStream_Write.h BitStream_Read.h BitStream_Write.cpp BitStream_Read.cpp GolombDecoder.cpp GolombDecoder.h GolombEncoder.cpp GolombEncoder.h)
+target_link_libraries (test_Golomb CppUTest)

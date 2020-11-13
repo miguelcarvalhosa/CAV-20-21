@@ -7,9 +7,17 @@ using namespace std;
 
 GolombEncoder::GolombEncoder(unsigned int m) {
 
-    this->m = m;
-    b = ceil(log2(m));
-    cout << "Number of bits of remainder: " << b << endl;
+    //Verifies if the m values is positive
+    if(m < 10000000){
+        this->m = m;
+        b = ceil(log2(m));
+        cout << "Number of bits of remainder: " << b << endl;
+    }
+    else {
+        std::cerr << "The m parameter inserted is not valid." << std::endl;
+        std::invalid_argument("The m parameter inserted is not valid");
+    }
+
 };
 
 GolombEncoder::~GolombEncoder() {

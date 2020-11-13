@@ -8,6 +8,7 @@
 TEST_GROUP(Bit_Stream)
 {
     void setup()
+
     {
 
     }
@@ -72,6 +73,7 @@ TEST(Bit_Stream,Write_Read_nbit_Hex)
 
 }
 
+// Tests the highest value possible according to the number of bits used
 TEST(Bit_Stream,LargestValueFoNbits)
 {
     BitStream_Write bsw("Teste.test");
@@ -102,7 +104,7 @@ TEST(Bit_Stream,Write_Read_String)
 
     BitStream_Read bsr("Teste.test");
     std::string result = "";
-    bsr.readString(result, 27);
+    bsr.readString(result, 24);
     CHECK_EQUAL_TEXT(str,result,"String Correctly Written");
     bsr.close();
 }
@@ -122,27 +124,8 @@ TEST(Bit_Stream,Write_Read_nbit) {
 
 */
 
-/* Analysis for when the input value is bigger than what can be written with n bits
-TEST(Bit_Stream,ValueBiggerThanNbitsCap)
-{
-    BitStream_Write bsw("Teste.test");
 
-    for(int nbits = 1; nbits < 10; nbits++) {
-        bsw.writeNBits(pow(2,nbits),nbits);
-    }
-    bsw.close();
 
-    BitStream_Read bsr("Teste.test");
-    for(int nbits = 1; nbits < 10; nbits++){
-
-        uint64_t Result = bsr.readNBits(nbits);
-        uint64_t Expected = pow(2,nbits);
-        CHECK_EQUAL(Expected,Result);
-    }
-
-    bsr.close();
-
-}*/
 
 
 
