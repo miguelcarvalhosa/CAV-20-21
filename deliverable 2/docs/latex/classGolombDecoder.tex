@@ -1,5 +1,14 @@
 \hypertarget{classGolombDecoder}{}\doxysection{Golomb\+Decoder Class Reference}
 \label{classGolombDecoder}\index{GolombDecoder@{GolombDecoder}}
+
+
+A class that implements an entropy decoder using Golomb codes. Includes methods to decode both positive and negative numbers.  
+
+
+
+
+{\ttfamily \#include $<$Golomb\+Decoder.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -9,7 +18,19 @@
 virtual \mbox{\hyperlink{classGolombDecoder_ab5b60bf277d304bda47ca90faed927b4}{$\sim$\+Golomb\+Decoder}} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 signed int \mbox{\hyperlink{classGolombDecoder_a8e75442a6265293e50b4c1fa4b7afb78}{decode}} ()
-\begin{DoxyCompactList}\small\item\em A function to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A function to decode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus, all operations are performed in modulus and the sign is restored at the end. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class that implements an entropy decoder using Golomb codes. Includes methods to decode both positive and negative numbers. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -25,7 +46,7 @@ Constructor.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em m} & parameter of the encoder \\
+\mbox{\texttt{ in}}  & {\em m} & parameter of the Golomb code \\
 \hline
 \end{DoxyParams}
 
@@ -39,13 +60,11 @@ Constructor.
 
 
 
-A function to. 
+A function to decode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus, all operations are performed in modulus and the sign is restored at the end. 
 
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em val} & The value to be decoded \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The signed decoded value 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

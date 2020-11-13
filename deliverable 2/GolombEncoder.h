@@ -1,3 +1,11 @@
+/**
+ * \brief A class that implements an entropy encoder using Golomb codes.
+ *        Includes methods to encode both positive and negative numbers.
+ *
+ * \author Miguel Carvalhosa
+ * \author Tânia Ferreira
+ * \author Gonçalo Cardoso
+ */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -14,7 +22,7 @@ class GolombEncoder {
         /**
         * \brief Constructor.
         *
-        * \param[in] fileName      A string with the file name of the input stream to be encoded
+        * \param[in] m      Parameter m of the Golomb code
         */
         GolombEncoder(unsigned int m);
 
@@ -24,17 +32,17 @@ class GolombEncoder {
         virtual ~GolombEncoder();
 
         /**
-        * \brief A function to
-        *
-        * \param[in] val       The value to be encoded
+        * \brief A function to encode both signed and unsigned numbers using the Golomb code.
+        *        The representation of both signed and unsigned numbers is made by adding an
+        *       additional bit before each quotient representation. Thus a total number
+        *       of 1 + q + b bits is written in the bitstream to represent each coded value.
+        * \param[in] value       The value to be encoded
         */
-        //void encode(uint64_t val);
         void encode(signed int value);
     private:
-        BitStream_Write bsw {"file.test"};
-        unsigned int m;
-        unsigned int b;
+        BitStream_Write bsw {"file.test"}; // file to write the coded bit sequence
+        unsigned int m;                    // m parameter of the Golomb code
+        unsigned int b;                    // number of bits needed to represent the remainder
 };
-
 
 #endif //DELIVERABLE_2_GOLOMB_ENCODE_H

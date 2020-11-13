@@ -68,6 +68,11 @@ $(function() {
 <div class="title">GolombEncoder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class that implements an entropy encoder using Golomb codes. Includes methods to encode both positive and negative numbers.  
+ <a href="classGolombEncoder.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="GolombEncoder_8h_source.html">GolombEncoder.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -79,10 +84,17 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a42bd23fb791b83bbae7b4dfe94b0561e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a42bd23fb791b83bbae7b4dfe94b0561e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a84bd032a45776e74d1cd206a13bfa4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGolombEncoder.html#a9a84bd032a45776e74d1cd206a13bfa4">encode</a> (signed int value)</td></tr>
-<tr class="memdesc:a9a84bd032a45776e74d1cd206a13bfa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function to.  <a href="classGolombEncoder.html#a9a84bd032a45776e74d1cd206a13bfa4">More...</a><br /></td></tr>
+<tr class="memdesc:a9a84bd032a45776e74d1cd206a13bfa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function to encode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus a total number of 1 + q + b bits is written in the bitstream to represent each coded value.  <a href="classGolombEncoder.html#a9a84bd032a45776e74d1cd206a13bfa4">More...</a><br /></td></tr>
 <tr class="separator:a9a84bd032a45776e74d1cd206a13bfa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class that implements an entropy encoder using Golomb codes. Includes methods to encode both positive and negative numbers. </p>
+<dl class="section author"><dt>Author</dt><dd>Miguel Carvalhosa </dd>
+<dd>
+Tânia Ferreira </dd>
+<dd>
+Gonçalo Cardoso </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aabc61456c2ff282042b7d7e9e83588ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aabc61456c2ff282042b7d7e9e83588ac">&#9670;&nbsp;</a></span>GolombEncoder()</h2>
 
@@ -102,7 +114,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileName</td><td>A string with the file name of the input stream to be encoded </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>Parameter m of the Golomb code </td></tr>
   </table>
   </dd>
 </dl>
@@ -126,10 +138,10 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>A function to. </p>
+<p>A function to encode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus a total number of 1 + q + b bits is written in the bitstream to represent each coded value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">val</td><td>The value to be encoded </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>The value to be encoded </td></tr>
   </table>
   </dd>
 </dl>

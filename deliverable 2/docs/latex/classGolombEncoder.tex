@@ -1,5 +1,14 @@
 \hypertarget{classGolombEncoder}{}\doxysection{Golomb\+Encoder Class Reference}
 \label{classGolombEncoder}\index{GolombEncoder@{GolombEncoder}}
+
+
+A class that implements an entropy encoder using Golomb codes. Includes methods to encode both positive and negative numbers.  
+
+
+
+
+{\ttfamily \#include $<$Golomb\+Encoder.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -9,7 +18,19 @@
 virtual \mbox{\hyperlink{classGolombEncoder_a42bd23fb791b83bbae7b4dfe94b0561e}{$\sim$\+Golomb\+Encoder}} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classGolombEncoder_a9a84bd032a45776e74d1cd206a13bfa4}{encode}} (signed int value)
-\begin{DoxyCompactList}\small\item\em A function to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A function to encode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus a total number of 1 + q + b bits is written in the bitstream to represent each coded value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class that implements an entropy encoder using Golomb codes. Includes methods to encode both positive and negative numbers. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -25,7 +46,7 @@ Constructor.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em file\+Name} & A string with the file name of the input stream to be encoded \\
+\mbox{\texttt{ in}}  & {\em m} & Parameter m of the Golomb code \\
 \hline
 \end{DoxyParams}
 
@@ -39,11 +60,11 @@ Constructor.
 
 
 
-A function to. 
+A function to encode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus a total number of 1 + q + b bits is written in the bitstream to represent each coded value. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em val} & The value to be encoded \\
+\mbox{\texttt{ in}}  & {\em value} & The value to be encoded \\
 \hline
 \end{DoxyParams}
 
