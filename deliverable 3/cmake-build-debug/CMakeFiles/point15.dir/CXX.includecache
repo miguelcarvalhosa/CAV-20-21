@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/tania/Desktop/CAV-20-21/deliverable 3/point15.cpp
+iostream
+-
+vector
+-
+sndfile.hh
+-
+math.h
+-
+fstream
+-
+
