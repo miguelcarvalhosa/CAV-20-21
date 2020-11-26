@@ -46,10 +46,10 @@ void GolombEncoder::encode(signed int value) {
     * remainder */
     unsigned long int nBytes_q_r;
     /* variable to store the number of empty bits in the last byte */
-    unsigned char nBits_0;
-
+    unsigned long nBits_0;
 
     unsigned int u;
+
     /* add bit with the sign information at the start of each sequence */
     if(value < 0) {
         val = abs(value);
@@ -77,18 +77,18 @@ void GolombEncoder::encode(signed int value) {
         bsw.writeNBits((uint64_t)r,(uint8_t)b);
 
         nBytes_q_r = (unsigned long)ceil((float)(1+q+1+b)/8);
-        nBits_0 = (nBytes_q_r*8-(q+1+b));
+        nBits_0 = (unsigned long)(nBytes_q_r*8-(q+2+b));
     } else {
         bsw.writeNBits((uint64_t)(r+u),(uint8_t)(b+1));
 
         nBytes_q_r = (unsigned long)ceil((float)(1+q+1+ceil(log2(m)))/8);
-        nBits_0 = (nBytes_q_r*8-(q+1+b+1));
+        nBits_0 = (unsigned long)(nBytes_q_r*8-(q+2+b+1));
     }
     /* fill empty spaces in last byte with zeros */
+    cout << "nBits_0: " << nBits_0 << endl;
     if(nBits_0!= 0) {
         bsw.writeNBits(0,nBits_0);
     }
-
     bsw.close();
 
     cout << "Quotient    : " << q << endl;

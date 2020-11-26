@@ -37,6 +37,10 @@ signed int GolombDecoder::decode() {
     signed int n;
     signed char signal;
 
+    unsigned long int nBytes_q_r;
+    /* variable to store the number of empty bits in the last byte */
+    unsigned long nBits_0;
+
     /* check if coded value is positive or negative */
     if(bsr.readBit()==0) {
         signal = 1;
@@ -64,9 +68,22 @@ signed int GolombDecoder::decode() {
      * resulting from the sum r and u in b+1 bits (using its binary representation) */
     if(bBits<u) {
         r = bBits;
+
+        nBytes_q_r = (unsigned long)ceil((float)(1+q+1+b)/8);
+        nBits_0 = (unsigned long)(nBytes_q_r*8-(q+2+b));
     } else {
         additionalBit = bsr.readBit();
         r = ((bBits << 1) | additionalBit) - u;
+
+        nBytes_q_r = (unsigned long)ceil((float)(1+q+1+ceil(log2(m)))/8);
+        nBits_0 =  (unsigned long)(nBytes_q_r*8-(q+2+b+1));
+    }
+    cout << "nBits_0: " << nBits_0 << endl;
+    cout << "u: " << u << endl;
+    /* discard added zeros */
+    while(nBits_0>0) {
+        bsr.readBit();
+        nBits_0--;
     }
     bsr.close();
 
