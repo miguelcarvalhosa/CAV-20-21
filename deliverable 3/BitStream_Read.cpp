@@ -1,7 +1,8 @@
 #include "BitStream_Read.h"
 
 BitStream_Read::BitStream_Read() {
-
+    buffer = 0x0;       // Initialize the buffer empty
+    pos = -1;           // Initialize the position pointer
 }
 
 BitStream_Read::BitStream_Read(std::string fileName) {
@@ -28,8 +29,6 @@ void BitStream_Read::setFileName(std::string fileName) {
     if(!fp) {
         std::cerr << "ERROR in BitStream_Read: Could not open file \"" << fileName << "\"." << std::endl;
     }
-    buffer = 0x0;       // Initialize the buffer empty
-    pos = -1;           // Initialize the position pointer
 }
 
 uint8_t BitStream_Read::readBit() {
