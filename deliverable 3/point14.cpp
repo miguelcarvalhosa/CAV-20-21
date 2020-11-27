@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
     cout << '\t' << sndFileIn.samplerate() << " samples per second" << endl;
     cout << '\t' << sndFileIn.channels() << " channels" << endl;
 
-    GolombEncoder encoder(8192,"Residuals.bin");
+    GolombEncoder encoder(1024,"Residuals.bin");
     int expected1, expected2;
     /* reads all frame from source audio file and computes for each channel the element count */
     while (sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE)) {

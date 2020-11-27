@@ -42,11 +42,6 @@ void GolombEncoder::encode(signed int value) {
     unsigned int val;
 
     unsigned long int i;
-    /* variable to store total number of bytes uses to represent both quotient and
-    * remainder */
-    unsigned long int nBytes_q_r;
-    /* variable to store the number of empty bits in the last byte */
-    unsigned long nBits_0;
 
     unsigned int u;
 
@@ -76,19 +71,13 @@ void GolombEncoder::encode(signed int value) {
     if(r<u) {
         bsw.writeNBits((uint64_t)r,(uint8_t)b);
 
-        nBytes_q_r = (unsigned long)ceil((float)(1+q+1+b)/8);
-        nBits_0 = (unsigned long)(nBytes_q_r*8-(q+2+b));
     } else {
         bsw.writeNBits((uint64_t)(r+u),(uint8_t)(b+1));
 
-        nBytes_q_r = (unsigned long)ceil((float)(1+q+1+ceil(log2(m)))/8);
-        nBits_0 = (unsigned long)(nBytes_q_r*8-(q+2+b+1));
     }
     /* fill empty spaces in last byte with zeros */
-    cout << "nBits_0: " << nBits_0 << endl;
-    if(nBits_0!= 0) {
-        bsw.writeNBits(0,nBits_0);
-    }
+
+
 
     cout << "Quotient    : " << q << endl;
     cout << "Remainder   : " << r << endl;
