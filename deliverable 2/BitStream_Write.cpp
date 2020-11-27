@@ -17,6 +17,9 @@ BitStream_Write::~BitStream_Write() {
 
 
 void BitStream_Write::close() {
+    if(pos != -1) {             // If the buffer is not full, to not loose the information when the bitstream is closed
+        writeNBits(0x00, pos+1);    // fill the remaining positions with zeros and write the entire buffer
+    }
     fp.close();     // Close the file
 }
 

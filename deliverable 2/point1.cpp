@@ -12,6 +12,7 @@ int main() {
     bsw.writeNBits(8, 8);
     string str("Hello World");
     bsw.writeString(str);
+    bsw.writeNBits(0b0011, 4);
     bsw.close();
 
     BitStream_Read bsr("file.test");

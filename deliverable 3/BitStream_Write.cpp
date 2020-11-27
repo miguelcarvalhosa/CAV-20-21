@@ -1,10 +1,6 @@
 #include "BitStream_Write.h"
 
 
-BitStream_Write::BitStream_Write() {
-
-}
-
 BitStream_Write::BitStream_Write(std::string fileName) {
     fp.open(fileName, std::fstream::out | std::fstream::binary);        // Open the file
     if(!fp) {
@@ -14,21 +10,17 @@ BitStream_Write::BitStream_Write(std::string fileName) {
     pos = 7;            // Point to the MSB of the buffer as the first free position
 }
 
+
 BitStream_Write::~BitStream_Write() {
     close();
 }
 
 
 void BitStream_Write::close() {
-    fp.close();     // Close the file
-}
-void BitStream_Write::setFileName(std::string fileName) {
-    fp.open(fileName, std::fstream::out | std::fstream::binary);        // Open the file
-    if(!fp) {
-        std::cerr << "ERROR in BitStream_Write: Could not open file \"" << fileName << "\"." << std::endl;
+    if(pos != -1) {             // If the buffer is not full, to not loose the information when the bitstream is closed
+        writeNBits(0x00, pos+1);    // fill the remaining positions with zeros and write the entire buffer
     }
-    buffer = 0x0;       // Initialize the buffer empty
-    pos = 7;            // Point to the MSB of the buffer as the first free position
+    fp.close();     // Close the file
 }
 
 
