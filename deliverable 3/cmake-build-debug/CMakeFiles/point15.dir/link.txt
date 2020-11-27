@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -Wextra -std=c++17 -L/usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28 -O3   CMakeFiles/point15.dir/point15.cpp.o  -o point15  -lsndfile 

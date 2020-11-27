@@ -46,6 +46,8 @@ class GolombEncoder {
         * \param[in] value       The value to be encoded
         */
         void encode(signed int value);
+
+        void close();
     private:
         std::string fileName;               // file to write the coded bit sequence
         BitStream_Write bsw;

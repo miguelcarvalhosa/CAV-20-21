@@ -1,4 +1,0 @@
-/home/tania/Desktop/CAV-20-21/deliverable 3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/tania/Desktop/CAV-20-21/deliverable 3/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/tania/Desktop/CAV-20-21/deliverable 3/cmake-build-debug/CMakeFiles/point15.dir
-/home/tania/Desktop/CAV-20-21/deliverable 3/cmake-build-debug/CMakeFiles/testGolomb.dir

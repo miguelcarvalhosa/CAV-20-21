@@ -85,9 +85,13 @@ signed int GolombDecoder::decode() {
         bsr.readBit();
         nBits_0--;
     }
-    bsr.close();
+
 
     /* calculate the coded value and restore its signal */
     n = (signed int) signal * (q*m+r);
     return n;
+}
+
+void GolombDecoder::close(){
+    bsr.close();
 }

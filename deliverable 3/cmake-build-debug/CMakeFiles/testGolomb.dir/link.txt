@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -Wextra -std=c++17 -L/usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28 -O3   CMakeFiles/testGolomb.dir/testGolomb.cpp.o CMakeFiles/testGolomb.dir/BitStream_Write.cpp.o CMakeFiles/testGolomb.dir/BitStream_Read.cpp.o CMakeFiles/testGolomb.dir/GolombEncoder.cpp.o CMakeFiles/testGolomb.dir/GolombDecoder.cpp.o  -o testGolomb 

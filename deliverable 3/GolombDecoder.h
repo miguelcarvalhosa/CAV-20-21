@@ -45,6 +45,11 @@ class GolombDecoder {
         */
         signed int decode();
 
+        /**
+         * \brief A function that the allows the closing of the file that is being read. It should come
+         *        after the whole file is read.
+         */
+        void close();
     private:
         std::string fileName;             // file used to read the coded bit sequence
         BitStream_Read bsr;

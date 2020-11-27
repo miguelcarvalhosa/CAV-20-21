@@ -41,7 +41,6 @@ int main(int argc, char *argv[]) {
     vector<short> res_1(FRAMES_BUFFER_SIZE * 2);
     vector<short> res_2(FRAMES_BUFFER_SIZE * 2);
     vector<short> res_3(FRAMES_BUFFER_SIZE * 2);
-    int teste = 0;
     /* identifies the first frame of data */
     int frame = 0;
 
@@ -74,8 +73,8 @@ int main(int argc, char *argv[]) {
     cout << '\t' << sndFileIn.samplerate() << " samples per second" << endl;
     cout << '\t' << sndFileIn.channels() << " channels" << endl;
 
-    GolombEncoder encoder(4,"Residuals.txt");
-
+    GolombEncoder encoder(8192,"Residuals.bin");
+    int expected1, expected2;
     /* reads all frame from source audio file and computes for each channel the element count */
     while (sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE)) {
         for(long unsigned int i=0; i< samples.size(); i=i+2) {
@@ -85,53 +84,52 @@ int main(int argc, char *argv[]) {
             buf_r[i/2] = samples[i];      // Retirei passagem para indicies positivos   !!!
             buf_l[i/2]= samples[i+1];
             buf_mono[i/2] = ((buf_r[i/2] + buf_l[i/2])/2);
+            if(frame == 0) {
+                if (i == 0) {
 
-            if(i == 0 && frame == 0) {
-                teste = samples[0];
-                res_0[i] = buf_r[i/2];
-                res_0[i+1] = buf_l[i/2];
-                encoder.encode(res_0[i]);
-                encoder.encode(res_0[i+1]);
+                    res_0[i] = buf_r[i / 2];
+                    res_0[i + 1] = buf_l[i / 2];
+                    encoder.encode(res_0[i]);
+                    encoder.encode(res_0[i + 1]);
+                    expected1 = res_0[i];
+                    expected2 = res_0[i + 1];
+                } else if (i == 2) {
 
+                    res_0[i] = buf_r[i / 2];
+                    res_1[i] = res_0[i] - res_0[i - 2];
+                    encoder.encode(res_1[i]);
+
+                    res_0[i + 1] = buf_l[i / 2];
+                    res_1[i + 1] = res_0[i + 1] - res_0[i - 1];
+                    encoder.encode(res_1[i + 1]);
+                } else if (i == 4) {
+
+                    res_0[i] = buf_r[i / 2];
+                    res_1[i] = res_0[i] - res_0[i - 2];
+                    res_2[i] = res_1[i] - res_1[i - 2];
+                    encoder.encode(res_2[i]);
+
+                    res_0[i + 1] = buf_l[i / 2];
+                    res_1[i + 1] = res_0[i + 1] - res_0[i - 1];
+                    res_2[i + 1] = res_1[i + 1] - res_1[i - 1];
+                    encoder.encode(res_2[i + 1]);
+                    frame = 1;
+                }
             }
-            else if(i == 2 && frame == 0) {
+            else if (i == 0) {
 
                 res_0[i] = buf_r[i / 2];
-                res_1[i] = res_0[i] - res_0[i - 2];
-                encoder.encode(res_1[i]);
-
-                res_0[i + 1] = buf_l[i / 2];
-                res_1[i + 1] = res_0[i + 1] - res_0[i - 1];
-                encoder.encode(res_1[i+1]);
-            }
-            else if(i == 4 && frame == 0) {
-
-                res_0[i] = buf_r[i/2];
-                res_1[i] = res_0[i] - res_0[i-2];
-                res_2[i] = res_1[i] - res_1[i-2];
-                encoder.encode(res_2[i]);
-
-                res_0[i+1] = buf_l[i/2];
-                res_1[i+1] = res_0[i+1] - res_0[i-1];
-                res_2[i+1] = res_1[i+1] - res_1[i-1];
-                encoder.encode(res_2[i+1]);
-                frame = 1;
-            }
-            else if(i == 0 && frame != 0){
-
-                res_0[i] = buf_r[i/2];
-                res_1[i] = res_0[i] - res_0[samples.size()-2];
-                res_2[i] = res_1[i] - res_1[samples.size()-2];
-                res_3[i] = res_2[i] - res_2[samples.size()-2];
+                res_1[i] = res_0[i] - res_0[samples.size() - 2];
+                res_2[i] = res_1[i] - res_1[samples.size() - 2];
+                res_3[i] = res_2[i] - res_2[samples.size() - 2];
                 encoder.encode(res_3[i]);
 
-                res_0[i+1] = buf_l[i/2];
-                res_1[i+1] = res_0[i+1] - res_0[samples.size()-1];
-                res_2[i+1] = res_1[i+1] - res_1[samples.size()-1];
-                res_3[i+1] = res_2[i+1] - res_2[samples.size()-1];
-                encoder.encode(res_3[i+1]);
+                res_0[i + 1] = buf_l[i / 2];
+                res_1[i + 1] = res_0[i + 1] - res_0[samples.size() - 1];
+                res_2[i + 1] = res_1[i + 1] - res_1[samples.size() - 1];
+                res_3[i + 1] = res_2[i + 1] - res_2[samples.size() - 1];
+                encoder.encode(res_3[i + 1]);
             }
-
             else {
 
                 res_0[i] = buf_r[i/2];
@@ -149,11 +147,76 @@ int main(int argc, char *argv[]) {
 
         }
 
-        GolombDecoder decoder(4,"Residuals.txt");
 
 
     }
+    encoder.close();
+    GolombDecoder decoder(8192,"Residuals.bin");
+    /*
+    signed int val_r, val_l, preval_r,preval_l;
+    signed int val1_r, val1_l, prev1_r, prev1_l;
+    signed int val2_r, val2_l, prev2_r, prev2_l;
+    signed int val3_r, val3_l, prev3_r, prev3_l;
+    signed int actual_r, actual_l;
+    signed int prev_r, prev_l;
 
+    val_r = decoder.decode();
+    preval_r = val_r;
+    val_l = decoder.decode();
+    preval_l = val_l;
+    // Escrever no ficheiro de AUDIO
+
+    val1_r = decoder.decode();
+    prev1_r = val1_r;
+    val_r = val1_r + preval_r;
+    preval_r = val_r;
+
+    val1_l = decoder.decode();
+    prev1_l = val1_l;
+    val_l = val1_l + preval_l;
+    preval_l = val_l;
+
+    val2_r = decoder.decode;
+    prev2_r = val2_r;
+    val1_r = val2_r + prev1_r;
+    prev1_r = val1_r;
+    val_r = val1_r + preval_r;
+    preval_r = val_r;
+
+    val2_l = decoder.decode;
+    prev2_l = val2_l;
+    val1_l = val2_l + prev2_l;
+    prev1_l = val1_l;
+    val_l = val1_l + preval_l;
+    preval_l = val_l;
+
+    while(existem valores a ler){
+        val3_r = decoder.decode();
+        prev3_r = val3_r;
+        val2_r = val3_r + prev2_r;
+        prev2_r = val2_r;
+        val1_r = val2_r + prev1_r;
+        prev1_r = val1_r;
+        val_r = val1_r + preval_r;
+        preval_r = val_r;
+
+        //escrever no ficheiro de audio final amostra r
+
+
+        val3_l = decoder.decode();
+        prev3_l = val3_l;
+        val2_l = val3_l + prev2_l;
+        val2_l = decoder.decode;
+        prev2_l = val2_l;
+        val1_l = val2_l + prev2_l;
+        prev1_l = val1_l;
+        val_l = val1_l + preval_l;
+        preval_l = val_l;
+
+        //escrever no ficheiro de audio final amostra l
+
+    }
+    */
     return 0;
 }
 

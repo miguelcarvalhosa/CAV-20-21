@@ -89,9 +89,12 @@ void GolombEncoder::encode(signed int value) {
     if(nBits_0!= 0) {
         bsw.writeNBits(0,nBits_0);
     }
-    bsw.close();
 
     cout << "Quotient    : " << q << endl;
     cout << "Remainder   : " << r << endl;
     cout << "M parameter : " << m << endl;
+}
+
+void GolombEncoder::close(){
+    bsw.close();
 }
