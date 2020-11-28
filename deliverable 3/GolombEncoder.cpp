@@ -11,7 +11,7 @@ GolombEncoder::GolombEncoder(unsigned int m, std::string fileName) {
     if(m < 10000000){
         this->m = m;
         b = floor(log2(m));
-        cout << "Number of bits of remainder: " << b << endl;
+        //cout << "Number of bits of remainder: " << b << endl;
     }
     else {
         std::cerr << "The m parameter inserted is not valid." << std::endl;
@@ -30,7 +30,7 @@ void GolombEncoder::update(unsigned int m) {
     if(m < 10000000){
         this->m = m;
         b = floor(log2(m));
-        cout << "Number of bits of remainder: " << b << endl;
+        //cout << "Number of bits of remainder: " << b << endl;
     }
     else {
         std::cerr << "The m parameter inserted is not valid." << std::endl;
@@ -79,9 +79,9 @@ void GolombEncoder::encode(signed int value) {
 
 
 
-    cout << "Quotient    : " << q << endl;
-    cout << "Remainder   : " << r << endl;
-    cout << "M parameter : " << m << endl;
+    //cout << "Quotient    : " << q << endl;
+    //cout << "Remainder   : " << r << endl;
+    //cout << "M parameter : " << m << endl;
 }
 
 void GolombEncoder::close(){

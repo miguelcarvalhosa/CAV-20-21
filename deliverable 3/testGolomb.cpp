@@ -13,6 +13,7 @@ int main() {
 
     GolombEncoder encoder(m, "file.test");
     encoder.encode(value);
+    encoder.close();
     GolombDecoder decoder(m, "file.test");
 
     result = decoder.decode();
