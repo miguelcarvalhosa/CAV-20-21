@@ -41,11 +41,9 @@ int main(int argc, char *argv[]) {
     vector<short> res_1(FRAMES_BUFFER_SIZE * 2);
     vector<short> res_2(FRAMES_BUFFER_SIZE * 2);
     vector<short> res_3(FRAMES_BUFFER_SIZE * 2);
+
     /* identifies the first frame of data */
     int frame = 0;
-
-    /* file for writing residuals values */
-    //ofstream outfile(argv[argc-1]);
 
     if(argc < 3) {
         cerr << "Usage: wavcp <input file.wav> <output file.txt>" << endl;
@@ -152,7 +150,7 @@ int main(int argc, char *argv[]) {
     }
     encoder.close();
     GolombDecoder decoder(8192,"Residuals.bin");
-    /*
+
     signed int val_r, val_l, preval_r,preval_l;
     signed int val1_r, val1_l, prev1_r, prev1_l;
     signed int val2_r, val2_l, prev2_r, prev2_l;
@@ -160,37 +158,58 @@ int main(int argc, char *argv[]) {
     signed int actual_r, actual_l;
     signed int prev_r, prev_l;
 
+    SndfileHandle sndFileOut { argv[argc-1], SFM_WRITE, sndFileIn.format(),
+       sndFileIn.channels(), sndFileIn.samplerate() };
+
+    if(sndFileOut.error()) {
+        cerr << "Error: invalid output file" << endl;
+        return 1;
+    }
+
+    vector<short> samples_out(FRAMES_BUFFER_SIZE * sndFileIn.channels());
     val_r = decoder.decode();
     preval_r = val_r;
     val_l = decoder.decode();
     preval_l = val_l;
-    // Escrever no ficheiro de AUDIO
+
+    samples_out[0] = val_r;
+    samples_out[1] = val_l;
 
     val1_r = decoder.decode();
     prev1_r = val1_r;
     val_r = val1_r + preval_r;
     preval_r = val_r;
+    samples_out[2] = val_r;
+    samples_out[3] = val_l;
 
     val1_l = decoder.decode();
     prev1_l = val1_l;
     val_l = val1_l + preval_l;
     preval_l = val_l;
+    samples_out[4] = val_r;
+    samples_out[5] = val_l;
 
-    val2_r = decoder.decode;
+    val2_r = decoder.decode();
     prev2_r = val2_r;
     val1_r = val2_r + prev1_r;
     prev1_r = val1_r;
     val_r = val1_r + preval_r;
     preval_r = val_r;
+    samples_out[6] = val_r;
+    samples_out[7] = val_l;
 
-    val2_l = decoder.decode;
+    val2_l = decoder.decode();
     prev2_l = val2_l;
     val1_l = val2_l + prev2_l;
     prev1_l = val1_l;
     val_l = val1_l + preval_l;
     preval_l = val_l;
+    samples_out[8] = val_r;
+    samples_out[9] = val_l;
+    int n_sample = 10;
+    int n;
+    while(n < sndFileIn.frames()-2) {
 
-    while(existem valores a ler){
         val3_r = decoder.decode();
         prev3_r = val3_r;
         val2_r = val3_r + prev2_r;
@@ -200,23 +219,28 @@ int main(int argc, char *argv[]) {
         val_r = val1_r + preval_r;
         preval_r = val_r;
 
-        //escrever no ficheiro de audio final amostra r
-
 
         val3_l = decoder.decode();
         prev3_l = val3_l;
         val2_l = val3_l + prev2_l;
-        val2_l = decoder.decode;
+        val2_l = decoder.decode();
         prev2_l = val2_l;
         val1_l = val2_l + prev2_l;
         prev1_l = val1_l;
         val_l = val1_l + preval_l;
         preval_l = val_l;
 
-        //escrever no ficheiro de audio final amostra l
+        if(n_sample > FRAMES_BUFFER_SIZE*2 - 2) {
 
+            sndFileOut.writef(samples_out.data(), FRAMES_BUFFER_SIZE);
+            n_sample = 0;
+        }
+
+        n++;
+        n_sample = n_sample + 2;
     }
-    */
+
+    decoder.close();
     return 0;
 }
 
