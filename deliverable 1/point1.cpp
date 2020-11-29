@@ -60,7 +60,6 @@ int main(int argc, char *argv[]) {
 	// reads nFrames from source audio file to destination file
 	while((nFrames = sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE)))
 		sndFileOut.writef(samples.data(), nFrames);
-
 	return 0;
 }
 
