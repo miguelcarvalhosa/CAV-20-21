@@ -19,6 +19,6 @@ int main() {
     result = decoder.decode();
     cout << "Valor a codificar  : " << value << endl;
     cout << "Valor descodificado: " << result << endl;
-
+	decoder.close();
     return 0;
 }
