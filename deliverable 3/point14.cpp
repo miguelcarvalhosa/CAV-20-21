@@ -20,8 +20,6 @@
 #include <iostream>
 #include <vector>
 #include <sndfile.hh>
-#include <math.h>
-#include <fstream>
 #include "GolombEncoder.h"
 #include "GolombDecoder.h"
 
@@ -71,8 +69,8 @@ int main(int argc, char *argv[]) {
     cout << '\t' << sndFileIn.samplerate() << " samples per second" << endl;
     cout << '\t' << sndFileIn.channels() << " channels" << endl;
 
-    GolombEncoder encoder(1024,"Residuals.bin");
-    int expected1, expected2;
+    GolombEncoder encoder(500,"Residuals.bin");
+
     /* reads all frame from source audio file and computes for each channel the element count */
     while (sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE)) {
         for(long unsigned int i=0; i< samples.size(); i=i+2) {
@@ -89,8 +87,7 @@ int main(int argc, char *argv[]) {
                     res_0[i + 1] = buf_l[i / 2];
                     encoder.encode(res_0[i]);
                     encoder.encode(res_0[i + 1]);
-                    expected1 = res_0[i];
-                    expected2 = res_0[i + 1];
+
                 } else if (i == 2) {
 
                     res_0[i] = buf_r[i / 2];
@@ -100,6 +97,8 @@ int main(int argc, char *argv[]) {
                     res_0[i + 1] = buf_l[i / 2];
                     res_1[i + 1] = res_0[i + 1] - res_0[i - 1];
                     encoder.encode(res_1[i + 1]);
+
+
                 } else if (i == 4) {
 
                     res_0[i] = buf_r[i / 2];
@@ -112,6 +111,7 @@ int main(int argc, char *argv[]) {
                     res_2[i + 1] = res_1[i + 1] - res_1[i - 1];
                     encoder.encode(res_2[i + 1]);
                     frame = 1;
+
                 }
             }
             else if (i == 0) {
@@ -127,9 +127,13 @@ int main(int argc, char *argv[]) {
                 res_2[i + 1] = res_1[i + 1] - res_1[samples.size() - 1];
                 res_3[i + 1] = res_2[i + 1] - res_2[samples.size() - 1];
                 encoder.encode(res_3[i + 1]);
+
             }
             else {
-
+                /*if(i==6){
+                    cout << res_0[i] << endl;
+                    cout << res_0[i+1] << endl;
+                } */
                 res_0[i] = buf_r[i/2];
                 res_1[i] = res_0[i] - res_0[i-2];
                 res_2[i] = res_1[i] - res_1[i-2];
@@ -149,14 +153,13 @@ int main(int argc, char *argv[]) {
 
     }
     encoder.close();
-    GolombDecoder decoder(8192,"Residuals.bin");
+    GolombDecoder decoder(500,"Residuals.bin");
 
     signed int val_r, val_l, preval_r,preval_l;
     signed int val1_r, val1_l, prev1_r, prev1_l;
     signed int val2_r, val2_l, prev2_r, prev2_l;
-    signed int val3_r, val3_l, prev3_r, prev3_l;
-    signed int actual_r, actual_l;
-    signed int prev_r, prev_l;
+    signed int val3_r, val3_l;
+
 
     SndfileHandle sndFileOut { argv[argc-1], SFM_WRITE, sndFileIn.format(),
        sndFileIn.channels(), sndFileIn.samplerate() };
@@ -167,27 +170,30 @@ int main(int argc, char *argv[]) {
     }
 
     vector<short> samples_out(FRAMES_BUFFER_SIZE * sndFileIn.channels());
+
     val_r = decoder.decode();
     preval_r = val_r;
     val_l = decoder.decode();
     preval_l = val_l;
 
+
     samples_out[0] = val_r;
     samples_out[1] = val_l;
+
 
     val1_r = decoder.decode();
     prev1_r = val1_r;
     val_r = val1_r + preval_r;
     preval_r = val_r;
     samples_out[2] = val_r;
-    samples_out[3] = val_l;
+
 
     val1_l = decoder.decode();
     prev1_l = val1_l;
     val_l = val1_l + preval_l;
     preval_l = val_l;
-    samples_out[4] = val_r;
-    samples_out[5] = val_l;
+    samples_out[3] = val_l;
+
 
     val2_r = decoder.decode();
     prev2_r = val2_r;
@@ -195,23 +201,27 @@ int main(int argc, char *argv[]) {
     prev1_r = val1_r;
     val_r = val1_r + preval_r;
     preval_r = val_r;
-    samples_out[6] = val_r;
-    samples_out[7] = val_l;
+    samples_out[4] = val_r;
+
+
 
     val2_l = decoder.decode();
     prev2_l = val2_l;
-    val1_l = val2_l + prev2_l;
+    val1_l = val2_l + prev1_l;
     prev1_l = val1_l;
     val_l = val1_l + preval_l;
     preval_l = val_l;
-    samples_out[8] = val_r;
-    samples_out[9] = val_l;
-    int n_sample = 10;
-    int n;
+    samples_out[5] = val_l;
+
+
+
+    int n_sample = 6;
+    int n = 0;
+    int frame_block = 0;
+    int flag = 0;
     while(n < sndFileIn.frames()-2) {
 
         val3_r = decoder.decode();
-        prev3_r = val3_r;
         val2_r = val3_r + prev2_r;
         prev2_r = val2_r;
         val1_r = val2_r + prev1_r;
@@ -219,25 +229,39 @@ int main(int argc, char *argv[]) {
         val_r = val1_r + preval_r;
         preval_r = val_r;
 
-
         val3_l = decoder.decode();
-        prev3_l = val3_l;
         val2_l = val3_l + prev2_l;
-        val2_l = decoder.decode();
         prev2_l = val2_l;
-        val1_l = val2_l + prev2_l;
+        val1_l = val2_l + prev1_l;
         prev1_l = val1_l;
         val_l = val1_l + preval_l;
         preval_l = val_l;
+        //if(n_sample == FRAMES_BUFFER_SIZE * sndFileIn.channels()-2) {
+         //   cout << prev2_r << endl;
+            //cout << val3_r << endl;
+      // }
 
-        if(n_sample > FRAMES_BUFFER_SIZE*2 - 2) {
+        if(frame_block == 1) {
 
+            //cout << "n_block:" << frame_block << endl;
+            //cout << "n_sample: "   << n_sample ;
+            //cout << "     val3_r: "  << val3_r << endl;
+            //cout << "val_l: "  << val_l << endl;
+
+           // flag = 1;
+        }
+        samples_out[n_sample] = val_r;
+        samples_out[n_sample + 1] = val_l;
+        n_sample = n_sample + 2;
+        if(n_sample >= FRAMES_BUFFER_SIZE * sndFileIn.channels()) {
             sndFileOut.writef(samples_out.data(), FRAMES_BUFFER_SIZE);
             n_sample = 0;
+            frame_block++;
+
         }
 
         n++;
-        n_sample = n_sample + 2;
+
     }
 
     decoder.close();
