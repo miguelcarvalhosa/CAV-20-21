@@ -30,6 +30,9 @@ using namespace std;
 vector<float> audioEntropy(string fileName);
 void calculateAudioHist(string histFileName, string audioFileName);
 
+vector<float> residualsEntropy(string fileName);
+void calculateResHist(string fileName, short res_x, short res_y, unsigned int totalFrames);
+
 vector<long signed> calculateX_Y (signed long val_r, signed long val_l, string channelRedudancy_mode);
 vector<long signed> calculateR_L (signed long val_x, signed long val_y, string channelRedudancy_mode);
 
@@ -54,8 +57,8 @@ int main(int argc, char *argv[]) {
     vector<short> res_3(FRAMES_BUFFER_SIZE * 2);
     unsigned short res_3_mod_x=0, res_3_mod_y=0;
 
-    ofstream outfile1("original.txt");
-    ofstream outfile2("decoded.txt");
+    //ofstream outfile1("original.txt");
+    //ofstream outfile2("decoded.txt");
     /* identifies the first frame of data */
     unsigned int frame = 0;
 
@@ -112,7 +115,7 @@ int main(int argc, char *argv[]) {
         for(int i=0; i< c*2; i=i+2) {
 
             X_Y = calculateX_Y (samples[i], samples[i+1], channelRedudancy_mode);
-            outfile1 << samples[i] << " " << samples[i+1] << endl;
+            //outfile1 << samples[i] << " " << samples[i+1] << endl;
             if(frame == 0) {
                 if (i == 0) {
 
@@ -191,9 +194,10 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
+            calculateResHist("hist_res_3.txt", res_3[i], res_3[i+1], sndFileIn.frames());
         }
     }
-    outfile1.close();
+    //outfile1.close();
     cout << "---descodificador----" << endl;
     encoder.close();
     GolombDecoder decoder(initial_m,"Residuals.bin");
@@ -225,7 +229,7 @@ int main(int argc, char *argv[]) {
     samples_out[0] = R_L[0];
     samples_out[1] = R_L[1];
 
-    outfile2 << R_L[0] << " " << R_L[1] << endl;
+    //outfile2 << R_L[0] << " " << R_L[1] << endl;
 
     val1_x = decoder.decode();
     prev1_x = val1_x;
@@ -242,7 +246,7 @@ int main(int argc, char *argv[]) {
     samples_out[2] = R_L[0];
     samples_out[3] = R_L[1];
 
-    outfile2 << R_L[0] << " " << R_L[1] << endl;
+    //outfile2 << R_L[0] << " " << R_L[1] << endl;
 
     val2_x = decoder.decode();
     prev2_x = val2_x;
@@ -263,7 +267,7 @@ int main(int argc, char *argv[]) {
     samples_out[4] = R_L[0];
     samples_out[5] = R_L[1];
 
-    outfile2 << R_L[0] << " " << R_L[1] << endl;
+    //outfile2 << R_L[0] << " " << R_L[1] << endl;
 
     int n_sample = 6;
     int n = 0;
@@ -298,7 +302,7 @@ int main(int argc, char *argv[]) {
         samples_out[n_sample] = R_L[0];
         samples_out[n_sample + 1] = R_L[1];
 
-        outfile2 << R_L[0] << " " << R_L[1] << endl;
+        //outfile2 << R_L[0] << " " << R_L[1] << endl;
 
         nBlock++;
         /* convert samples values to a positive range in order to perform the M estimation */
@@ -329,7 +333,7 @@ int main(int argc, char *argv[]) {
         n++;
     }
     decoder.close();
-    outfile2.close();
+    //outfile2.close();
 
     /* ORIGINAL AUDIO ENTROPY */
     calculateAudioHist("hist_original.txt", argv[1]);
@@ -339,12 +343,15 @@ int main(int argc, char *argv[]) {
     cout << "Mono channel entropy: " << ent[2] << endl;
 
 
-    //corrigir o bug aqui
-    /* calculateAudioHist("hist_decoded.txt", argv[2]);
+    calculateAudioHist("hist_decoded.txt", argv[2]);
     vector<float> ent_dec = audioEntropy("hist_decoded.txt");
     cout << "Right channel entropy: " << ent_dec[0] << endl;
     cout << "Left channel entropy: " << ent_dec[1] << endl;
-    cout << "Mono channel entropy: " << ent_dec[2] << endl; */
+    cout << "Mono channel entropy: " << ent_dec[2] << endl;
+
+    vector<float> res3_ent = residualsEntropy("hist_res_3.txt");
+    cout << "Residuals entropy first channel: " << res3_ent[0] << endl;
+    cout << "Residuals entropy second channel: " << res3_ent[1] << endl;
 
     return 0;
 }
@@ -585,4 +592,58 @@ unsigned int estimateM_fromAllSamples(string audioFileName) {
     cout << "initial_m: " << initial_m << endl;
 
     return initial_m;
+}
+void calculateResHist(string fileName, short res_x, short res_y, unsigned int totalFrames) {
+    /* vector to store the element count of the histogram */
+    static vector<long unsigned> hist_res_x((int)pow(2,16)), hist_res_y((int)pow(2,16));
+    /* count the number of residuals that have been written */
+    static unsigned int nSample=0;
+    if(nSample==0) {
+        cout << "Started Residuals histogram computation" << endl;
+    }
+    nSample++;
+    /* file for writing the residuals histograms for each predictor order */
+    ofstream outfile(fileName);
+    hist_res_x[res_x+32767] += 1;
+    hist_res_y[res_y+32767] += 1;
+
+    if(nSample == totalFrames) {
+        cout << "Residuals histogram computation done. Writting destination file..." << endl;
+        for(unsigned int k=0; k < hist_res_x.size(); k++) {
+            outfile << hist_res_x[k] << " " << hist_res_y[k] << endl;
+        }
+    }
+}
+vector<float> residualsEntropy(string fileName) {
+    float Pi_x, Pi_y;
+    float ent_x = 0, ent_y = 0;
+    unsigned long int count_x = 0, count_y = 0;
+
+    vector<unsigned int> hist_res_x(pow(2,16)), hist_res_y(pow(2,16));
+    vector<float> ent(2);
+    ifstream hist_file(fileName);
+
+    unsigned int i=0;
+    while(!hist_file.eof()){
+        hist_file >> hist_res_x[i];
+        hist_file >> hist_res_y[i];
+        i++;
+    }
+    count_x = accumulate(hist_res_x.begin(), hist_res_x.end(), 0);
+    count_y = accumulate(hist_res_y.begin(), hist_res_y.end(), 0);
+
+    for (i=0;i<FRAMES_BUFFER_SIZE;i++) {
+        if (hist_res_x[i] > 0) {
+            Pi_x = (float) (hist_res_x[i]) / count_x;
+            ent_x -= Pi_x * log2(Pi_x);
+        }
+        if (hist_res_y[i] > 0) {
+            Pi_y = (float) (hist_res_y[i]) / count_y;
+            ent_y -= Pi_y * log2(Pi_y);
+        }
+
+    }
+    ent[0] = ent_x;
+    ent[1] = ent_y;
+    return ent;
 }
