@@ -33,11 +33,15 @@ void calculateAudioHist(string histFileName, string audioFileName);
 vector<long signed> calculateX_Y (signed long val_r, signed long val_l, string channelRedudancy_mode);
 vector<long signed> calculateR_L (signed long val_x, signed long val_y, string channelRedudancy_mode);
 
+unsigned int estimateM_fromBlock(unsigned int sum, unsigned int blockSize);
+unsigned int estimateM_fromAllSamples(string audioFileName);
+
 constexpr size_t FRAMES_BUFFER_SIZE = 65536; // Buffer for reading/writing frames
 
 /* The coded has four different modes of operation depending on the type of channel redudancy:
  * "Mid-side", "Right-side", "Left-side" & "Independent" (default) */
-string channelRedudancy_mode = "Left-side";
+string channelRedudancy_mode = "Independent";
+string parameterEstimation_mode = "Block"; //AllSamples
 
 int main(int argc, char *argv[]) {
     /* vectors to store the samples from each channel and the calculated mono version */
@@ -48,12 +52,12 @@ int main(int argc, char *argv[]) {
     vector<short> res_1(FRAMES_BUFFER_SIZE * 2);
     vector<short> res_2(FRAMES_BUFFER_SIZE * 2);
     vector<short> res_3(FRAMES_BUFFER_SIZE * 2);
-
+    unsigned short res_3_mod_x=0, res_3_mod_y=0;
 
     ofstream outfile1("original.txt");
     ofstream outfile2("decoded.txt");
     /* identifies the first frame of data */
-    int frame = 0;
+    unsigned int frame = 0;
 
     if(argc < 3) {
         cerr << "Usage: wavcp <input file.wav> <output file.txt>" << endl;
@@ -81,19 +85,31 @@ int main(int argc, char *argv[]) {
     cout << '\t' << sndFileIn.samplerate() << " samples per second" << endl;
     cout << '\t' << sndFileIn.channels() << " channels" << endl;
 
-    GolombEncoder encoder(500,"Residuals.bin");
+
     int nFrames = 0;
     sf_count_t c;
     unsigned int lastFrameSize;
+    unsigned int blockSize = 10;
+    unsigned long sum=0;
+    unsigned int m, initial_m=500;
+    unsigned int nBlock=0;
+
+    unsigned int count = 0;
 
     vector<signed long> X_Y(2);
+
+    if(parameterEstimation_mode == "AllSamples") {
+        initial_m = estimateM_fromAllSamples(argv[1]);
+    }
+
+    GolombEncoder encoder(initial_m,"Residuals.bin");
     /* reads all frame from source audio file and computes for each channel the element count */
-    while (c=sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE)) {
+    while (c=(sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE))) {
         nFrames++;
         if(c!=FRAMES_BUFFER_SIZE) {
             lastFrameSize = c;
         }
-        for(long unsigned int i=0; i< c*2; i=i+2) {
+        for(int i=0; i< c*2; i=i+2) {
 
             X_Y = calculateX_Y (samples[i], samples[i+1], channelRedudancy_mode);
             outfile1 << samples[i] << " " << samples[i+1] << endl;
@@ -143,7 +159,6 @@ int main(int argc, char *argv[]) {
                 res_2[i + 1] = res_1[i + 1] - res_1[samples.size() - 1];
                 res_3[i + 1] = res_2[i + 1] - res_2[samples.size() - 1];
                 encoder.encode(res_3[i + 1]);
-
             } else {
 
                 res_0[i] = X_Y[0];
@@ -158,13 +173,30 @@ int main(int argc, char *argv[]) {
                 res_3[i+1] = res_2[i+1] - res_2[i-1];
                 encoder.encode(res_3[i+1]);
             }
+            if(parameterEstimation_mode == "Block") {
+                if((frame == 1 && i>4) || nFrames>1 ) {
+                    nBlock++;
+                    /* convert samples values to a positive range in order to perform the M estimation */
+                    res_3_mod_x = res_3[i]>0?  2*res_3[i] -1   : -2*res_3[i];
+                    res_3_mod_y = res_3[i+1]>0?  2*res_3[i+1] -1   : -2*res_3[i+1];
+                    sum = sum + res_3_mod_x + res_3_mod_y;
 
+                    if(nBlock == blockSize) {
+                        m = estimateM_fromBlock(sum, blockSize);
+                        encoder.update(m);
+                        /* cout << "sum: " << sum << endl;
+                        cout << "m updated to " << m << endl;*/
+                        sum = 0;
+                        nBlock = 0;
+                    }
+                }
+            }
         }
     }
     outfile1.close();
-    cout << "nFrame: " << nFrames << endl;
+    cout << "---descodificador----" << endl;
     encoder.close();
-    GolombDecoder decoder(500,"Residuals.bin");
+    GolombDecoder decoder(initial_m,"Residuals.bin");
 
     signed long val_r,val_l, preval_x,  preval_y;
     signed long val_x, val_y, val1_x, val1_y, prev1_x, prev1_y;
@@ -182,6 +214,7 @@ int main(int argc, char *argv[]) {
 
     vector<short> samples_out(FRAMES_BUFFER_SIZE * sndFileIn.channels());
     vector<signed long> R_L(2);
+
     val_x = decoder.decode();
     preval_x = val_x;
     val_y = decoder.decode();
@@ -191,6 +224,7 @@ int main(int argc, char *argv[]) {
     R_L = calculateR_L(val_x, val_y,channelRedudancy_mode);
     samples_out[0] = R_L[0];
     samples_out[1] = R_L[1];
+
     outfile2 << R_L[0] << " " << R_L[1] << endl;
 
     val1_x = decoder.decode();
@@ -207,6 +241,7 @@ int main(int argc, char *argv[]) {
     R_L = calculateR_L(val_x, val_y,channelRedudancy_mode);
     samples_out[2] = R_L[0];
     samples_out[3] = R_L[1];
+
     outfile2 << R_L[0] << " " << R_L[1] << endl;
 
     val2_x = decoder.decode();
@@ -227,6 +262,7 @@ int main(int argc, char *argv[]) {
     R_L = calculateR_L(val_x, val_y,channelRedudancy_mode);
     samples_out[4] = R_L[0];
     samples_out[5] = R_L[1];
+
     outfile2 << R_L[0] << " " << R_L[1] << endl;
 
     int n_sample = 6;
@@ -235,8 +271,12 @@ int main(int argc, char *argv[]) {
     int flag = 0;
     sf_count_t j;
 
-    while(n < sndFileIn.frames() - 3) {
+    unsigned short val3_mod_x, val3_mod_y;
+    nBlock = 0;
+    sum = 0;
+    m = 500;
 
+    while(n < sndFileIn.frames() - 3) {
         val3_x = decoder.decode();
         val2_x = val3_x + prev2_x;
         prev2_x = val2_x;
@@ -257,9 +297,28 @@ int main(int argc, char *argv[]) {
         R_L = calculateR_L(val_x, val_y, channelRedudancy_mode);
         samples_out[n_sample] = R_L[0];
         samples_out[n_sample + 1] = R_L[1];
-        n_sample = n_sample + 2;
+
         outfile2 << R_L[0] << " " << R_L[1] << endl;
 
+        nBlock++;
+        /* convert samples values to a positive range in order to perform the M estimation */
+        val3_mod_x = val3_x >0?  2*val3_x -1 : -2*val3_x;
+        val3_mod_y = val3_y >0?  2*val3_y -1 : -2*val3_y;
+
+        sum = sum + val3_mod_x + val3_mod_y;
+        if(parameterEstimation_mode == "Block") {
+            if (nBlock == blockSize) {
+                m = estimateM_fromBlock(sum, blockSize);
+                decoder.update(m);
+
+                /*cout << "sum: " << sum << endl;
+                cout << "descodificador m updated to " << m << endl;*/
+
+                sum = 0;
+                nBlock = 0;
+            }
+        }
+        n_sample = n_sample + 2;
         if(n_sample >= FRAMES_BUFFER_SIZE * sndFileIn.channels()) {
             j = sndFileOut.writef(samples_out.data(), FRAMES_BUFFER_SIZE);
             n_sample = 0;
@@ -269,7 +328,6 @@ int main(int argc, char *argv[]) {
         }
         n++;
     }
-    cout << "n: " << n << endl;
     decoder.close();
     outfile2.close();
 
@@ -280,11 +338,13 @@ int main(int argc, char *argv[]) {
     cout << "Left channel entropy: " << ent[1] << endl;
     cout << "Mono channel entropy: " << ent[2] << endl;
 
-    calculateAudioHist("hist_decoded.txt", argv[2]);
+
+    //corrigir o bug aqui
+    /* calculateAudioHist("hist_decoded.txt", argv[2]);
     vector<float> ent_dec = audioEntropy("hist_decoded.txt");
     cout << "Right channel entropy: " << ent_dec[0] << endl;
     cout << "Left channel entropy: " << ent_dec[1] << endl;
-    cout << "Mono channel entropy: " << ent_dec[2] << endl;
+    cout << "Mono channel entropy: " << ent_dec[2] << endl; */
 
     return 0;
 }
@@ -415,4 +475,114 @@ vector<long signed> calculateX_Y (signed long val_r, signed long val_l, string c
     X_Y[0] = val_x;
     X_Y[1] = val_y;
     return X_Y;
+}
+
+unsigned int estimateM_fromBlock(unsigned int sum, unsigned int blockSize){
+    double mean, alfa;
+    unsigned int m;
+
+    mean = (sum/(double)(blockSize*2));
+    alfa = mean/(1+mean);
+    m = ceil(-1/log2(alfa));
+
+    return m;
+}
+unsigned int estimateM_fromAllSamples(string audioFileName) {
+    SndfileHandle sndFileIn { audioFileName };
+    if(sndFileIn.error()) {
+        cerr << "Error: invalid input file" << endl;
+    }
+
+    if((sndFileIn.format() & SF_FORMAT_TYPEMASK) != SF_FORMAT_WAV) {
+        cerr << "Error: file is not in WAV format" << endl;
+    }
+
+    if((sndFileIn.format() & SF_FORMAT_SUBMASK) != SF_FORMAT_PCM_16) {
+        cerr << "Error: file is not in PCM_16 format" << endl;
+    }
+
+
+    /* vectors to store the samples from each channel and the calculated mono version */
+    vector<short> samples(FRAMES_BUFFER_SIZE * 2);
+
+    vector<short> r_0(FRAMES_BUFFER_SIZE * 2);
+    vector<short> res_0(FRAMES_BUFFER_SIZE * 2);
+    vector<short> res_1(FRAMES_BUFFER_SIZE * 2);
+    vector<short> res_2(FRAMES_BUFFER_SIZE * 2);
+    vector<short> res_3(FRAMES_BUFFER_SIZE * 2);
+
+    vector<signed long> X_Y(2);
+    unsigned short res_3_mod_x=0, res_3_mod_y=0;
+    sf_count_t c;
+    unsigned int nFrames = 0;
+    unsigned long sum=0;
+    unsigned int initial_m;
+
+    /* identifies the first frame of data */
+    unsigned int frame = 0;
+
+    while (c=(sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE))) {
+        nFrames++;
+        for(int i=0; i< c*2; i=i+2) {
+            X_Y = calculateX_Y (samples[i], samples[i+1], channelRedudancy_mode);
+            if(frame == 0) {
+                if (i == 0) {
+                    res_0[i] = X_Y[0];
+                    res_0[i + 1] = X_Y[1];
+                } else if (i == 2) {
+                    res_0[i] = X_Y[0];
+                    res_1[i] = res_0[i] - res_0[i - 2];
+
+                    res_0[i + 1] = X_Y[1];
+                    res_1[i + 1] = res_0[i + 1] - res_0[i - 1];
+
+                } else if (i == 4) {
+
+                    res_0[i] = X_Y[0];
+                    res_1[i] = res_0[i] - res_0[i - 2];
+                    res_2[i] = res_1[i] - res_1[i - 2];
+
+                    res_0[i + 1] = X_Y[1];
+                    res_1[i + 1] = res_0[i + 1] - res_0[i - 1];
+                    res_2[i + 1] = res_1[i + 1] - res_1[i - 1];
+                    frame = 1;
+
+                }
+            } else if (i == 0) {
+
+                res_0[i] = X_Y[0];
+                res_1[i] = res_0[i] - res_0[samples.size() - 2];
+                res_2[i] = res_1[i] - res_1[samples.size() - 2];
+                res_3[i] = res_2[i] - res_2[samples.size() - 2];
+
+
+                res_0[i + 1] = X_Y[1];
+                res_1[i + 1] = res_0[i + 1] - res_0[samples.size() - 1];
+                res_2[i + 1] = res_1[i + 1] - res_1[samples.size() - 1];
+                res_3[i + 1] = res_2[i + 1] - res_2[samples.size() - 1];
+
+            } else {
+                res_0[i] = X_Y[0];
+                res_1[i] = res_0[i] - res_0[i-2];
+                res_2[i] = res_1[i] - res_1[i-2];
+                res_3[i] = res_2[i] - res_2[i-2];
+
+                res_0[i+1] = X_Y[1];
+                res_1[i+1] = res_0[i+1] - res_0[i-1];
+                res_2[i+1] = res_1[i+1] - res_1[i-1];
+                res_3[i+1] = res_2[i+1] - res_2[i-1];
+            }
+            if((i>4 && frame == 1) || (nFrames>1)) {
+                /* convert samples values to a positive range in order to perform the M estimation */
+                res_3_mod_x = res_3[i]>0?  2*res_3[i] -1   : -2*res_3[i];
+                res_3_mod_y = res_3[i+1]>0?  2*res_3[i+1] -1   : -2*res_3[i+1];
+                sum = sum + res_3_mod_x + res_3_mod_y;
+            }
+        }
+    }
+    initial_m = estimateM_fromBlock(sum, sndFileIn.frames());
+    cout << "sum: " << sum << endl;
+    cout << "initial_m: " << initial_m << endl;
+
+    return initial_m;
 }
