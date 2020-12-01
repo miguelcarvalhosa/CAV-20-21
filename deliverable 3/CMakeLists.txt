@@ -16,3 +16,6 @@ target_link_libraries(point15 sndfile)
 
 add_executable(testMparameter testMparameter.cpp BitStream_Write.h BitStream_Read.h BitStream_Write.cpp BitStream_Read.cpp GolombDecoder.cpp GolombDecoder.h GolombEncoder.cpp GolombEncoder.h)
 target_link_libraries(testMparameter sndfile)
+
+add_executable(testeCodec testeCodec.cpp AudioCodec.cpp AudioCodec.h BitStream_Write.h BitStream_Read.h BitStream_Write.cpp BitStream_Read.cpp GolombDecoder.cpp GolombDecoder.h GolombEncoder.cpp GolombEncoder.h)
+target_link_libraries(testeCodec sndfile)
