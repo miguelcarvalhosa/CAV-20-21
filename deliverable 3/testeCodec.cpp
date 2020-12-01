@@ -3,11 +3,11 @@
 
 int main(int argc, char *argv[]) {
 
-    AudioCodec codec;
+    AudioCodec my_codec;
 
-    codec.compress("sample02.wav", "sample02.cmp", 500);
+    my_codec.compress("sample01.wav", "sample01.cmp", 500, AudioCodec::REDUNDANCY_INDEPENDENT, AudioCodec::NONE);
 
-    codec.decompress("sample02.cmp", "sample02_out.wav");
+    my_codec.decompress("sample01.cmp", "sample01_out.wav");
 
     return 0;
 }
