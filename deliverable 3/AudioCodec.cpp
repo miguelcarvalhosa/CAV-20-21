@@ -10,7 +10,7 @@ AudioCodec::~AudioCodec() {
 
 }
 
-void AudioCodec::compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks) {
+void AudioCodec::compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks, audioCodec_lossMode loss, int lostBits) {
     SndfileHandle sndFileIn {inputFile};
     if(sndFileIn.error()) {
         std::cerr << "Error: invalid input file" << std::endl;
@@ -30,6 +30,14 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
     this->redundancy = redundancy;
     this->estimation = estimation;
     this->estimation_nBlocks = estimation_nBlocks;
+    this->loss = loss;
+    this->lostBits = lostBits;
+
+    if(this->loss == LOSS_LOSSY) {
+        if (this->lostBits > 16) {
+            std::cerr << "Error: the number of bits to be lost is invalid" << std::endl;
+        }
+    }
 
     GolombEncoder encoder(initial_m, compressedFile);
 
@@ -62,20 +70,32 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
             if(firstFrameFlag == 1) {
                 if(i == 0) {
                     res0_x = buf_x;
+                    if (this->loss == LOSS_LOSSY) {
+                        res0_x = res0_x >> this->lostBits;
+                    }
                     encoder.encode(res0_x);
                     prev_res0_x = res0_x;
                     res0_y = buf_y;
+                    if (this->loss == LOSS_LOSSY) {
+                        res0_y = res0_y >> this->lostBits;
+                    }
                     encoder.encode(res0_y);
                     prev_res0_y = res0_y;
                 }
-                else if( i == 2) {
+                else if(i == 2) {
                     res0_x = buf_x;
+                    if (this->loss == LOSS_LOSSY) {
+                        res0_x = res0_x >> this->lostBits;
+                    }
                     res1_x = res0_x - prev_res0_x;
                     encoder.encode(res1_x);
                     prev_res0_x = res0_x;
                     prev_res1_x = res1_x;
 
                     res0_y = buf_y;
+                    if (this->loss == LOSS_LOSSY) {
+                        res0_y = res0_y >> this->lostBits;
+                    }
                     res1_y = res0_y - prev_res0_y;
                     encoder.encode(res1_y);
                     prev_res0_y = res0_y;
@@ -83,6 +103,9 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                 }
                 else if(i == 4) {
                     res0_x = buf_x;
+                    if (this->loss == LOSS_LOSSY) {
+                        res0_x = res0_x >> this->lostBits;
+                    }
                     res1_x = res0_x - prev_res0_x;
                     res2_x = res1_x - prev_res1_x;
                     encoder.encode(res2_x);
@@ -91,6 +114,9 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                     prev_res2_x = res2_x;
 
                     res0_y = buf_y;
+                    if (this->loss == LOSS_LOSSY) {
+                        res0_y = res0_y >> this->lostBits;
+                    }
                     res1_y = res0_y - prev_res0_y;
                     res2_y = res1_y - prev_res1_y;
                     encoder.encode(res2_y);
@@ -104,6 +130,9 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
             }
             else {
                 res0_x = buf_x;
+                if (this->loss == LOSS_LOSSY) {
+                    res0_x = res0_x >> this->lostBits;
+                }
                 res1_x = res0_x - prev_res0_x;
                 res2_x = res1_x - prev_res1_x;
                 res3_x = res2_x - prev_res2_x;
@@ -113,6 +142,9 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                 prev_res2_x = res2_x;
 
                 res0_y = buf_y;
+                if (this->loss == LOSS_LOSSY) {
+                    res0_y = res0_y >> this->lostBits;
+                }
                 res1_y = res0_y - prev_res0_y;
                 res2_y = res1_y - prev_res1_y;
                 res3_y = res2_y - prev_res2_y;
@@ -168,8 +200,14 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
 
     val_x = decoder.decode();
     prev_val_x = val_x;
+    if(this->loss == LOSS_LOSSY) {
+        val_x = val_x << this->lostBits;
+    }
     val_y = decoder.decode();
     prev_val_y = val_y;
+    if(this->loss == LOSS_LOSSY) {
+        val_y = val_y << this->lostBits;
+    }
     R_L = calculateR_L(val_x, val_y, redundancy);
     samplesOut[samplesRead++] = R_L[0];
     samplesOut[samplesRead++] = R_L[1];
@@ -178,10 +216,16 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     prev_val1_x = val1_x;
     val_x = val1_x + prev_val_x;
     prev_val_x = val_x;
+    if(this->loss == LOSS_LOSSY) {
+        val_x = val_x << this->lostBits;
+    }
     val1_y = decoder.decode();
     prev_val1_y = val1_y;
     val_y = val1_y + prev_val_y;
     prev_val_y = val_y;
+    if(this->loss == LOSS_LOSSY) {
+        val_y = val_y << this->lostBits;
+    }
     R_L = calculateR_L(val_x, val_y, redundancy);
     samplesOut[samplesRead++] = R_L[0];
     samplesOut[samplesRead++] = R_L[1];
@@ -192,12 +236,18 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     prev_val1_x = val1_x;
     val_x = val1_x + prev_val_x;
     prev_val_x = val_x;
+    if(this->loss == LOSS_LOSSY) {
+        val_x = val_x << this->lostBits;
+    }
     val2_y = decoder.decode();
     prev_val2_y = val2_y;
     val1_y = val2_y + prev_val1_y;
     prev_val1_y = val1_y;
     val_y = val1_y + prev_val_y;
     prev_val_y = val_y;
+    if(this->loss == LOSS_LOSSY) {
+        val_y = val_y << this->lostBits;
+    }
     R_L = calculateR_L(val_x, val_y, redundancy);
     samplesOut[samplesRead++] = R_L[0];
     samplesOut[samplesRead++] = R_L[1];
@@ -213,6 +263,9 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         prev_val1_x = val1_x;
         val_x = val1_x + prev_val_x;
         prev_val_x = val_x;
+        if(this->loss == LOSS_LOSSY) {
+            val_x = val_x << this->lostBits;
+        }
         val3_y = decoder.decode();
         val2_y = val3_y + prev_val2_y;
         prev_val2_y = val2_y;
@@ -220,6 +273,9 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         prev_val1_y = val1_y;
         val_y = val1_y + prev_val_y;
         prev_val_y = val_y;
+        if(this->loss == LOSS_LOSSY) {
+            val_y = val_y << this->lostBits;
+        }
         R_L = calculateR_L(val_x, val_y, redundancy);
         samplesOut[samplesRead++] = R_L[0];
         samplesOut[samplesRead++] = R_L[1];

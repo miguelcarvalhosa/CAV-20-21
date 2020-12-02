@@ -30,13 +30,18 @@ public:
         ESTIMATION_ADAPTATIVE
     } audioCodec_parameterEstimationMode;
 
+    typedef enum {
+        LOSS_LOSSLESS,
+        LOSS_LOSSY
+    } audioCodec_lossMode;
+
     AudioCodec();
 
     virtual ~AudioCodec();
 
     unsigned int estimateM(std::string inputFile, audioCodec_ChannelRedundancy redundancy);
 
-    void compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks);
+    void compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks, audioCodec_lossMode loss, int lostBits);
 
     void decompress(std::string compressedFile, std::string outputFile);
 
@@ -58,6 +63,8 @@ private:
     audioCodec_ChannelRedundancy redundancy = REDUNDANCY_INDEPENDENT;
     audioCodec_parameterEstimationMode estimation = ESTIMATION_NONE;
     unsigned int estimation_nBlocks = 0;
+    audioCodec_lossMode loss = LOSS_LOSSLESS;
+    int lostBits = 0;
 
 };
 
