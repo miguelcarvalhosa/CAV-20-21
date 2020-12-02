@@ -1,5 +1,4 @@
 
-
 #include "AudioCodec.h"
 
 
@@ -11,7 +10,7 @@ AudioCodec::~AudioCodec() {
 
 }
 
-void AudioCodec::compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation) {
+void AudioCodec::compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks) {
     SndfileHandle sndFileIn {inputFile};
     if(sndFileIn.error()) {
         std::cerr << "Error: invalid input file" << std::endl;
@@ -27,24 +26,31 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
     nChannels = sndFileIn.channels();
     sampleRate = sndFileIn.samplerate();
     format = sndFileIn.format();
-    this->m = m;
+    initial_m = m;
     this->redundancy = redundancy;
+    this->estimation = estimation;
+    this->estimation_nBlocks = estimation_nBlocks;
 
-    GolombEncoder encoder(this->m, compressedFile);
+    GolombEncoder encoder(initial_m, compressedFile);
 
 
     std::vector<short> samplesIn(FRAMES_BUFFER_SIZE * nChannels);
     int framesRead = 0;
     unsigned char firstFrameFlag = 1;
+    unsigned int frameCount = 0;
+    unsigned int estimatedBlocks = 0;
 
     short buf_x, buf_y;
     short res0_x, res0_y, prev_res0_x, prev_res0_y;
     short res1_x, res1_y, prev_res1_x, prev_res1_y;
     short res2_x, res2_y, prev_res2_x, prev_res2_y;
     short res3_x, res3_y;
+    unsigned short res_3_mod_x, res_3_mod_y;
+    unsigned long sum = 0;
     std::vector<signed long> X_Y(2);
 
     while (framesRead = sndFileIn.readf(samplesIn.data(), FRAMES_BUFFER_SIZE)) {
+        frameCount++;
         if(framesRead != FRAMES_BUFFER_SIZE) {
             lastFrameSize = framesRead;
         }
@@ -115,6 +121,23 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                 prev_res1_y = res1_y;
                 prev_res2_y = res2_y;
             }
+            if(this->estimation == ESTIMATION_ADAPTATIVE) {
+                if((i > 4 && firstFrameFlag == 0) || (frameCount>1)) {
+                    estimatedBlocks++;
+                    /* convert samples values to a positive range in order to perform the M estimation */
+                    res_3_mod_x = res3_x > 0    ?   2 * res3_x - 1  :   -2 * res3_x;
+                    res_3_mod_y = res3_y > 0    ?   2 * res3_y - 1  :   -2 * res3_y;
+                    sum = sum + res_3_mod_x + res_3_mod_y;
+                    if(estimatedBlocks == this->estimation_nBlocks) {
+                        this->m = estimateM_fromBlock(sum, this->estimation_nBlocks);
+                        encoder.update(this->m);
+                        /*std::cout << "sum: " << sum << std::endl;
+                        std::cout << "m updated to " << this->m << std::endl;*/
+                        sum = 0;
+                        estimatedBlocks = 0;
+                    }
+                }
+            }
 
         }
     }
@@ -123,7 +146,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
 
 void AudioCodec::decompress(std::string compressedFile, std::string outputFile) {
 
-    GolombDecoder decoder(m, compressedFile);
+    GolombDecoder decoder(initial_m, compressedFile);
 
     SndfileHandle sndFileOut { outputFile, SFM_WRITE, format, nChannels, sampleRate };
 
@@ -137,8 +160,11 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     signed long val1_x, val1_y, prev_val1_x, prev_val1_y;
     signed long val2_x, val2_y, prev_val2_x, prev_val2_y;
     signed long val3_x, val3_y;
+    unsigned short val3_mod_x, val3_mod_y;
     std::vector<signed long> R_L(2);
     unsigned int samplesRead = 0;
+    unsigned int estimatedBlocks = 0;
+    unsigned long sum = 0;
 
     val_x = decoder.decode();
     prev_val_x = val_x;
@@ -198,6 +224,21 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         samplesOut[samplesRead++] = R_L[0];
         samplesOut[samplesRead++] = R_L[1];
 
+        estimatedBlocks++;
+        val3_mod_x = val3_x >0?  2*val3_x -1 : -2*val3_x;
+        val3_mod_y = val3_y >0?  2*val3_y -1 : -2*val3_y;
+        sum = sum + val3_mod_x + val3_mod_y;
+        if(estimation == ESTIMATION_ADAPTATIVE) {
+            if (estimatedBlocks == estimation_nBlocks) {
+                m = estimateM_fromBlock(sum, estimation_nBlocks);
+                decoder.update(m);
+                /*std::cout << "sum: " << sum << std::endl;
+                std::cout << "descodificador m updated to " << m << std::endl;*/
+                sum = 0;
+                estimatedBlocks = 0;
+            }
+        }
+
         if(samplesRead >= FRAMES_BUFFER_SIZE * nChannels) {
             sndFileOut.writef(samplesOut.data(), FRAMES_BUFFER_SIZE);
             samplesRead = 0;
@@ -209,6 +250,122 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         framesRead++;
     }
     decoder.close();
+}
+
+
+unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedundancy redundancy) {
+
+    SndfileHandle sndFileIn {inputFile};
+    if(sndFileIn.error()) {
+        std::cerr << "Error: invalid input file" << std::endl;
+    }
+
+    if((sndFileIn.format() & SF_FORMAT_TYPEMASK) != SF_FORMAT_WAV) {
+        std::cerr << "Error: file is not in WAV format" << std::endl;
+    }
+
+    if((sndFileIn.format() & SF_FORMAT_SUBMASK) != SF_FORMAT_PCM_16) {
+        std::cerr << "Error: file is not in PCM_16 format" << std::endl;
+    }
+
+    nFrames = sndFileIn.frames();
+    nChannels = sndFileIn.channels();
+    sampleRate = sndFileIn.samplerate();
+    format = sndFileIn.format();
+    this->redundancy = redundancy;
+
+    /* vectors to store the samples from each channel and the calculated mono version */
+    std::vector<short> samplesIn(FRAMES_BUFFER_SIZE * nChannels);
+    std::vector<signed long> X_Y(2);
+    short buf_x, buf_y;
+    short res0_x, res0_y, prev_res0_x, prev_res0_y;
+    short res1_x, res1_y, prev_res1_x, prev_res1_y;
+    short res2_x, res2_y, prev_res2_x, prev_res2_y;
+    short res3_x, res3_y;
+
+    unsigned char firstFrameFlag = 1;
+    int framesRead = 0;
+    unsigned int frameCount = 0;
+
+    unsigned short res_3_mod_x=0, res_3_mod_y=0;
+    unsigned long sum = 0;
+    unsigned int initial_m;
+
+
+    while (framesRead = sndFileIn.readf(samplesIn.data(), FRAMES_BUFFER_SIZE)) {
+        frameCount++;
+        for(unsigned int i=0; i < framesRead*nChannels; i += nChannels) {
+            X_Y = calculateX_Y (samplesIn[i], samplesIn[i+1], this->redundancy);        // redundancia!!
+            buf_x = X_Y[0];
+            buf_y = X_Y[1];
+            if(firstFrameFlag == 1) {
+                if(i == 0) {
+                    res0_x = buf_x;
+                    prev_res0_x = res0_x;
+                    res0_y = buf_y;
+                    prev_res0_y = res0_y;
+                }
+                else if( i == 2) {
+                    res0_x = buf_x;
+                    res1_x = res0_x - prev_res0_x;
+                    prev_res0_x = res0_x;
+                    prev_res1_x = res1_x;
+
+                    res0_y = buf_y;
+                    res1_y = res0_y - prev_res0_y;
+                    prev_res0_y = res0_y;
+                    prev_res1_y = res1_y;
+                }
+                else if(i == 4) {
+                    res0_x = buf_x;
+                    res1_x = res0_x - prev_res0_x;
+                    res2_x = res1_x - prev_res1_x;
+                    prev_res0_x = res0_x;
+                    prev_res1_x = res1_x;
+                    prev_res2_x = res2_x;
+
+                    res0_y = buf_y;
+                    res1_y = res0_y - prev_res0_y;
+                    res2_y = res1_y - prev_res1_y;
+                    prev_res0_y = res0_y;
+                    prev_res1_y = res1_y;
+                    prev_res2_y = res2_y;
+
+                    firstFrameFlag = 0;
+                }
+
+            }
+            else {
+                res0_x = buf_x;
+                res1_x = res0_x - prev_res0_x;
+                res2_x = res1_x - prev_res1_x;
+                res3_x = res2_x - prev_res2_x;
+                prev_res0_x = res0_x;
+                prev_res1_x = res1_x;
+                prev_res2_x = res2_x;
+
+                res0_y = buf_y;
+                res1_y = res0_y - prev_res0_y;
+                res2_y = res1_y - prev_res1_y;
+                res3_y = res2_y - prev_res2_y;
+                prev_res0_y = res0_y;
+                prev_res1_y = res1_y;
+                prev_res2_y = res2_y;
+            }
+
+            if((i > 4 && firstFrameFlag == 0) || (frameCount>1)) {
+                /* convert samples values to a positive range in order to perform the M estimation */
+                res_3_mod_x = res3_x > 0    ?   2 * res3_x - 1  :   -2 * res3_x;
+                res_3_mod_y = res3_y > 0    ?   2 * res3_y - 1  :   -2 * res3_y;
+                sum = sum + res_3_mod_x + res_3_mod_y;
+            }
+        }
+    }
+    initial_m = estimateM_fromBlock(sum, sndFileIn.frames());
+    std::cout << "sum: " << sum << std::endl;
+    std::cout << "initial_m: " << initial_m << std::endl;
+
+    return initial_m;
 }
 
 
@@ -255,4 +412,16 @@ std::vector<long signed> AudioCodec::calculateX_Y (signed long val_r, signed lon
     X_Y[0] = val_x;
     X_Y[1] = val_y;
     return X_Y;
+}
+
+
+unsigned int AudioCodec::estimateM_fromBlock(unsigned int sum, unsigned int blockSize) {
+    double mean, alfa;
+    unsigned int m;
+
+    mean = (sum/(double)(blockSize*2));
+    alfa = mean/(1+mean);
+    m = ceil(-1/log2(alfa));
+
+    return m;
 }
