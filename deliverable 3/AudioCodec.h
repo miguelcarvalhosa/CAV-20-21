@@ -13,7 +13,6 @@
 #include "GolombDecoder.h"
 
 
-
 class AudioCodec {
 
 public:
@@ -39,9 +38,9 @@ public:
 
     virtual ~AudioCodec();
 
-    unsigned int estimateM(std::string inputFile, audioCodec_ChannelRedundancy redundancy);
+    unsigned int estimateM(std::string inputFile, audioCodec_ChannelRedundancy redundancy, audioCodec_lossMode loss, unsigned int lostBits);
 
-    void compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks, audioCodec_lossMode loss, int lostBits);
+    void compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks, audioCodec_lossMode loss, unsigned int lostBits);
 
     void decompress(std::string compressedFile, std::string outputFile);
 
@@ -64,7 +63,7 @@ private:
     audioCodec_parameterEstimationMode estimation = ESTIMATION_NONE;
     unsigned int estimation_nBlocks = 0;
     audioCodec_lossMode loss = LOSS_LOSSLESS;
-    int lostBits = 0;
+    unsigned int lostBits = 0;
 
 };
 

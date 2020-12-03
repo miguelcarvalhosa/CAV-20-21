@@ -15,8 +15,9 @@ int main(int argc, char *argv[]) {
     string decFile = "sample01_out.wav";
 
     AudioCodec my_codec;
-    int m = my_codec.estimateM(inFile, AudioCodec::REDUNDANCY_INDEPENDENT);
-    my_codec.compress(inFile, cmpFile, 500, AudioCodec::REDUNDANCY_INDEPENDENT, AudioCodec::ESTIMATION_NONE, 10, AudioCodec::LOSS_LOSSY,13);
+    unsigned int m = my_codec.estimateM(inFile, AudioCodec::REDUNDANCY_INDEPENDENT, AudioCodec::LOSS_LOSSY,13);
+    std::cout << "initial_m: " << m << std::endl;
+    my_codec.compress(inFile, cmpFile, 500, AudioCodec::REDUNDANCY_INDEPENDENT, AudioCodec::ESTIMATION_ADAPTATIVE, 10, AudioCodec::LOSS_LOSSY,13);
     my_codec.decompress(cmpFile, decFile);
 
     cout << "Input file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;

@@ -24,7 +24,7 @@ void GolombDecoder::update(unsigned int m) {
     if(m < 10000000){
         this->m = m;
         b = floor(log2(m));
-        cout << "Number of bits of remainder: " << b << endl;
+        //cout << "Number of bits of remainder: " << b << endl;
     }
     else {
         std::cerr << "The m parameter inserted is not valid." << std::endl;
