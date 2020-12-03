@@ -10,7 +10,7 @@ AudioCodec::~AudioCodec() {
 
 }
 
-void AudioCodec::compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks, audioCodec_lossMode loss, unsigned int lostBits) {
+void AudioCodec::compress(std::string inputFile, std::string compressedFile, unsigned int m, audioCodec_ChannelRedundancy redundancy, audioCodec_parameterEstimationMode estimation, unsigned int estimation_nBlocks, audioCodec_lossMode loss, unsigned int lostBits,  audioCodec_histogramMode histMode, std::string histogramFileName) {
     SndfileHandle sndFileIn {inputFile};
     if(sndFileIn.error()) {
         std::cerr << "Error: invalid input file" << std::endl;
@@ -33,7 +33,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
     this->loss = loss;
     this->lostBits = lostBits;
 
-    if(this->loss == LOSS_LOSSY) {
+    if(this->loss == MODE_LOSSY) {
         if (this->lostBits > 16) {
             std::cerr << "Error: the number of bits to be lost is invalid" << std::endl;
         }
@@ -68,14 +68,14 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
             if(firstFrameFlag == 1) {
                 if(i == 0) {
                     res0_x = buf_x;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_x = res0_x >> this->lostBits;
                     }
                     encoder.encode(res0_x);
                     prev_res0_x = res0_x;
                     res0_y = buf_y;
 
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_y = res0_y >> this->lostBits;
                     }
                     encoder.encode(res0_y);
@@ -84,7 +84,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                 }
                 else if(i == 2) {
                     res0_x = buf_x;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_x = res0_x >> this->lostBits;
                     }
                     res1_x = res0_x - prev_res0_x;
@@ -93,7 +93,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                     prev_res1_x = res1_x;
 
                     res0_y = buf_y;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_y = res0_y >> this->lostBits;
                     }
                     res1_y = res0_y - prev_res0_y;
@@ -104,7 +104,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                 }
                 else if(i == 4) {
                     res0_x = buf_x;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_x = res0_x >> this->lostBits;
                     }
                     res1_x = res0_x - prev_res0_x;
@@ -115,7 +115,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                     prev_res2_x = res2_x;
 
                     res0_y = buf_y;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_y = res0_y >> this->lostBits;
                     }
                     res1_y = res0_y - prev_res0_y;
@@ -131,7 +131,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
             }
             else {
                 res0_x = buf_x;
-                if (this->loss == LOSS_LOSSY) {
+                if (this->loss == MODE_LOSSY) {
                     res0_x = res0_x >> this->lostBits;
                 }
                 res1_x = res0_x - prev_res0_x;
@@ -143,7 +143,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                 prev_res2_x = res2_x;
 
                 res0_y = buf_y;
-                if (this->loss == LOSS_LOSSY) {
+                if (this->loss == MODE_LOSSY) {
                     res0_y = res0_y >> this->lostBits;
                 }
                 res1_y = res0_y - prev_res0_y;
@@ -173,7 +173,9 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                     }
                 }
             }
-
+            if(histMode == MODE_RESIDUAL_HISTOGRAM) {
+                calculateResHist(histogramFileName, res3_x, res3_y, nFrames);
+            }
         }
     }
     encoder.close();
@@ -203,12 +205,12 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
 
     val_x = decoder.decode();
     prev_val_x = val_x;
-    if(this->loss == LOSS_LOSSY) {
+    if(this->loss == MODE_LOSSY) {
         val_x = val_x << this->lostBits;
     }
     val_y = decoder.decode();
     prev_val_y = val_y;
-    if(this->loss == LOSS_LOSSY) {
+    if(this->loss == MODE_LOSSY) {
         val_y = val_y << this->lostBits;
     }
     R_L = calculateR_L(val_x, val_y, redundancy);
@@ -219,14 +221,14 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     prev_val1_x = val1_x;
     val_x = val1_x + prev_val_x;
     prev_val_x = val_x;
-    if(this->loss == LOSS_LOSSY) {
+    if(this->loss == MODE_LOSSY) {
         val_x = val_x << this->lostBits;
     }
     val1_y = decoder.decode();
     prev_val1_y = val1_y;
     val_y = val1_y + prev_val_y;
     prev_val_y = val_y;
-    if(this->loss == LOSS_LOSSY) {
+    if(this->loss == MODE_LOSSY) {
         val_y = val_y << this->lostBits;
     }
     R_L = calculateR_L(val_x, val_y, redundancy);
@@ -239,7 +241,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     prev_val1_x = val1_x;
     val_x = val1_x + prev_val_x;
     prev_val_x = val_x;
-    if(this->loss == LOSS_LOSSY) {
+    if(this->loss == MODE_LOSSY) {
         val_x = val_x << this->lostBits;
     }
     val2_y = decoder.decode();
@@ -248,7 +250,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     prev_val1_y = val1_y;
     val_y = val1_y + prev_val_y;
     prev_val_y = val_y;
-    if(this->loss == LOSS_LOSSY) {
+    if(this->loss == MODE_LOSSY) {
         val_y = val_y << this->lostBits;
     }
     R_L = calculateR_L(val_x, val_y, redundancy);
@@ -266,7 +268,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         prev_val1_x = val1_x;
         val_x = val1_x + prev_val_x;
         prev_val_x = val_x;
-        if(this->loss == LOSS_LOSSY) {
+        if(this->loss == MODE_LOSSY) {
             val_x = val_x << this->lostBits;
         }
         val3_y = decoder.decode();
@@ -276,7 +278,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         prev_val1_y = val1_y;
         val_y = val1_y + prev_val_y;
         prev_val_y = val_y;
-        if(this->loss == LOSS_LOSSY) {
+        if(this->loss == MODE_LOSSY) {
             val_y = val_y << this->lostBits;
         }
         R_L = calculateR_L(val_x, val_y, redundancy);
@@ -362,14 +364,14 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
             if (firstFrameFlag == 1) {
                 if (i == 0) {
                     res0_x = buf_x;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_x = res0_x >> this->lostBits;
 
                     }
 
                     prev_res0_x = res0_x;
                     res0_y = buf_y;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_y = res0_y >> this->lostBits;
                     }
 
@@ -377,7 +379,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
 
                 } else if (i == 2) {
                     res0_x = buf_x;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_x = res0_x >> this->lostBits;
                     }
                     res1_x = res0_x - prev_res0_x;
@@ -386,7 +388,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
                     prev_res1_x = res1_x;
 
                     res0_y = buf_y;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_y = res0_y >> this->lostBits;
                     }
                     res1_y = res0_y - prev_res0_y;
@@ -396,7 +398,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
 
                 } else if (i == 4) {
                     res0_x = buf_x;
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_x = res0_x >> this->lostBits;
                     }
                     res1_x = res0_x - prev_res0_x;
@@ -408,7 +410,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
 
                     res0_y = buf_y;
 
-                    if (this->loss == LOSS_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {
                         res0_y = res0_y >> this->lostBits;
                     }
                     res1_y = res0_y - prev_res0_y;
@@ -424,7 +426,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
 
             } else {
                 res0_x = buf_x;
-                if (this->loss == LOSS_LOSSY) {
+                if (this->loss == MODE_LOSSY) {
                     res0_x = res0_x >> this->lostBits;
                 }
                 res1_x = res0_x - prev_res0_x;
@@ -436,7 +438,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
                 prev_res2_x = res2_x;
 
                 res0_y = buf_y;
-                if (this->loss == LOSS_LOSSY) {
+                if (this->loss == MODE_LOSSY) {
                     res0_y = res0_y >> this->lostBits;
                 }
                 res1_y = res0_y - prev_res0_y;
@@ -463,6 +465,128 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
     //std::cout << "initial_m: " << initial_m << std::endl;
 
     return initial_m;
+}
+
+
+void AudioCodec::calculateAudioHist(std::string histFileName, std::string audioFileName) {
+
+    /* vectors to store the element count of each channel and the mono version */
+    std::vector<long unsigned> hist_r((int)pow(2,16)), hist_l((int)pow(2,16)), hist_mono((int)pow(2,16));
+
+    /* file for storing calculated frequencies */
+    std::ofstream outfile(histFileName);
+
+    SndfileHandle sndFileIn { audioFileName };
+    if(sndFileIn.error()) {
+        std::cerr << "Error: invalid input file" << std::endl;
+    }
+
+    if((sndFileIn.format() & SF_FORMAT_TYPEMASK) != SF_FORMAT_WAV) {
+        std::cerr << "Error: file is not in WAV format" << std::endl;
+    }
+
+    if((sndFileIn.format() & SF_FORMAT_SUBMASK) != SF_FORMAT_PCM_16) {
+        std::cerr << "Error: file is not in PCM_16 format" << std::endl;
+    }
+
+    std::vector<short> samples(FRAMES_BUFFER_SIZE * sndFileIn.channels());
+
+    /* reads all frame from source audio file and computes for each channel the element count */
+    while (sndFileIn.readf(samples.data(), FRAMES_BUFFER_SIZE)) {
+        for(unsigned int i=0; i<samples.size(); i+=sndFileIn.channels()) {
+            /* NOTE: The addition of the 32767 constant is only needed to convert the negative
+             *       samples into positive indexes that can be accessed in the hist vectors to
+             *       count each element occurrence */
+            hist_r[samples[i]+32767] += 1;
+            hist_l[samples[i+1]+32767] += 1;
+            hist_mono[((samples[i] + samples[i+1])/2) + 32767] += 1;
+        }
+    }
+    /* write the computed element count */
+    for(unsigned int k=0; k< hist_r.size(); k++) {
+        outfile << hist_r [k] << " " << hist_l[k] << " " << hist_mono[k] << std::endl;
+    }
+    outfile.close();
+}
+
+
+std::vector<float> AudioCodec::audioEntropy(std::string fileName) {
+    // nº de bits médio/simbolo
+    float Pi_r, Pi_l, Pi_mono;
+    float ent_r = 0, ent_l = 0, ent_mono = 0;
+    unsigned long int count_r = 0, count_l = 0, count_mono = 0;
+    std::vector<float> ent(3);
+
+    std::vector<unsigned int> hist_r(FRAMES_BUFFER_SIZE), hist_l(FRAMES_BUFFER_SIZE), hist_mono(FRAMES_BUFFER_SIZE);
+
+    std::ifstream hist_file(fileName);
+
+    unsigned int i=0;
+    while(!hist_file.eof()){
+        hist_file >> hist_r[i];
+        hist_file >> hist_l[i];
+        hist_file >> hist_mono[i];
+        i++;
+    }
+    count_r = accumulate(hist_r.begin(), hist_r.end(), 0);
+    count_l = accumulate(hist_l.begin(), hist_l.end(), 0);
+    count_mono = accumulate(hist_mono.begin(), hist_mono.end(), 0);
+
+    for (i=0; i<FRAMES_BUFFER_SIZE; i++) {
+        if(hist_r[i]> 0) {
+            Pi_r = (float)(hist_r[i])/count_r;
+            ent_r -= Pi_r*log2(Pi_r);
+        }
+        if(hist_l[i]> 0) {
+            Pi_l = (float)(hist_l[i])/count_l;
+            ent_l -= Pi_l*log2(Pi_l);
+        }
+        if(hist_mono[i]> 0) {
+            Pi_mono= (float)(hist_mono[i])/count_mono;
+            ent_mono -= Pi_mono*log2(Pi_mono);
+        }
+    }
+    ent[0] = ent_r;
+    ent[1] = ent_l;
+    ent[2] = ent_mono;
+
+    hist_file.close();
+    return ent;
+}
+
+
+std::vector<float> AudioCodec::residualsEntropy(std::string fileName) {
+    float Pi_x, Pi_y;
+    float ent_x = 0, ent_y = 0;
+    unsigned long int count_x = 0, count_y = 0;
+
+    std::vector<unsigned int> hist_res_x(pow(2,16)), hist_res_y(pow(2,16));
+    std::vector<float> ent(2);
+    std::ifstream hist_file(fileName);
+
+    unsigned int i=0;
+    while(!hist_file.eof()){
+        hist_file >> hist_res_x[i];
+        hist_file >> hist_res_y[i];
+        i++;
+    }
+    count_x = accumulate(hist_res_x.begin(), hist_res_x.end(), 0);
+    count_y = accumulate(hist_res_y.begin(), hist_res_y.end(), 0);
+
+    for (i=0;i<FRAMES_BUFFER_SIZE;i++) {
+        if (hist_res_x[i] > 0) {
+            Pi_x = (float) (hist_res_x[i]) / count_x;
+            ent_x -= Pi_x * log2(Pi_x);
+        }
+        if (hist_res_y[i] > 0) {
+            Pi_y = (float) (hist_res_y[i]) / count_y;
+            ent_y -= Pi_y * log2(Pi_y);
+        }
+
+    }
+    ent[0] = ent_x;
+    ent[1] = ent_y;
+    return ent;
 }
 
 
@@ -523,4 +647,27 @@ unsigned int AudioCodec::estimateM_fromBlock(unsigned int sum, unsigned int bloc
         m = 2;
     }
     return m;
+}
+
+
+void AudioCodec::calculateResHist(std::string fileName, short res_x, short res_y, unsigned int totalFrames) {
+    /* vector to store the element count of the histogram */
+    static std::vector<unsigned long> hist_res_x((int)pow(2,16)), hist_res_y((int)pow(2,16));
+    /* count the number of residuals that have been written */
+    static unsigned int nSample=0;
+    if(nSample==0) {
+        std::cout << "Started Residuals histogram computation" << std::endl;
+    }
+    nSample++;
+    /* file for writing the residuals histograms for each predictor order */
+    std::ofstream outfile(fileName);
+    hist_res_x[res_x+32767] += 1;
+    hist_res_y[res_y+32767] += 1;
+
+    if(nSample == totalFrames) {
+        std::cout << "Residuals histogram computation done. Writting destination file..." << std::endl;
+        for(unsigned int k=0; k < hist_res_x.size(); k++) {
+            outfile << hist_res_x[k] << " " << hist_res_y[k] << std::endl;
+        }
+    }
 }
