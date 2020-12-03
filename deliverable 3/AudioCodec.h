@@ -1,3 +1,11 @@
+/**
+ * \brief A class to compress and decompress a .wav audio file.
+ *        Includes methods to compress and decompress audio files and to compute histograms and entropies.
+ *
+ * \author Miguel Carvalhosa
+ * \author Tânia Ferreira
+ * \author Gonçalo Cardoso
+ */
 
 
 #ifndef AUDIO_CODEC_H
@@ -18,30 +26,48 @@ class AudioCodec {
 
 public:
 
+    /**
+     * Enumeration with the types of inter-channel redundancy to use when compressing the audio file.
+     */
     typedef enum {
-        REDUNDANCY_INDEPENDENT,
-        REDUNDANCY_MID_SIDE,
-        REDUNDANCY_LEFT_SIDE,
-        REDUNDANCY_RIGHT_SIDE
+        REDUNDANCY_INDEPENDENT,     /**< No redundancy between channels */
+        REDUNDANCY_MID_SIDE,        /**< Compress the mean (mid) and the difference (side) of the channels */
+        REDUNDANCY_LEFT_SIDE,       /**< Compress the left channel (left) and the difference (side) of the channels */
+        REDUNDANCY_RIGHT_SIDE       /**< Compress the right channel (right) and the difference (side) of the channels */
     } audioCodec_ChannelRedundancy;
 
+    /**
+     * Enumeration with the modes of the Golomb encoder parameter estimation.
+     */
     typedef enum {
-        ESTIMATION_NONE,
-        ESTIMATION_ADAPTATIVE
+        ESTIMATION_NONE,            /**< No estimation of the Golomb encoder parameter */
+        ESTIMATION_ADAPTATIVE       /**< Adaptative estimation of the Golomb encoder parameter */
     } audioCodec_parameterEstimationMode;
 
+    /**
+     * Enumeration with the modes of losses during encoding.
+     */
     typedef enum {
-        MODE_LOSSLESS,
-        MODE_LOSSY
+        MODE_LOSSLESS,              /**< Mode with no losses */
+        MODE_LOSSY                  /**< Mode with losses */
     } audioCodec_lossMode;
 
+    /**
+     * Enumeration with the modes of computing histograms histogram.
+     */
     typedef enum {
-        MODE_NO_HISTOGRAM,
-        MODE_RESIDUAL_HISTOGRAM
+        MODE_NO_HISTOGRAM,          /**< Do not compute histograms */
+        MODE_RESIDUAL_HISTOGRAM     /**< Compute residuals histogram */
     } audioCodec_histogramMode;
 
+    /**
+     * \brief Default constructor.
+     */
     AudioCodec();
 
+    /**
+     * \brief Destructor.
+     */
     virtual ~AudioCodec();
 
     unsigned int estimateM(std::string inputFile, audioCodec_ChannelRedundancy redundancy, audioCodec_lossMode loss, unsigned int lostBits);
