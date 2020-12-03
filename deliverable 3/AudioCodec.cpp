@@ -52,7 +52,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
     short res1_x, res1_y, prev_res1_x, prev_res1_y;
     short res2_x, res2_y, prev_res2_x, prev_res2_y;
     short res3_x, res3_y;
-    unsigned short res_3_mod_x, res_3_mod_y;
+    unsigned short res_3_mod_x;
     unsigned long sum = 0;
     std::vector<signed long> X_Y(2);
 
@@ -160,8 +160,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                     estimatedBlocks++;
                     /* convert samples values to a positive range in order to perform the M estimation */
                     res_3_mod_x = res3_x > 0    ?   2 * res3_x - 1  :   -2 * res3_x;
-                    res_3_mod_y = res3_y > 0    ?   2 * res3_y - 1  :   -2 * res3_y;
-                    sum = sum + res_3_mod_x + res_3_mod_y;
+                    sum = sum + res_3_mod_x;
                     if(estimatedBlocks == this->estimation_nBlocks) {
                         this->m = estimateM_fromBlock(sum, this->estimation_nBlocks);
                         //std::cout << "this->m: " << this->m << std::endl;
@@ -197,7 +196,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     signed long val1_x, val1_y, prev_val1_x, prev_val1_y;
     signed long val2_x, val2_y, prev_val2_x, prev_val2_y;
     signed long val3_x, val3_y;
-    unsigned short val3_mod_x, val3_mod_y;
+    unsigned short val3_mod_x;
     std::vector<signed long> R_L(2);
     unsigned int samplesRead = 0;
     unsigned int estimatedBlocks = 0;
@@ -287,14 +286,11 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
 
         estimatedBlocks++;
         val3_mod_x = val3_x >0?  2*val3_x -1 : -2*val3_x;
-        val3_mod_y = val3_y >0?  2*val3_y -1 : -2*val3_y;
-        sum = sum + val3_mod_x + val3_mod_y;
+        sum = sum + val3_mod_x;
         if(estimation == ESTIMATION_ADAPTATIVE) {
             if (estimatedBlocks == estimation_nBlocks) {
                 m = estimateM_fromBlock(sum, estimation_nBlocks);
                 decoder.update(m);
-                /*std::cout << "sum: " << sum << std::endl;
-                std::cout << "descodificador m updated to " << m << std::endl;*/
                 sum = 0;
                 estimatedBlocks = 0;
             }
@@ -351,7 +347,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
     int framesRead = 0;
     unsigned int frameCount = 0;
 
-    unsigned short res_3_mod_x=0, res_3_mod_y=0;
+    unsigned short res_3_mod_x=0;
     unsigned long sum = 0;
     unsigned int initial_m;
 
@@ -454,8 +450,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
                 //std::cout << "i: " << i << " res3_x: " << res3_x << " res3_y: " << res3_y<< std::endl;
                 /* convert samples values to a positive range in order to perform the M estimation */
                 res_3_mod_x = res3_x > 0    ?   2 * res3_x - 1  :   -2 * res3_x;
-                res_3_mod_y = res3_y > 0    ?   2 * res3_y - 1  :   -2 * res3_y;
-                sum = sum + res_3_mod_x + res_3_mod_y;
+                sum = sum + res_3_mod_x;
 
             }
         }
@@ -626,7 +621,7 @@ std::vector<long signed> AudioCodec::calculateX_Y (signed long val_r, signed lon
         val_x = val_l;                  // code L
         val_y = (val_l - val_r);        // code L-R
     } else {
-        /* Default is Independent Mode */
+        /* The default is Independent Mode */
         val_x = val_r;
         val_y = val_l;
     }
@@ -640,7 +635,7 @@ unsigned int AudioCodec::estimateM_fromBlock(unsigned int sum, unsigned int bloc
     double mean, alfa;
     unsigned int m;
 
-    mean = (sum/(double)(blockSize*2));
+    mean = (sum/(double)(blockSize));
     alfa = mean/(1+mean);
     m = ceil(-1/log2(alfa));
     if(m<2) {
