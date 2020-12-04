@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['golombdecoder_47',['GolombDecoder',['../classGolombDecoder.html',1,'']]],
-  ['golombencoder_48',['GolombEncoder',['../classGolombEncoder.html',1,'']]]
+  ['golombdecoder_45',['GolombDecoder',['../classGolombDecoder.html',1,'']]],
+  ['golombencoder_46',['GolombEncoder',['../classGolombEncoder.html',1,'']]]
 ];
