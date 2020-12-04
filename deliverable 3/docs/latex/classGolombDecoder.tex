@@ -1,0 +1,93 @@
+\hypertarget{classGolombDecoder}{}\doxysection{Golomb\+Decoder Class Reference}
+\label{classGolombDecoder}\index{GolombDecoder@{GolombDecoder}}
+
+
+A class that implements an entropy decoder using Golomb codes. Includes methods to decode both positive and negative numbers.  
+
+
+
+
+{\ttfamily \#include $<$Golomb\+Decoder.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGolombDecoder_accc3346e3d9cf033c7215d9c0dd444d1}{Golomb\+Decoder}} (unsigned int m, std\+::string file\+Name)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGolombDecoder_ab5b60bf277d304bda47ca90faed927b4}\label{classGolombDecoder_ab5b60bf277d304bda47ca90faed927b4}} 
+virtual \mbox{\hyperlink{classGolombDecoder_ab5b60bf277d304bda47ca90faed927b4}{$\sim$\+Golomb\+Decoder}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGolombDecoder_a22c84fc94dfab545ca35b756dbd67bc9}{update}} (unsigned int m)
+\begin{DoxyCompactList}\small\item\em A function to update the m parameter used by the decoder. \end{DoxyCompactList}\item 
+signed int \mbox{\hyperlink{classGolombDecoder_a8e75442a6265293e50b4c1fa4b7afb78}{decode}} ()
+\begin{DoxyCompactList}\small\item\em A function to decode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus, all operations are performed in modulus and the sign is restored at the end. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGolombDecoder_aca8ff66c4dd2223bdce7f8536a6819a6}\label{classGolombDecoder_aca8ff66c4dd2223bdce7f8536a6819a6}} 
+void \mbox{\hyperlink{classGolombDecoder_aca8ff66c4dd2223bdce7f8536a6819a6}{close}} ()
+\begin{DoxyCompactList}\small\item\em A function that the allows the closing of the file that is being read. It should come after the whole file is read. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class that implements an entropy decoder using Golomb codes. Includes methods to decode both positive and negative numbers. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGolombDecoder_accc3346e3d9cf033c7215d9c0dd444d1}\label{classGolombDecoder_accc3346e3d9cf033c7215d9c0dd444d1}} 
+\index{GolombDecoder@{GolombDecoder}!GolombDecoder@{GolombDecoder}}
+\index{GolombDecoder@{GolombDecoder}!GolombDecoder@{GolombDecoder}}
+\doxysubsubsection{\texorpdfstring{GolombDecoder()}{GolombDecoder()}}
+{\footnotesize\ttfamily Golomb\+Decoder\+::\+Golomb\+Decoder (\begin{DoxyParamCaption}\item[{unsigned int}]{m,  }\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em m} & parameter of the Golomb code \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGolombDecoder_a8e75442a6265293e50b4c1fa4b7afb78}\label{classGolombDecoder_a8e75442a6265293e50b4c1fa4b7afb78}} 
+\index{GolombDecoder@{GolombDecoder}!decode@{decode}}
+\index{decode@{decode}!GolombDecoder@{GolombDecoder}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily signed int Golomb\+Decoder\+::decode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A function to decode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus, all operations are performed in modulus and the sign is restored at the end. 
+
+\begin{DoxyReturn}{Returns}
+The signed decoded value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGolombDecoder_a22c84fc94dfab545ca35b756dbd67bc9}\label{classGolombDecoder_a22c84fc94dfab545ca35b756dbd67bc9}} 
+\index{GolombDecoder@{GolombDecoder}!update@{update}}
+\index{update@{update}!GolombDecoder@{GolombDecoder}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Golomb\+Decoder\+::update (\begin{DoxyParamCaption}\item[{unsigned int}]{m }\end{DoxyParamCaption})}
+
+
+
+A function to update the m parameter used by the decoder. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em m} & new value for the m parameter \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Golomb\+Decoder.\+h\item 
+Golomb\+Decoder.\+cpp\end{DoxyCompactItemize}
