@@ -1,0 +1,77 @@
+\hypertarget{point14_8cpp}{}\doxysection{point14.\+cpp File Reference}
+\label{point14_8cpp}\index{point14.cpp@{point14.cpp}}
+
+
+Contains the resolution of point 14 of Deliverable 3. This program reads a .wav audio file.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$sndfile.\+hh$>$}\newline
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+{\ttfamily \#include \char`\"{}Golomb\+Encoder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Golomb\+Decoder.\+h\char`\"{}}\newline
+Include dependency graph for point14.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{point14_8cpp_ae48f8887146e69217dea979c8614f466}\label{point14_8cpp_ae48f8887146e69217dea979c8614f466}} 
+vector$<$ float $>$ {\bfseries audio\+Entropy} (string file\+Name)
+\item 
+\mbox{\Hypertarget{point14_8cpp_a088390b6ab8fc3761c2d9895d543c6a3}\label{point14_8cpp_a088390b6ab8fc3761c2d9895d543c6a3}} 
+void {\bfseries calculate\+Audio\+Hist} (string hist\+File\+Name, string audio\+File\+Name)
+\item 
+\mbox{\Hypertarget{point14_8cpp_acd192832ea40082f260da04913fdfb1f}\label{point14_8cpp_acd192832ea40082f260da04913fdfb1f}} 
+vector$<$ float $>$ {\bfseries residuals\+Entropy} (string file\+Name)
+\item 
+\mbox{\Hypertarget{point14_8cpp_a10f948dc559d8b891c04c3c46a404a0f}\label{point14_8cpp_a10f948dc559d8b891c04c3c46a404a0f}} 
+void {\bfseries calculate\+Res\+Hist} (string file\+Name, short res\+\_\+x, short res\+\_\+y, unsigned int total\+Frames)
+\item 
+\mbox{\Hypertarget{point14_8cpp_a18452a5e47eb669a3b7c3f8681bc0fff}\label{point14_8cpp_a18452a5e47eb669a3b7c3f8681bc0fff}} 
+vector$<$ long signed $>$ {\bfseries calculate\+X\+\_\+Y} (signed long val\+\_\+r, signed long val\+\_\+l, string channel\+Redudancy\+\_\+mode)
+\item 
+\mbox{\Hypertarget{point14_8cpp_a68bb3f0205125e2968d0224be4279e38}\label{point14_8cpp_a68bb3f0205125e2968d0224be4279e38}} 
+vector$<$ long signed $>$ {\bfseries calculate\+R\+\_\+L} (signed long val\+\_\+x, signed long val\+\_\+y, string channel\+Redudancy\+\_\+mode)
+\item 
+\mbox{\Hypertarget{point14_8cpp_a68603b3348524783f5f47413da3692db}\label{point14_8cpp_a68603b3348524783f5f47413da3692db}} 
+unsigned int {\bfseries estimate\+M\+\_\+from\+Block} (unsigned int sum, unsigned int block\+Size)
+\item 
+\mbox{\Hypertarget{point14_8cpp_ae2ed0663ada3fda61a36c1df5e022b37}\label{point14_8cpp_ae2ed0663ada3fda61a36c1df5e022b37}} 
+unsigned int {\bfseries estimate\+M\+\_\+from\+All\+Samples} (string audio\+File\+Name)
+\item 
+\mbox{\Hypertarget{point14_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{point14_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{point14_8cpp_a18e2a4e5b26bae28c09ffed307b6f57e}\label{point14_8cpp_a18e2a4e5b26bae28c09ffed307b6f57e}} 
+constexpr size\+\_\+t {\bfseries F\+R\+A\+M\+E\+S\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE} = 65536
+\item 
+\mbox{\Hypertarget{point14_8cpp_a80e47550e3ad24ebe4c2eb3b9a6114bb}\label{point14_8cpp_a80e47550e3ad24ebe4c2eb3b9a6114bb}} 
+string {\bfseries channel\+Redudancy\+\_\+mode} = \char`\"{}Independent\char`\"{}
+\item 
+\mbox{\Hypertarget{point14_8cpp_a1f019f203ddccef08a3c131b711f7756}\label{point14_8cpp_a1f019f203ddccef08a3c131b711f7756}} 
+string {\bfseries parameter\+Estimation\+\_\+mode} = \char`\"{}Block\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the resolution of point 14 of Deliverable 3. This program reads a .wav audio file. 
+
+\begin{DoxyVerb}   To use the program, the user must pass two arguments: the input audio file
+   path and the ouput residuals file path
+
+   Usage: point14 <input audio file> <output residuals file>
+\end{DoxyVerb}
+
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}

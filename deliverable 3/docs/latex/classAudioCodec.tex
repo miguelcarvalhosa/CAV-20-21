@@ -1,0 +1,276 @@
+\hypertarget{classAudioCodec}{}\doxysection{Audio\+Codec Class Reference}
+\label{classAudioCodec}\index{AudioCodec@{AudioCodec}}
+
+
+A class to compress and decompress a .wav audio file. Includes methods to compress and decompress audio files and to compute histograms and entropies.  
+
+
+
+
+{\ttfamily \#include $<$Audio\+Codec.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}{audio\+Codec\+\_\+\+Channel\+Redundancy}} \{ \mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aaba37c6770b2b5a2c044de315e931a330}{R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+I\+N\+D\+E\+P\+E\+N\+D\+E\+NT}}, 
+\mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aa29d6405cc2f52ea3fd6d129913aa5991}{R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+M\+I\+D\+\_\+\+S\+I\+DE}}, 
+\mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aa52d1086080d7b5dc669df05d22502b1e}{R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+L\+E\+F\+T\+\_\+\+S\+I\+DE}}, 
+\mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aacbada7b67ebbfc4242317204d5012727}{R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+R\+I\+G\+H\+T\+\_\+\+S\+I\+DE}}
+ \}
+\item 
+enum \mbox{\hyperlink{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4}{audio\+Codec\+\_\+parameter\+Estimation\+Mode}} \{ \mbox{\hyperlink{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4ae5753b50075988aa2190e3517a34b110}{E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+N\+O\+NE}}, 
+\mbox{\hyperlink{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4a2c0d5890ac7649ecf09cf6554be0fa7f}{E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+A\+D\+A\+P\+T\+A\+T\+I\+VE}}
+ \}
+\item 
+enum \mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}{audio\+Codec\+\_\+loss\+Mode}} \{ \mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26cac622a93b030f1040ab23836b32a2a1e2}{M\+O\+D\+E\+\_\+\+L\+O\+S\+S\+L\+E\+SS}}, 
+\mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26ca08dec8903fdefd5b6ba9626045571bae}{M\+O\+D\+E\+\_\+\+L\+O\+S\+SY}}
+ \}
+\item 
+enum \mbox{\hyperlink{classAudioCodec_ae7bb979025e30981629cf528daaab71a}{audio\+Codec\+\_\+histogram\+Mode}} \{ \mbox{\hyperlink{classAudioCodec_ae7bb979025e30981629cf528daaab71aabb11ab785a29029aea18bd2dd3cd7614}{M\+O\+D\+E\+\_\+\+N\+O\+\_\+\+H\+I\+S\+T\+O\+G\+R\+AM}}, 
+\mbox{\hyperlink{classAudioCodec_ae7bb979025e30981629cf528daaab71aaf344adebd974ef9716657a439c7f416c}{M\+O\+D\+E\+\_\+\+R\+E\+S\+I\+D\+U\+A\+L\+\_\+\+H\+I\+S\+T\+O\+G\+R\+AM}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAudioCodec_a024c1b2bdc905dd7f94118b8d3157e4a}\label{classAudioCodec_a024c1b2bdc905dd7f94118b8d3157e4a}} 
+\mbox{\hyperlink{classAudioCodec_a024c1b2bdc905dd7f94118b8d3157e4a}{Audio\+Codec}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAudioCodec_aa25b6671690fee37ee60a443381deae2}\label{classAudioCodec_aa25b6671690fee37ee60a443381deae2}} 
+virtual \mbox{\hyperlink{classAudioCodec_aa25b6671690fee37ee60a443381deae2}{$\sim$\+Audio\+Codec}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classAudioCodec_a5be2ff645b5a2a492c2351da65876cc5}{estimateM}} (std\+::string input\+File, \mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}{audio\+Codec\+\_\+\+Channel\+Redundancy}} redundancy, \mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}{audio\+Codec\+\_\+loss\+Mode}} loss, unsigned int lost\+Bits)
+\begin{DoxyCompactList}\small\item\em A function to estimate the best Golomb encoder parameter \textquotesingle{}m\textquotesingle{} value for the entire audio file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAudioCodec_aa97d82384f19c87fa40e2abe26d1e04f}{compress}} (std\+::string input\+File, std\+::string compressed\+File, unsigned int m, \mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}{audio\+Codec\+\_\+\+Channel\+Redundancy}} redundancy, \mbox{\hyperlink{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4}{audio\+Codec\+\_\+parameter\+Estimation\+Mode}} estimation, unsigned int estimation\+\_\+n\+Blocks, \mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}{audio\+Codec\+\_\+loss\+Mode}} loss, unsigned int lost\+Bits, \mbox{\hyperlink{classAudioCodec_ae7bb979025e30981629cf528daaab71a}{audio\+Codec\+\_\+histogram\+Mode}} hist\+Mode, std\+::string histogram\+File\+Name)
+\begin{DoxyCompactList}\small\item\em A function to compress an audio file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAudioCodec_abb9f205668a08d32439e5ab0db0fca78}{decompress}} (std\+::string compressed\+File, std\+::string output\+File)
+\begin{DoxyCompactList}\small\item\em A function to decompress an audio file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAudioCodec_a1d402b9d8b5d49d60789b8064cecdc5d}{calculate\+Audio\+Hist}} (std\+::string hist\+File\+Name, std\+::string audio\+File\+Name)
+\begin{DoxyCompactList}\small\item\em A function to calculate the histogram of an audio file. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classAudioCodec_a98a82c1b0c08051a5cee78e8cd9a344f}{audio\+Entropy}} (std\+::string file\+Name)
+\begin{DoxyCompactList}\small\item\em A function to calculate the entropy of an audio file. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{classAudioCodec_a3b2e89531d0e9632e895e050c2d84683}{residuals\+Entropy}} (std\+::string file\+Name)
+\begin{DoxyCompactList}\small\item\em A function to calculate the entropy of a compressed file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class to compress and decompress a .wav audio file. Includes methods to compress and decompress audio files and to compute histograms and entropies. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}\label{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}} 
+\index{AudioCodec@{AudioCodec}!audioCodec\_ChannelRedundancy@{audioCodec\_ChannelRedundancy}}
+\index{audioCodec\_ChannelRedundancy@{audioCodec\_ChannelRedundancy}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{audioCodec\_ChannelRedundancy}{audioCodec\_ChannelRedundancy}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}{Audio\+Codec\+::audio\+Codec\+\_\+\+Channel\+Redundancy}}}
+
+Enumeration with the types of inter-\/channel redundancy to use when compressing the audio file. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REDUNDANCY\_INDEPENDENT@{REDUNDANCY\_INDEPENDENT}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!REDUNDANCY\_INDEPENDENT@{REDUNDANCY\_INDEPENDENT}}}\mbox{\Hypertarget{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aaba37c6770b2b5a2c044de315e931a330}\label{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aaba37c6770b2b5a2c044de315e931a330}} 
+R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+I\+N\+D\+E\+P\+E\+N\+D\+E\+NT&No redundancy between channels \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REDUNDANCY\_MID\_SIDE@{REDUNDANCY\_MID\_SIDE}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!REDUNDANCY\_MID\_SIDE@{REDUNDANCY\_MID\_SIDE}}}\mbox{\Hypertarget{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aa29d6405cc2f52ea3fd6d129913aa5991}\label{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aa29d6405cc2f52ea3fd6d129913aa5991}} 
+R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+M\+I\+D\+\_\+\+S\+I\+DE&Compress the mean (mid) and the difference (side) of the channels \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REDUNDANCY\_LEFT\_SIDE@{REDUNDANCY\_LEFT\_SIDE}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!REDUNDANCY\_LEFT\_SIDE@{REDUNDANCY\_LEFT\_SIDE}}}\mbox{\Hypertarget{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aa52d1086080d7b5dc669df05d22502b1e}\label{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aa52d1086080d7b5dc669df05d22502b1e}} 
+R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+L\+E\+F\+T\+\_\+\+S\+I\+DE&Compress the left channel (left) and the difference (side) of the channels \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REDUNDANCY\_RIGHT\_SIDE@{REDUNDANCY\_RIGHT\_SIDE}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!REDUNDANCY\_RIGHT\_SIDE@{REDUNDANCY\_RIGHT\_SIDE}}}\mbox{\Hypertarget{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aacbada7b67ebbfc4242317204d5012727}\label{classAudioCodec_a27e4611918ede7e6aa9604ef8870376aacbada7b67ebbfc4242317204d5012727}} 
+R\+E\+D\+U\+N\+D\+A\+N\+C\+Y\+\_\+\+R\+I\+G\+H\+T\+\_\+\+S\+I\+DE&Compress the right channel (right) and the difference (side) of the channels \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classAudioCodec_ae7bb979025e30981629cf528daaab71a}\label{classAudioCodec_ae7bb979025e30981629cf528daaab71a}} 
+\index{AudioCodec@{AudioCodec}!audioCodec\_histogramMode@{audioCodec\_histogramMode}}
+\index{audioCodec\_histogramMode@{audioCodec\_histogramMode}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{audioCodec\_histogramMode}{audioCodec\_histogramMode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classAudioCodec_ae7bb979025e30981629cf528daaab71a}{Audio\+Codec\+::audio\+Codec\+\_\+histogram\+Mode}}}
+
+Enumeration with the modes of computing histograms histogram. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_NO\_HISTOGRAM@{MODE\_NO\_HISTOGRAM}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!MODE\_NO\_HISTOGRAM@{MODE\_NO\_HISTOGRAM}}}\mbox{\Hypertarget{classAudioCodec_ae7bb979025e30981629cf528daaab71aabb11ab785a29029aea18bd2dd3cd7614}\label{classAudioCodec_ae7bb979025e30981629cf528daaab71aabb11ab785a29029aea18bd2dd3cd7614}} 
+M\+O\+D\+E\+\_\+\+N\+O\+\_\+\+H\+I\+S\+T\+O\+G\+R\+AM&Do not compute histograms \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_RESIDUAL\_HISTOGRAM@{MODE\_RESIDUAL\_HISTOGRAM}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!MODE\_RESIDUAL\_HISTOGRAM@{MODE\_RESIDUAL\_HISTOGRAM}}}\mbox{\Hypertarget{classAudioCodec_ae7bb979025e30981629cf528daaab71aaf344adebd974ef9716657a439c7f416c}\label{classAudioCodec_ae7bb979025e30981629cf528daaab71aaf344adebd974ef9716657a439c7f416c}} 
+M\+O\+D\+E\+\_\+\+R\+E\+S\+I\+D\+U\+A\+L\+\_\+\+H\+I\+S\+T\+O\+G\+R\+AM&Compute residuals histogram \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}\label{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}} 
+\index{AudioCodec@{AudioCodec}!audioCodec\_lossMode@{audioCodec\_lossMode}}
+\index{audioCodec\_lossMode@{audioCodec\_lossMode}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{audioCodec\_lossMode}{audioCodec\_lossMode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}{Audio\+Codec\+::audio\+Codec\+\_\+loss\+Mode}}}
+
+Enumeration with the modes of losses during encoding. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_LOSSLESS@{MODE\_LOSSLESS}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!MODE\_LOSSLESS@{MODE\_LOSSLESS}}}\mbox{\Hypertarget{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26cac622a93b030f1040ab23836b32a2a1e2}\label{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26cac622a93b030f1040ab23836b32a2a1e2}} 
+M\+O\+D\+E\+\_\+\+L\+O\+S\+S\+L\+E\+SS&Mode with no losses \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_LOSSY@{MODE\_LOSSY}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!MODE\_LOSSY@{MODE\_LOSSY}}}\mbox{\Hypertarget{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26ca08dec8903fdefd5b6ba9626045571bae}\label{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26ca08dec8903fdefd5b6ba9626045571bae}} 
+M\+O\+D\+E\+\_\+\+L\+O\+S\+SY&Mode with losses \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4}\label{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4}} 
+\index{AudioCodec@{AudioCodec}!audioCodec\_parameterEstimationMode@{audioCodec\_parameterEstimationMode}}
+\index{audioCodec\_parameterEstimationMode@{audioCodec\_parameterEstimationMode}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{audioCodec\_parameterEstimationMode}{audioCodec\_parameterEstimationMode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4}{Audio\+Codec\+::audio\+Codec\+\_\+parameter\+Estimation\+Mode}}}
+
+Enumeration with the modes of the Golomb encoder parameter estimation. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESTIMATION\_NONE@{ESTIMATION\_NONE}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!ESTIMATION\_NONE@{ESTIMATION\_NONE}}}\mbox{\Hypertarget{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4ae5753b50075988aa2190e3517a34b110}\label{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4ae5753b50075988aa2190e3517a34b110}} 
+E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+N\+O\+NE&No estimation of the Golomb encoder parameter \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESTIMATION\_ADAPTATIVE@{ESTIMATION\_ADAPTATIVE}!AudioCodec@{AudioCodec}}\index{AudioCodec@{AudioCodec}!ESTIMATION\_ADAPTATIVE@{ESTIMATION\_ADAPTATIVE}}}\mbox{\Hypertarget{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4a2c0d5890ac7649ecf09cf6554be0fa7f}\label{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4a2c0d5890ac7649ecf09cf6554be0fa7f}} 
+E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+A\+D\+A\+P\+T\+A\+T\+I\+VE&Adaptative estimation of the Golomb encoder parameter \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAudioCodec_a98a82c1b0c08051a5cee78e8cd9a344f}\label{classAudioCodec_a98a82c1b0c08051a5cee78e8cd9a344f}} 
+\index{AudioCodec@{AudioCodec}!audioEntropy@{audioEntropy}}
+\index{audioEntropy@{audioEntropy}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{audioEntropy()}{audioEntropy()}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ Audio\+Codec\+::audio\+Entropy (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+A function to calculate the entropy of an audio file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+Name} & A string with the input audio file path\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A float vector with the audio entropy. The vector has three positions\+: right, left and mono channel entropy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAudioCodec_a1d402b9d8b5d49d60789b8064cecdc5d}\label{classAudioCodec_a1d402b9d8b5d49d60789b8064cecdc5d}} 
+\index{AudioCodec@{AudioCodec}!calculateAudioHist@{calculateAudioHist}}
+\index{calculateAudioHist@{calculateAudioHist}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{calculateAudioHist()}{calculateAudioHist()}}
+{\footnotesize\ttfamily void Audio\+Codec\+::calculate\+Audio\+Hist (\begin{DoxyParamCaption}\item[{std\+::string}]{hist\+File\+Name,  }\item[{std\+::string}]{audio\+File\+Name }\end{DoxyParamCaption})}
+
+
+
+A function to calculate the histogram of an audio file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em hist\+File\+Name} & A string with the output histogram file path \\
+\hline
+\mbox{\texttt{ in}}  & {\em audio\+File\+Name} & A string with the input audio file path \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAudioCodec_aa97d82384f19c87fa40e2abe26d1e04f}\label{classAudioCodec_aa97d82384f19c87fa40e2abe26d1e04f}} 
+\index{AudioCodec@{AudioCodec}!compress@{compress}}
+\index{compress@{compress}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{compress()}{compress()}}
+{\footnotesize\ttfamily void Audio\+Codec\+::compress (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+File,  }\item[{std\+::string}]{compressed\+File,  }\item[{unsigned int}]{m,  }\item[{\mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}{audio\+Codec\+\_\+\+Channel\+Redundancy}}}]{redundancy,  }\item[{\mbox{\hyperlink{classAudioCodec_a8842aad91cd9a023958d6efcacf699c4}{audio\+Codec\+\_\+parameter\+Estimation\+Mode}}}]{estimation,  }\item[{unsigned int}]{estimation\+\_\+n\+Blocks,  }\item[{\mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}{audio\+Codec\+\_\+loss\+Mode}}}]{loss,  }\item[{unsigned int}]{lost\+Bits,  }\item[{\mbox{\hyperlink{classAudioCodec_ae7bb979025e30981629cf528daaab71a}{audio\+Codec\+\_\+histogram\+Mode}}}]{hist\+Mode,  }\item[{std\+::string}]{histogram\+File\+Name }\end{DoxyParamCaption})}
+
+
+
+A function to compress an audio file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em input\+File} & A string with the input audio file path \\
+\hline
+\mbox{\texttt{ out}}  & {\em compressed\+File} & A string with the output compressed file path \\
+\hline
+\mbox{\texttt{ in}}  & {\em m} & The Golomb encoder \textquotesingle{}m\textquotesingle{} parameter \\
+\hline
+\mbox{\texttt{ in}}  & {\em redundancy} & The type of redundancy to use \\
+\hline
+\mbox{\texttt{ in}}  & {\em estimation} & The type of estimation of the value \textquotesingle{}m\textquotesingle{} to use \\
+\hline
+\mbox{\texttt{ in}}  & {\em estimation\+\_\+n\+Blocks} & The number of audio sample blocks to use in each parameter \textquotesingle{}m\textquotesingle{} estimation \\
+\hline
+\mbox{\texttt{ in}}  & {\em loss} & The type of loss mode \\
+\hline
+\mbox{\texttt{ in}}  & {\em lost\+Bits} & The number of bits to reduce to each residual \\
+\hline
+\mbox{\texttt{ in}}  & {\em hist\+Mode} & The type of histogram mode \\
+\hline
+\mbox{\texttt{ out}}  & {\em histogram\+File\+Name} & A string with the output histogram file path \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAudioCodec_abb9f205668a08d32439e5ab0db0fca78}\label{classAudioCodec_abb9f205668a08d32439e5ab0db0fca78}} 
+\index{AudioCodec@{AudioCodec}!decompress@{decompress}}
+\index{decompress@{decompress}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{decompress()}{decompress()}}
+{\footnotesize\ttfamily void Audio\+Codec\+::decompress (\begin{DoxyParamCaption}\item[{std\+::string}]{compressed\+File,  }\item[{std\+::string}]{output\+File }\end{DoxyParamCaption})}
+
+
+
+A function to decompress an audio file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em compressed\+File} & A string with the input compressed file path \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+File} & A string with the output audio file path \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAudioCodec_a5be2ff645b5a2a492c2351da65876cc5}\label{classAudioCodec_a5be2ff645b5a2a492c2351da65876cc5}} 
+\index{AudioCodec@{AudioCodec}!estimateM@{estimateM}}
+\index{estimateM@{estimateM}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{estimateM()}{estimateM()}}
+{\footnotesize\ttfamily unsigned int Audio\+Codec\+::estimateM (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+File,  }\item[{\mbox{\hyperlink{classAudioCodec_a27e4611918ede7e6aa9604ef8870376a}{audio\+Codec\+\_\+\+Channel\+Redundancy}}}]{redundancy,  }\item[{\mbox{\hyperlink{classAudioCodec_af2cb68ad0d127cd98227b19a66aaa26c}{audio\+Codec\+\_\+loss\+Mode}}}]{loss,  }\item[{unsigned int}]{lost\+Bits }\end{DoxyParamCaption})}
+
+
+
+A function to estimate the best Golomb encoder parameter \textquotesingle{}m\textquotesingle{} value for the entire audio file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em input\+File} & A string with the input audio file path \\
+\hline
+\mbox{\texttt{ in}}  & {\em redundancy} & The type of redundancy to use \\
+\hline
+\mbox{\texttt{ in}}  & {\em loss} & The type of loss mode \\
+\hline
+\mbox{\texttt{ in}}  & {\em lost\+Bits} & The number of bits to reduce to each residual\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The best value for parameter \textquotesingle{}m\textquotesingle{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAudioCodec_a3b2e89531d0e9632e895e050c2d84683}\label{classAudioCodec_a3b2e89531d0e9632e895e050c2d84683}} 
+\index{AudioCodec@{AudioCodec}!residualsEntropy@{residualsEntropy}}
+\index{residualsEntropy@{residualsEntropy}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{residualsEntropy()}{residualsEntropy()}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ Audio\+Codec\+::residuals\+Entropy (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+A function to calculate the entropy of a compressed file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+Name} & A string with the input compressed file path\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A float vector with the audio entropy. The vector has two positions\+: first and second channel entropy. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Audio\+Codec.\+h\item 
+Audio\+Codec.\+cpp\end{DoxyCompactItemize}
