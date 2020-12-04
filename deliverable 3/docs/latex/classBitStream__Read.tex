@@ -1,0 +1,144 @@
+\hypertarget{classBitStream__Read}{}\doxysection{Bit\+Stream\+\_\+\+Read Class Reference}
+\label{classBitStream__Read}\index{BitStream\_Read@{BitStream\_Read}}
+
+
+A class to read a stream of bits from a file. Includes methods to read single bits and strings.  
+
+
+
+
+{\ttfamily \#include $<$Bit\+Stream\+\_\+\+Read.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBitStream__Read_a8707daaf8daa402167f1e30cc587c09f}\label{classBitStream__Read_a8707daaf8daa402167f1e30cc587c09f}} 
+\mbox{\hyperlink{classBitStream__Read_a8707daaf8daa402167f1e30cc587c09f}{Bit\+Stream\+\_\+\+Read}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBitStream__Read_afd80d9cf8a803f06ba32d7ffaf47d2e1}{Bit\+Stream\+\_\+\+Read}} (std\+::string file\+Name)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBitStream__Read_aadd993daae89d79194e91d41e76e4785}\label{classBitStream__Read_aadd993daae89d79194e91d41e76e4785}} 
+virtual \mbox{\hyperlink{classBitStream__Read_aadd993daae89d79194e91d41e76e4785}{$\sim$\+Bit\+Stream\+\_\+\+Read}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBitStream__Read_a90141d9fa19c6530c4dd1cf51bae139b}\label{classBitStream__Read_a90141d9fa19c6530c4dd1cf51bae139b}} 
+void \mbox{\hyperlink{classBitStream__Read_a90141d9fa19c6530c4dd1cf51bae139b}{close}} ()
+\begin{DoxyCompactList}\small\item\em A function to close the bitstream. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classBitStream__Read_a7d06fa61f96e67b65f459518dd2e188d}{read\+Bit}} ()
+\begin{DoxyCompactList}\small\item\em A function to read a bit from the file. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classBitStream__Read_a8a3c1c2e745ae2a3f447613b31aa6ad8}{read\+N\+Bits}} (uint8\+\_\+t nbits)
+\begin{DoxyCompactList}\small\item\em A function to read a number of bits from the file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBitStream__Read_a9321b14fd43f837211950239cccd1869}{read\+String}} (std\+::string \&str, uint8\+\_\+t nchars)
+\begin{DoxyCompactList}\small\item\em A function to read a string from the file in binary. It reads \textquotesingle{}nchars\textquotesingle{} characters from the file and stores them in string \textquotesingle{}str\textquotesingle{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBitStream__Read_aca36a3f49a143a411a3a52a4d91f7574}{set\+File\+Name}} (std\+::string file\+Name)
+\begin{DoxyCompactList}\small\item\em A function to set and open the file used for reading Useful when an object instance is created using the default constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class to read a stream of bits from a file. Includes methods to read single bits and strings. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBitStream__Read_afd80d9cf8a803f06ba32d7ffaf47d2e1}\label{classBitStream__Read_afd80d9cf8a803f06ba32d7ffaf47d2e1}} 
+\index{BitStream\_Read@{BitStream\_Read}!BitStream\_Read@{BitStream\_Read}}
+\index{BitStream\_Read@{BitStream\_Read}!BitStream\_Read@{BitStream\_Read}}
+\doxysubsubsection{\texorpdfstring{BitStream\_Read()}{BitStream\_Read()}}
+{\footnotesize\ttfamily Bit\+Stream\+\_\+\+Read\+::\+Bit\+Stream\+\_\+\+Read (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+Name} & A string with the file name to be read \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBitStream__Read_a7d06fa61f96e67b65f459518dd2e188d}\label{classBitStream__Read_a7d06fa61f96e67b65f459518dd2e188d}} 
+\index{BitStream\_Read@{BitStream\_Read}!readBit@{readBit}}
+\index{readBit@{readBit}!BitStream\_Read@{BitStream\_Read}}
+\doxysubsubsection{\texorpdfstring{readBit()}{readBit()}}
+{\footnotesize\ttfamily uint8\+\_\+t Bit\+Stream\+\_\+\+Read\+::read\+Bit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A function to read a bit from the file. 
+
+\begin{DoxyReturn}{Returns}
+The value read 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & \\
+\hline
+{\em 1} & \\
+\hline
+{\em 0x\+FF} & Invalid return value \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{classBitStream__Read_a8a3c1c2e745ae2a3f447613b31aa6ad8}\label{classBitStream__Read_a8a3c1c2e745ae2a3f447613b31aa6ad8}} 
+\index{BitStream\_Read@{BitStream\_Read}!readNBits@{readNBits}}
+\index{readNBits@{readNBits}!BitStream\_Read@{BitStream\_Read}}
+\doxysubsubsection{\texorpdfstring{readNBits()}{readNBits()}}
+{\footnotesize\ttfamily uint64\+\_\+t Bit\+Stream\+\_\+\+Read\+::read\+N\+Bits (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{nbits }\end{DoxyParamCaption})}
+
+
+
+A function to read a number of bits from the file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em nbits} & The number of bits to be read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value read 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBitStream__Read_a9321b14fd43f837211950239cccd1869}\label{classBitStream__Read_a9321b14fd43f837211950239cccd1869}} 
+\index{BitStream\_Read@{BitStream\_Read}!readString@{readString}}
+\index{readString@{readString}!BitStream\_Read@{BitStream\_Read}}
+\doxysubsubsection{\texorpdfstring{readString()}{readString()}}
+{\footnotesize\ttfamily void Bit\+Stream\+\_\+\+Read\+::read\+String (\begin{DoxyParamCaption}\item[{std\+::string \&}]{str,  }\item[{uint8\+\_\+t}]{nchars }\end{DoxyParamCaption})}
+
+
+
+A function to read a string from the file in binary. It reads \textquotesingle{}nchars\textquotesingle{} characters from the file and stores them in string \textquotesingle{}str\textquotesingle{}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em str} & The output string \\
+\hline
+\mbox{\texttt{ in}}  & {\em nchars} & The number of characters to be read \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBitStream__Read_aca36a3f49a143a411a3a52a4d91f7574}\label{classBitStream__Read_aca36a3f49a143a411a3a52a4d91f7574}} 
+\index{BitStream\_Read@{BitStream\_Read}!setFileName@{setFileName}}
+\index{setFileName@{setFileName}!BitStream\_Read@{BitStream\_Read}}
+\doxysubsubsection{\texorpdfstring{setFileName()}{setFileName()}}
+{\footnotesize\ttfamily void Bit\+Stream\+\_\+\+Read\+::set\+File\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+A function to set and open the file used for reading Useful when an object instance is created using the default constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+Name} & A string with the file name to be written \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Bit\+Stream\+\_\+\+Read.\+h\item 
+Bit\+Stream\+\_\+\+Read.\+cpp\end{DoxyCompactItemize}
