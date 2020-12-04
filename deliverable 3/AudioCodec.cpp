@@ -41,22 +41,29 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
 
     GolombEncoder encoder(initial_m, compressedFile);
 
-    std::vector<short> samplesIn(FRAMES_BUFFER_SIZE * nChannels);
+    std::vector<short> samplesIn(FRAMES_BUFFER_SIZE * nChannels);        // vector to store a block of samples
     int framesRead = 0;
     unsigned char firstFrameFlag = 1;
     unsigned int frameCount = 0;
     unsigned int estimatedBlocks = 0;
 
+    // stores the value of the input file samples
     short buf_x, buf_y;
+    // residuals of different orders and variables to store the previous residual of that order
     short res0_x, res0_y, prev_res0_x, prev_res0_y;
     short res1_x, res1_y, prev_res1_x, prev_res1_y;
     short res2_x, res2_y, prev_res2_x, prev_res2_y;
     short res3_x, res3_y;
+
     unsigned short res_3_mod_x;
     unsigned long sum = 0;
     std::vector<signed long> X_Y(2);
 
-    while (framesRead = sndFileIn.readf(samplesIn.data(), FRAMES_BUFFER_SIZE)) {
+    /*
+     * reads all the frames in the input file, calculates the residuals
+     * and codifies the information using golomb into a compressed file
+     * */
+    while ((framesRead = sndFileIn.readf(samplesIn.data(), FRAMES_BUFFER_SIZE))) {
         frameCount++;
         if(framesRead != FRAMES_BUFFER_SIZE) {
             lastFrameSize = framesRead;
@@ -65,10 +72,10 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
             X_Y = calculateX_Y (samplesIn[i], samplesIn[i+1], this->redundancy);
             buf_x = X_Y[0];
             buf_y = X_Y[1];
-            if(firstFrameFlag == 1) {
+            if(firstFrameFlag == 1) {                                 // analysis of the first three samples, when no past values are available
                 if(i == 0) {
                     res0_x = buf_x;
-                    if (this->loss == MODE_LOSSY) {
+                    if (this->loss == MODE_LOSSY) {                   // condition for when losses are to be considered
                         res0_x = res0_x >> this->lostBits;
                     }
                     encoder.encode(res0_x);
@@ -129,7 +136,7 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
 
                 }
             }
-            else {
+            else {                                                      // calculation and encoding of the residual of third order
                 res0_x = buf_x;
                 if (this->loss == MODE_LOSSY) {
                     res0_x = res0_x >> this->lostBits;
@@ -153,26 +160,22 @@ void AudioCodec::compress(std::string inputFile, std::string compressedFile, uns
                 prev_res0_y = res0_y;
                 prev_res1_y = res1_y;
                 prev_res2_y = res2_y;
-               // std::cout << "i: " << i << " res3_x: " << res3_x << " res3_y: " << res3_y<< std::endl;
             }
-            if(this->estimation == ESTIMATION_ADAPTATIVE) {
-                if((i > 4 && firstFrameFlag == 0) || (frameCount>1)) {
+            if(this->estimation == ESTIMATION_ADAPTATIVE) {              // adaptative estimation
+                if((i > 4 && firstFrameFlag == 0) || (frameCount>1)) {   // only available after the first 3 samples
                     estimatedBlocks++;
                     /* convert samples values to a positive range in order to perform the M estimation */
                     res_3_mod_x = res3_x > 0    ?   2 * res3_x - 1  :   -2 * res3_x;
                     sum = sum + res_3_mod_x;
                     if(estimatedBlocks == this->estimation_nBlocks) {
                         this->m = estimateM_fromBlock(sum, this->estimation_nBlocks);
-                        //std::cout << "this->m: " << this->m << std::endl;
                         encoder.update(this->m);
-                        //std::cout << "sum: " << sum << std::endl;
-                        /* std::cout << "m updated to " << this->m << std::endl;*/
                         sum = 0;
                         estimatedBlocks = 0;
                     }
                 }
             }
-            if(histMode == MODE_RESIDUAL_HISTOGRAM) {
+            if(histMode == MODE_RESIDUAL_HISTOGRAM)      {                 // residuals histogram calculation
                 calculateResHist(histogramFileName, res3_x, res3_y, nFrames);
             }
         }
@@ -184,7 +187,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
 
     GolombDecoder decoder(initial_m, compressedFile);
 
-    SndfileHandle sndFileOut { outputFile, SFM_WRITE, format, nChannels, sampleRate };
+    SndfileHandle sndFileOut { outputFile, SFM_WRITE, format, nChannels, sampleRate };  // writing settings for the output file
 
     if(sndFileOut.error()) {
         std::cerr << "Error: invalid output file" << std::endl;
@@ -192,7 +195,12 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
 
     std::vector<short> samplesOut(FRAMES_BUFFER_SIZE * nChannels);
 
+    /* variables to store decoded values*/
     signed long val_x, val_y, prev_val_x,  prev_val_y;
+    /*
+     * variables to store reconstituted residuals and the values of the
+     * previous residuals
+     * */
     signed long val1_x, val1_y, prev_val1_x, prev_val1_y;
     signed long val2_x, val2_y, prev_val2_x, prev_val2_y;
     signed long val3_x, val3_y;
@@ -204,8 +212,8 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
 
     val_x = decoder.decode();
     prev_val_x = val_x;
-    if(this->loss == MODE_LOSSY) {
-        val_x = val_x << this->lostBits;
+    if(this->loss == MODE_LOSSY) {                      // assess if the value has losses included
+        val_x = val_x << this->lostBits;                // reconstitutes most significant bits
     }
     val_y = decoder.decode();
     prev_val_y = val_y;
@@ -213,6 +221,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         val_y = val_y << this->lostBits;
     }
     R_L = calculateR_L(val_x, val_y, redundancy);
+    /* stores reconstituted samples to output buffer */
     samplesOut[samplesRead++] = R_L[0];
     samplesOut[samplesRead++] = R_L[1];
 
@@ -255,9 +264,13 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
     R_L = calculateR_L(val_x, val_y, redundancy);
     samplesOut[samplesRead++] = R_L[0];
     samplesOut[samplesRead++] = R_L[1];
+    /* until this point were written the first three frames, which didn't
+     * have enough previous samples to compute all the residuals (in accordance
+     * with the compressed format)
+     * */
 
     unsigned int framesRead = 0;
-    unsigned int blocksRead = 0;
+    unsigned int blocksRead = 0;                // number of blocks written to the file
     while(framesRead < nFrames - 3) {
 
         val3_x = decoder.decode();
@@ -287,6 +300,7 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
         estimatedBlocks++;
         val3_mod_x = val3_x >0?  2*val3_x -1 : -2*val3_x;
         sum = sum + val3_mod_x;
+        /* Estimates m to be in accordance with the one used in the compressing state */
         if(estimation == ESTIMATION_ADAPTATIVE) {
             if (estimatedBlocks == estimation_nBlocks) {
                 m = estimateM_fromBlock(sum, estimation_nBlocks);
@@ -296,12 +310,12 @@ void AudioCodec::decompress(std::string compressedFile, std::string outputFile) 
             }
         }
 
-        if(samplesRead >= FRAMES_BUFFER_SIZE * nChannels) {
+        if(samplesRead >= FRAMES_BUFFER_SIZE * nChannels) {             // Write to file if buffer is full
             sndFileOut.writef(samplesOut.data(), FRAMES_BUFFER_SIZE);
             samplesRead = 0;
             blocksRead++;
         }
-        else if(blocksRead == ((nFrames/FRAMES_BUFFER_SIZE)) && samplesRead >= lastFrameSize*nChannels) {
+        else if(blocksRead == ((nFrames/FRAMES_BUFFER_SIZE)) && samplesRead >= lastFrameSize*nChannels) {  // Last block, when buffer might not be full
             sndFileOut.writef(samplesOut.data(), lastFrameSize);
         }
         framesRead++;
@@ -351,7 +365,7 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
     unsigned long sum = 0;
     unsigned int initial_m;
 
-    while (framesRead = sndFileIn.readf(samplesIn.data(), FRAMES_BUFFER_SIZE)) {
+    while ((framesRead = sndFileIn.readf(samplesIn.data(), FRAMES_BUFFER_SIZE))) {
         frameCount++;
         for(unsigned int i=0; i < framesRead*nChannels; i += nChannels) {
             X_Y = calculateX_Y(samplesIn[i], samplesIn[i + 1], this->redundancy);
