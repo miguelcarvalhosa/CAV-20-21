@@ -338,10 +338,10 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
     std::vector<short> samplesIn(FRAMES_BUFFER_SIZE * nChannels);
     std::vector<signed long> X_Y(2);
     short buf_x, buf_y;
-    short res0_x, res0_y, prev_res0_x, prev_res0_y;
-    short res1_x, res1_y, prev_res1_x, prev_res1_y;
-    short res2_x, res2_y, prev_res2_x, prev_res2_y;
-    short res3_x, res3_y;
+    short res0_x, prev_res0_x;
+    short res1_x, prev_res1_x;
+    short res2_x, prev_res2_x;
+    short res3_x;
 
     unsigned char firstFrameFlag = 1;
     int framesRead = 0;
@@ -350,6 +350,13 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
     unsigned short res_3_mod_x=0;
     unsigned long sum = 0;
     unsigned int initial_m;
+
+    /* To estimate the optimal value of m from all the audio samples of a channel,
+     * it is necessary to first scroll through each sample so that a cumulative sum
+     * of its third order residuals can be computed.
+     * The resulting value of the sum is later passed as an argument of the
+     * estimateM_fromBlock function that will now try to compute the optimal value
+     * of the M parameter using a blocksize equal to the total number of Frames */
 
     while (framesRead = sndFileIn.readf(samplesIn.data(), FRAMES_BUFFER_SIZE)) {
         frameCount++;
@@ -366,12 +373,6 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
                     }
 
                     prev_res0_x = res0_x;
-                    res0_y = buf_y;
-                    if (this->loss == MODE_LOSSY) {
-                        res0_y = res0_y >> this->lostBits;
-                    }
-
-                    prev_res0_y = res0_y;
 
                 } else if (i == 2) {
                     res0_x = buf_x;
@@ -382,15 +383,6 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
 
                     prev_res0_x = res0_x;
                     prev_res1_x = res1_x;
-
-                    res0_y = buf_y;
-                    if (this->loss == MODE_LOSSY) {
-                        res0_y = res0_y >> this->lostBits;
-                    }
-                    res1_y = res0_y - prev_res0_y;
-
-                    prev_res0_y = res0_y;
-                    prev_res1_y = res1_y;
 
                 } else if (i == 4) {
                     res0_x = buf_x;
@@ -403,18 +395,6 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
                     prev_res0_x = res0_x;
                     prev_res1_x = res1_x;
                     prev_res2_x = res2_x;
-
-                    res0_y = buf_y;
-
-                    if (this->loss == MODE_LOSSY) {
-                        res0_y = res0_y >> this->lostBits;
-                    }
-                    res1_y = res0_y - prev_res0_y;
-                    res2_y = res1_y - prev_res1_y;
-
-                    prev_res0_y = res0_y;
-                    prev_res1_y = res1_y;
-                    prev_res2_y = res2_y;
 
                     firstFrameFlag = 0;
 
@@ -433,21 +413,8 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
                 prev_res1_x = res1_x;
                 prev_res2_x = res2_x;
 
-                res0_y = buf_y;
-                if (this->loss == MODE_LOSSY) {
-                    res0_y = res0_y >> this->lostBits;
-                }
-                res1_y = res0_y - prev_res0_y;
-                res2_y = res1_y - prev_res1_y;
-                res3_y = res2_y - prev_res2_y;
-
-                prev_res0_y = res0_y;
-                prev_res1_y = res1_y;
-                prev_res2_y = res2_y;
-                //std::cout << "i: " << i << " res3_x: " << res3_x << " res3_y: " << res3_y<< std::endl;
             }
             if((i > 4 && firstFrameFlag == 0) || (frameCount>1)) {
-                //std::cout << "i: " << i << " res3_x: " << res3_x << " res3_y: " << res3_y<< std::endl;
                 /* convert samples values to a positive range in order to perform the M estimation */
                 res_3_mod_x = res3_x > 0    ?   2 * res3_x - 1  :   -2 * res3_x;
                 sum = sum + res_3_mod_x;
@@ -456,8 +423,6 @@ unsigned int AudioCodec::estimateM(std::string inputFile, audioCodec_ChannelRedu
         }
     }
     initial_m = estimateM_fromBlock(sum, sndFileIn.frames());
-    //std::cout << "sum: " << sum << std::endl;
-    //std::cout << "initial_m: " << initial_m << std::endl;
 
     return initial_m;
 }
@@ -506,7 +471,7 @@ void AudioCodec::calculateAudioHist(std::string histFileName, std::string audioF
 
 
 std::vector<float> AudioCodec::audioEntropy(std::string fileName) {
-    // nº de bits médio/simbolo
+
     float Pi_r, Pi_l, Pi_mono;
     float ent_r = 0, ent_l = 0, ent_mono = 0;
     unsigned long int count_r = 0, count_l = 0, count_mono = 0;
@@ -517,27 +482,35 @@ std::vector<float> AudioCodec::audioEntropy(std::string fileName) {
     std::ifstream hist_file(fileName);
 
     unsigned int i=0;
+    /* load the histogram frequency counts of each channel to a variable */
     while(!hist_file.eof()){
         hist_file >> hist_r[i];
         hist_file >> hist_l[i];
         hist_file >> hist_mono[i];
         i++;
     }
+    /* compute the total number of elements of each channel */
     count_r = accumulate(hist_r.begin(), hist_r.end(), 0);
     count_l = accumulate(hist_l.begin(), hist_l.end(), 0);
     count_mono = accumulate(hist_mono.begin(), hist_mono.end(), 0);
 
     for (i=0; i<FRAMES_BUFFER_SIZE; i++) {
         if(hist_r[i]> 0) {
+            /* calculate the probability of each value of the right channel */
             Pi_r = (float)(hist_r[i])/count_r;
+            /* calculate the entropy of the right channel */
             ent_r -= Pi_r*log2(Pi_r);
         }
         if(hist_l[i]> 0) {
+            /* calculate the probability of each value of the left channel */
             Pi_l = (float)(hist_l[i])/count_l;
+            /* calculate the entropy of the left channel */
             ent_l -= Pi_l*log2(Pi_l);
         }
         if(hist_mono[i]> 0) {
+            /* calculate the probability of each value of the mono version */
             Pi_mono= (float)(hist_mono[i])/count_mono;
+            /* calculate the entropy of the mono version */
             ent_mono -= Pi_mono*log2(Pi_mono);
         }
     }
@@ -560,21 +533,27 @@ std::vector<float> AudioCodec::residualsEntropy(std::string fileName) {
     std::ifstream hist_file(fileName);
 
     unsigned int i=0;
+    /* load the histogram frequency counts of each channel to a variable */
     while(!hist_file.eof()){
         hist_file >> hist_res_x[i];
         hist_file >> hist_res_y[i];
         i++;
     }
+    /* compute the total number of elements of each channel */
     count_x = accumulate(hist_res_x.begin(), hist_res_x.end(), 0);
     count_y = accumulate(hist_res_y.begin(), hist_res_y.end(), 0);
 
     for (i=0;i<FRAMES_BUFFER_SIZE;i++) {
         if (hist_res_x[i] > 0) {
+            /* calculate the probability of each value of the first channel */
             Pi_x = (float) (hist_res_x[i]) / count_x;
+            /* calculate the entropy of the first channel */
             ent_x -= Pi_x * log2(Pi_x);
         }
         if (hist_res_y[i] > 0) {
+            /* calculate the probability of each value of the first channel */
             Pi_y = (float) (hist_res_y[i]) / count_y;
+            /* calculate the entropy of the second channel */
             ent_y -= Pi_y * log2(Pi_y);
         }
 
@@ -588,15 +567,17 @@ std::vector<float> AudioCodec::residualsEntropy(std::string fileName) {
 std::vector<signed long> AudioCodec::calculateR_L (signed long val_x, signed long val_y, audioCodec_ChannelRedundancy redundancy) {
     std::vector<signed long> R_L(2);
     signed long val_l, val_r;
+
+    /* according to the selected redudancy mode, calculate the value of the audio samples using the decoded values val_x & val_y */
     if(redundancy == REDUNDANCY_MID_SIDE) {
-        val_l = (2*val_x + val_y)/2;
-        val_r = val_l - val_y;
+        val_l = (2*val_x + val_y)/2;  // recover first left side sample
+        val_r = val_l - val_y;        // use the left side sample to recover right side sample
     } else if(redundancy == REDUNDANCY_RIGHT_SIDE) {
-        val_r = val_x;
-        val_l = val_r + val_y;
+        val_r = val_x;                // recover first right side sample
+        val_l = val_r + val_y;        // use the right side sample to recover left side sample
     } else if(redundancy == REDUNDANCY_LEFT_SIDE){
-        val_l = val_x;
-        val_r = val_l - val_y;
+        val_l = val_x;                // recover first left side sample
+        val_r = val_l - val_y;        // use the left side sample to recover right side sample
     } else {
         /* Default is Independent Mode */
         val_r = val_x;
@@ -611,6 +592,8 @@ std::vector<signed long> AudioCodec::calculateR_L (signed long val_x, signed lon
 std::vector<long signed> AudioCodec::calculateX_Y (signed long val_r, signed long val_l, audioCodec_ChannelRedundancy redundancy) {
     std::vector<signed long> X_Y(2);
     signed long val_x, val_y;
+
+    /* calculate the values that should be enconded on the channels according to the selected redudancy mode */
     if(redundancy == REDUNDANCY_MID_SIDE) {
         val_x = (val_r + val_l) / 2;    // code (L+R)/2
         val_y = (val_l - val_r);        // code L-R
@@ -635,9 +618,13 @@ unsigned int AudioCodec::estimateM_fromBlock(unsigned int sum, unsigned int bloc
     double mean, alfa;
     unsigned int m;
 
+    /* compute the mean value of blockSize samples */
     mean = (sum/(double)(blockSize));
+    /* estimate the geometric distribution parameter alfa */
     alfa = mean/(1+mean);
+    /* compute the optimal m for a geometric distribution with parameter alfa */
     m = ceil(-1/log2(alfa));
+    /* guarantee that the value of the m parameter is at least two */
     if(m<2) {
         m = 2;
     }
@@ -646,19 +633,22 @@ unsigned int AudioCodec::estimateM_fromBlock(unsigned int sum, unsigned int bloc
 
 
 void AudioCodec::calculateResHist(std::string fileName, short res_x, short res_y, unsigned int totalFrames) {
-    /* vector to store the element count of the histogram */
+    /* vectors to store the element count on each channel */
     static std::vector<unsigned long> hist_res_x((int)pow(2,16)), hist_res_y((int)pow(2,16));
-    /* count the number of residuals that have been written */
+    /* variable which stores the number of residuals that have been written */
     static unsigned int nSample=0;
     if(nSample==0) {
         std::cout << "Started Residuals histogram computation" << std::endl;
     }
     nSample++;
-    /* file for writing the residuals histograms for each predictor order */
+
     std::ofstream outfile(fileName);
+    /* increment the element count of res_x */
     hist_res_x[res_x+32767] += 1;
+    /* increment the element count of res_y */
     hist_res_y[res_y+32767] += 1;
 
+    /* When the number of samples reaches totalFrames, write the computed element count on the destination file */
     if(nSample == totalFrames) {
         std::cout << "Residuals histogram computation done. Writting destination file..." << std::endl;
         for(unsigned int k=0; k < hist_res_x.size(); k++) {
