@@ -26,12 +26,16 @@ long getFileSize(string fileName);
 int main(int argc, char *argv[]) {
 
     string inFile = "ducks_take_off_444_720p50.y4m";         // Input audio file
+    string outFile = "restored_video.y4m";         // Input audio file
     string cmpFile = "video.cmp";        // Output compressed file
     //string decFile = "sample01_out.wav";    // Output audio file
 
-    VideoCodec my_codec;                    // Codec instance
+    // Codec instance
+    unsigned int initial_m = 40, block_size = 1000, lostBits = 0;
+    VideoCodec my_codec(VideoCodec::PREDICTOR_LINEAR_JPEG_1, initial_m, VideoCodec::ESTIMATION_ADAPTATIVE, block_size, VideoCodec::MODE_LOSSLESS, lostBits);
 
-    my_codec.compress(inFile, cmpFile, VideoCodec::PREDICTOR_LINEAR_JPEG_4);
+    my_codec.compress(inFile, cmpFile);
+    my_codec.decompress(outFile, cmpFile);
 
     // Print the results
 //    cout << "\nInput file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;

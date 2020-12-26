@@ -44,6 +44,7 @@ class GolombDecoder {
         * \return     The signed decoded value
         */
         signed int decode();
+        std::string decodeHeader(unsigned int nChars);
 
         /**
          * \brief A function that the allows the closing of the file that is being read. It should come

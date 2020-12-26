@@ -47,6 +47,8 @@ class GolombEncoder {
         */
         void encode(signed int value);
 
+        void encodeHeader(std::basic_string<char> str);
+
         void close();
     private:
         std::string fileName;               // file to write the coded bit sequence

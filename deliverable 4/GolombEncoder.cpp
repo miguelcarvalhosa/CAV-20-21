@@ -37,6 +37,9 @@ void GolombEncoder::update(unsigned int m) {
         std::invalid_argument("The m parameter inserted is not valid");
     }
 }
+void GolombEncoder::encodeHeader(basic_string<char> str) {
+    bsw.writeString(str);
+}
 void GolombEncoder::encode(signed int value) {
     unsigned long int q, r;
     unsigned int val;

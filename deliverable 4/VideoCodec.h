@@ -34,13 +34,28 @@ public:
         PREDICTOR_NON_LINEAR_JPEGLS
     } predictorType;
 
-    VideoCodec();
+    /**
+     * Enumeration with the modes of the Golomb encoder parameter estimation.
+     */
+    typedef enum {
+        ESTIMATION_NONE,            /**< No estimation of the Golomb encoder parameter */
+        ESTIMATION_ADAPTATIVE       /**< Adaptative estimation of the Golomb encoder parameter */
+    } parameterEstimationMode;
+
+    /**
+     * Enumeration with the modes of losses during encoding.
+     */
+    typedef enum {
+        MODE_LOSSLESS,              /**< Mode with no losses */
+        MODE_LOSSY                  /**< Mode with losses */
+    } lossMode;
+
+    VideoCodec(predictorType predictor, unsigned int initial_m, parameterEstimationMode estimation, unsigned int estimation_block_size, lossMode loss, unsigned int lostBits);
 
     virtual ~VideoCodec();
 
-    void compress(std::string inputFile, std::string compressedFile, predictorType predictor);
-
-
+    void compress(std::string inputFile, std::string compressedFile);
+    void decompress(std::string outputFile, std::string compressedFile);
 
 private:
 
@@ -64,6 +79,14 @@ private:
     fileData inFileData;
     fileData outFileData;
 
+    /* Video Coded configurations */
+    predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
+    parameterEstimationMode estimation = ESTIMATION_NONE;        // M parameter estimation mode
+    lossMode loss = MODE_LOSSLESS;                               // codec loss mode
+    unsigned int estimation_block_size;
+    unsigned int lostBits;
+    unsigned int initial_m;
+
     // Returns the next frame in the file, in the specified color format
     // only works with the infiledata structure
     unsigned char* readFrame(std::ifstream* fp, videoFormat format);
@@ -81,6 +104,7 @@ private:
 
     int predict(int left_sample, int top_sample, int top_left_sample, predictorType predictor);
 
+    unsigned int estimateM_fromBlock(unsigned int sum, unsigned int blockSize);
 };
 
 

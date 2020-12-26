@@ -31,7 +31,12 @@ void GolombDecoder::update(unsigned int m) {
         std::invalid_argument("The m parameter inserted is not valid");
     }
 }
+std::string GolombDecoder::decodeHeader(unsigned int nChars) {
+    std::string header;
+    bsr.readString(header, nChars);
 
+    return header;
+}
 signed int GolombDecoder::decode() {
     unsigned long int q=0, r;
     signed int n;
@@ -68,8 +73,6 @@ signed int GolombDecoder::decode() {
      * resulting from the sum r and u in b+1 bits (using its binary representation) */
     if(bBits<u) {
         r = bBits;
-
-
     } else {
         additionalBit = bsr.readBit();
         r = ((bBits << 1) | additionalBit) - u;
