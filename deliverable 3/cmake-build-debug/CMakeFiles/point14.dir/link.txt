@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -std=c++17 -L/usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28 -O3   CMakeFiles/point14.dir/point14.cpp.o CMakeFiles/point14.dir/BitStream_Write.cpp.o CMakeFiles/point14.dir/BitStream_Read.cpp.o CMakeFiles/point14.dir/GolombDecoder.cpp.o CMakeFiles/point14.dir/GolombEncoder.cpp.o  -o point14  -lsndfile 

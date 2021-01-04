@@ -1,0 +1,74 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/tania/Desktop/CAV-20-21/deliverable 3/BitStream_Read.h
+stdio.h
+-
+stdint.h
+-
+fstream
+-
+iostream
+-
+string
+-
+
+/home/tania/Desktop/CAV-20-21/deliverable 3/BitStream_Write.h
+stdio.h
+-
+stdint.h
+-
+fstream
+-
+iostream
+-
+string
+-
+
+/home/tania/Desktop/CAV-20-21/deliverable 3/GolombDecoder.h
+stdio.h
+-
+stdint.h
+-
+fstream
+-
+iostream
+-
+BitStream_Read.h
+/home/tania/Desktop/CAV-20-21/deliverable 3/BitStream_Read.h
+
+/home/tania/Desktop/CAV-20-21/deliverable 3/GolombEncoder.h
+stdio.h
+-
+stdint.h
+-
+fstream
+-
+iostream
+-
+BitStream_Write.h
+/home/tania/Desktop/CAV-20-21/deliverable 3/BitStream_Write.h
+
+/home/tania/Desktop/CAV-20-21/deliverable 3/testMparameter.cpp
+iostream
+-
+vector
+-
+sndfile.hh
+-
+math.h
+-
+numeric
+-
+fstream
+-
+GolombEncoder.h
+/home/tania/Desktop/CAV-20-21/deliverable 3/GolombEncoder.h
+GolombDecoder.h
+/home/tania/Desktop/CAV-20-21/deliverable 3/GolombDecoder.h
+

@@ -32,11 +32,11 @@ int main(int argc, char *argv[]) {
     AudioCodec my_codec;                    // Codec instance
 
     // Estimate the best 'm' parameter for the audio file
-    unsigned int m = my_codec.estimateM(inFile, AudioCodec::REDUNDANCY_INDEPENDENT, AudioCodec::MODE_LOSSLESS,1);
+    unsigned int m = my_codec.estimateM(inFile, AudioCodec::REDUNDANCY_MID_SIDE, AudioCodec::MODE_LOSSY,2);
     std::cout << "initial_m: " << m << std::endl;
 
     // Compress the audio file
-    my_codec.compress(inFile, cmpFile, 500, AudioCodec::REDUNDANCY_INDEPENDENT, AudioCodec::ESTIMATION_ADAPTATIVE, 10, AudioCodec::MODE_LOSSLESS, 1, AudioCodec::MODE_RESIDUAL_HISTOGRAM, "residualHistogram.txt");
+    my_codec.compress(inFile, cmpFile, m, AudioCodec::REDUNDANCY_MID_SIDE, AudioCodec::ESTIMATION_ADAPTATIVE, 200, AudioCodec::MODE_LOSSY, 2, AudioCodec::MODE_NO_HISTOGRAM, "residualHistogram_lossy.txt");
 
     // Decompress the audio file
     my_codec.decompress(cmpFile, decFile);
@@ -48,7 +48,8 @@ int main(int argc, char *argv[]) {
     // Calculate the entropy of the input, output and compressed files
     vector<float> inFileEntropy = my_codec.audioEntropy("inFileHistogram.txt");
     vector<float> decFileEntropy = my_codec.audioEntropy("outFileHistogram.txt");
-    vector<float> cmpFileEntropy = my_codec.residualsEntropy("residualHistogram.txt");
+    vector<float> cmpFileEntropy = my_codec.residualsEntropy("residualHistogram_lossless.txt");
+    // residualHistogram_lossy
 
     // Print the results
     cout << "\nInput file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;

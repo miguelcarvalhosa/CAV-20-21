@@ -77,7 +77,7 @@ public:
      *  \param[in] loss         The type of loss mode
      *  \param[in] lostBits     The number of bits to reduce to each residual
      *
-     *  \return The best value for parameter 'm'
+     *  \return The best value for parameter 'm' calculated using all samples from one channel
      */
     unsigned int estimateM(std::string inputFile, audioCodec_ChannelRedundancy redundancy, audioCodec_lossMode loss, unsigned int lostBits);
 
