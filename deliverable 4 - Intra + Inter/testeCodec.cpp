@@ -23,7 +23,7 @@ using namespace std;
 long getFileSize(string fileName);
 
 
-int main(int argc, char *argv[]) {
+int main() {
 
     string inFile = "ducks_take_off_444_720p50.y4m";         // Input audio file
     string outFile = "restored_video.y4m";         // Input audio file
@@ -31,8 +31,8 @@ int main(int argc, char *argv[]) {
     //string decFile = "sample01_out.wav";    // Output audio file
 
     // Codec instance
-    unsigned int initial_m = 40, block_size = 1000, lostBits = 0;
-    VideoCodec my_codec(VideoCodec::PREDICTOR_LINEAR_JPEG_1, 10, VideoCodec::ESTIMATION_NONE, block_size, VideoCodec::MODE_LOSSLESS, lostBits);
+    unsigned int initial_m = 10, block_size = 1000, lostBits = 0;
+    VideoCodec my_codec(VideoCodec::PREDICTOR_LINEAR_JPEG_1, initial_m, VideoCodec::ESTIMATION_NONE, block_size, VideoCodec::MODE_LOSSLESS, lostBits);
 
     my_codec.compress(inFile, cmpFile);
     my_codec.decompress(outFile, cmpFile);

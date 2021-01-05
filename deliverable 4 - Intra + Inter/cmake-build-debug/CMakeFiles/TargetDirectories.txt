@@ -1,3 +1,3 @@
-/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles/testeCodec.dir
+/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles/testeCodec.dir

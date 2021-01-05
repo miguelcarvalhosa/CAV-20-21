@@ -63,10 +63,10 @@ RM = /home/tania/clion-2020.2.4/bin/cmake/linux/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/tania/Desktop/CAV/deliverable 4 - versão inicial"
+CMAKE_SOURCE_DIR = "/home/tania/Desktop/deliverable 4 - versão revista"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/testeCodec.dir/depend.make
@@ -79,81 +79,81 @@ include CMakeFiles/testeCodec.dir/flags.make
 
 CMakeFiles/testeCodec.dir/testeCodec.cpp.o: CMakeFiles/testeCodec.dir/flags.make
 CMakeFiles/testeCodec.dir/testeCodec.cpp.o: ../testeCodec.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/testeCodec.dir/testeCodec.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/testeCodec.cpp.o -c "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/testeCodec.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/testeCodec.dir/testeCodec.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/testeCodec.cpp.o -c "/home/tania/Desktop/deliverable 4 - versão revista/testeCodec.cpp"
 
 CMakeFiles/testeCodec.dir/testeCodec.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testeCodec.dir/testeCodec.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/testeCodec.cpp" > CMakeFiles/testeCodec.dir/testeCodec.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/deliverable 4 - versão revista/testeCodec.cpp" > CMakeFiles/testeCodec.dir/testeCodec.cpp.i
 
 CMakeFiles/testeCodec.dir/testeCodec.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testeCodec.dir/testeCodec.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/testeCodec.cpp" -o CMakeFiles/testeCodec.dir/testeCodec.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/deliverable 4 - versão revista/testeCodec.cpp" -o CMakeFiles/testeCodec.dir/testeCodec.cpp.s
 
 CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o: CMakeFiles/testeCodec.dir/flags.make
 CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o: ../BitStream_Write.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o -c "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/BitStream_Write.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o -c "/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Write.cpp"
 
 CMakeFiles/testeCodec.dir/BitStream_Write.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testeCodec.dir/BitStream_Write.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/BitStream_Write.cpp" > CMakeFiles/testeCodec.dir/BitStream_Write.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Write.cpp" > CMakeFiles/testeCodec.dir/BitStream_Write.cpp.i
 
 CMakeFiles/testeCodec.dir/BitStream_Write.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testeCodec.dir/BitStream_Write.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/BitStream_Write.cpp" -o CMakeFiles/testeCodec.dir/BitStream_Write.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Write.cpp" -o CMakeFiles/testeCodec.dir/BitStream_Write.cpp.s
 
 CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o: CMakeFiles/testeCodec.dir/flags.make
 CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o: ../BitStream_Read.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o -c "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/BitStream_Read.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o -c "/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Read.cpp"
 
 CMakeFiles/testeCodec.dir/BitStream_Read.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testeCodec.dir/BitStream_Read.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/BitStream_Read.cpp" > CMakeFiles/testeCodec.dir/BitStream_Read.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Read.cpp" > CMakeFiles/testeCodec.dir/BitStream_Read.cpp.i
 
 CMakeFiles/testeCodec.dir/BitStream_Read.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testeCodec.dir/BitStream_Read.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/BitStream_Read.cpp" -o CMakeFiles/testeCodec.dir/BitStream_Read.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Read.cpp" -o CMakeFiles/testeCodec.dir/BitStream_Read.cpp.s
 
 CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o: CMakeFiles/testeCodec.dir/flags.make
 CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o: ../GolombDecoder.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o -c "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/GolombDecoder.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o -c "/home/tania/Desktop/deliverable 4 - versão revista/GolombDecoder.cpp"
 
 CMakeFiles/testeCodec.dir/GolombDecoder.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testeCodec.dir/GolombDecoder.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/GolombDecoder.cpp" > CMakeFiles/testeCodec.dir/GolombDecoder.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/deliverable 4 - versão revista/GolombDecoder.cpp" > CMakeFiles/testeCodec.dir/GolombDecoder.cpp.i
 
 CMakeFiles/testeCodec.dir/GolombDecoder.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testeCodec.dir/GolombDecoder.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/GolombDecoder.cpp" -o CMakeFiles/testeCodec.dir/GolombDecoder.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/deliverable 4 - versão revista/GolombDecoder.cpp" -o CMakeFiles/testeCodec.dir/GolombDecoder.cpp.s
 
 CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o: CMakeFiles/testeCodec.dir/flags.make
 CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o: ../GolombEncoder.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o -c "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/GolombEncoder.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o -c "/home/tania/Desktop/deliverable 4 - versão revista/GolombEncoder.cpp"
 
 CMakeFiles/testeCodec.dir/GolombEncoder.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testeCodec.dir/GolombEncoder.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/GolombEncoder.cpp" > CMakeFiles/testeCodec.dir/GolombEncoder.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/deliverable 4 - versão revista/GolombEncoder.cpp" > CMakeFiles/testeCodec.dir/GolombEncoder.cpp.i
 
 CMakeFiles/testeCodec.dir/GolombEncoder.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testeCodec.dir/GolombEncoder.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/GolombEncoder.cpp" -o CMakeFiles/testeCodec.dir/GolombEncoder.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/deliverable 4 - versão revista/GolombEncoder.cpp" -o CMakeFiles/testeCodec.dir/GolombEncoder.cpp.s
 
 CMakeFiles/testeCodec.dir/VideoCodec.cpp.o: CMakeFiles/testeCodec.dir/flags.make
 CMakeFiles/testeCodec.dir/VideoCodec.cpp.o: ../VideoCodec.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/testeCodec.dir/VideoCodec.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/VideoCodec.cpp.o -c "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/VideoCodec.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/testeCodec.dir/VideoCodec.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testeCodec.dir/VideoCodec.cpp.o -c "/home/tania/Desktop/deliverable 4 - versão revista/VideoCodec.cpp"
 
 CMakeFiles/testeCodec.dir/VideoCodec.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testeCodec.dir/VideoCodec.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/VideoCodec.cpp" > CMakeFiles/testeCodec.dir/VideoCodec.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/tania/Desktop/deliverable 4 - versão revista/VideoCodec.cpp" > CMakeFiles/testeCodec.dir/VideoCodec.cpp.i
 
 CMakeFiles/testeCodec.dir/VideoCodec.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testeCodec.dir/VideoCodec.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/VideoCodec.cpp" -o CMakeFiles/testeCodec.dir/VideoCodec.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/tania/Desktop/deliverable 4 - versão revista/VideoCodec.cpp" -o CMakeFiles/testeCodec.dir/VideoCodec.cpp.s
 
 # Object files for target testeCodec
 testeCodec_OBJECTS = \
@@ -190,7 +190,7 @@ testeCodec: /usr/local/lib/libopencv_flann.so.4.5.0
 testeCodec: /usr/local/lib/libopencv_imgproc.so.4.5.0
 testeCodec: /usr/local/lib/libopencv_core.so.4.5.0
 testeCodec: CMakeFiles/testeCodec.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable testeCodec"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable testeCodec"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/testeCodec.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -203,6 +203,6 @@ CMakeFiles/testeCodec.dir/clean:
 .PHONY : CMakeFiles/testeCodec.dir/clean
 
 CMakeFiles/testeCodec.dir/depend:
-	cd "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/tania/Desktop/CAV/deliverable 4 - versão inicial" "/home/tania/Desktop/CAV/deliverable 4 - versão inicial" "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug" "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug" "/home/tania/Desktop/CAV/deliverable 4 - versão inicial/cmake-build-debug/CMakeFiles/testeCodec.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/tania/Desktop/deliverable 4 - versão revista" "/home/tania/Desktop/deliverable 4 - versão revista" "/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug" "/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug" "/home/tania/Desktop/deliverable 4 - versão revista/cmake-build-debug/CMakeFiles/testeCodec.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/testeCodec.dir/depend
 
