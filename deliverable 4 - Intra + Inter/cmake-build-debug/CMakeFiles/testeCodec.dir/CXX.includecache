@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Read.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Read.h
 stdio.h
 -
 stdint.h
@@ -18,7 +18,7 @@ iostream
 string
 -
 
-/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Write.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Write.h
 stdio.h
 -
 stdint.h
@@ -30,7 +30,7 @@ iostream
 string
 -
 
-/home/tania/Desktop/deliverable 4 - versão revista/GolombDecoder.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombDecoder.h
 stdio.h
 -
 stdint.h
@@ -40,9 +40,9 @@ fstream
 iostream
 -
 BitStream_Read.h
-/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Read.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Read.h
 
-/home/tania/Desktop/deliverable 4 - versão revista/GolombEncoder.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombEncoder.h
 stdio.h
 -
 stdint.h
@@ -52,13 +52,9 @@ fstream
 iostream
 -
 BitStream_Write.h
-/home/tania/Desktop/deliverable 4 - versão revista/BitStream_Write.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Write.h
 
-/home/tania/Desktop/deliverable 4 - versão revista/VideoCodec.cpp
-VideoCodec.h
-/home/tania/Desktop/deliverable 4 - versão revista/VideoCodec.h
-
-/home/tania/Desktop/deliverable 4 - versão revista/VideoCodec.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/VideoCodec.h
 iostream
 -
 string
@@ -72,9 +68,17 @@ fstream
 numeric
 -
 GolombEncoder.h
-/home/tania/Desktop/deliverable 4 - versão revista/GolombEncoder.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombEncoder.h
 GolombDecoder.h
-/home/tania/Desktop/deliverable 4 - versão revista/GolombDecoder.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombDecoder.h
+
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/testeCodec.cpp
+VideoCodec.h
+/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/VideoCodec.h
+string
+-
+fstream
+-
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

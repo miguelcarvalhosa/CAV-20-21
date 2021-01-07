@@ -28,15 +28,21 @@ int main() {
     string inFile = "ducks_take_off_444_720p50.y4m";         // Input audio file
     string outFile = "restored_video.y4m";         // Input audio file
     string cmpFile = "video.cmp";        // Output compressed file
-    //string decFile = "sample01_out.wav";    // Output audio file
+
+
+    unsigned int initial_m = 10, estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
+    unsigned int blockSize = 16, searchArea = 16;
 
     // Codec instance
-    unsigned int initial_m = 10, block_size = 1000, lostBits = 0;
-    VideoCodec my_codec(VideoCodec::PREDICTOR_LINEAR_JPEG_1, initial_m, VideoCodec::ESTIMATION_NONE, block_size, VideoCodec::MODE_LOSSLESS, lostBits);
+    VideoCodec my_codec(initial_m, VideoCodec::ESTIMATION_ADAPTATIVE, VideoCodec::MODE_LOSSLESS, lostBits);
+
+    /* configure codec settings for both intra and inter mode */
+    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, intraFramePeriodicity, estimationBlockSize);
+    my_codec.setInterCodingParameters(blockSize,searchArea);
 
     my_codec.compress(inFile, cmpFile);
     my_codec.decompress(outFile, cmpFile);
-    //my_codec.testBlock(inFile, outFile);
+
 
     // Print the results
 //    cout << "\nInput file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;

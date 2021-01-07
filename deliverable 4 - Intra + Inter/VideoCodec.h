@@ -50,31 +50,18 @@ public:
         MODE_LOSSY                  /**< Mode with losses */
     } lossMode;
 
-    VideoCodec(predictorType predictor, unsigned int initial_m, parameterEstimationMode estimation, unsigned int estimation_block_size, lossMode loss, unsigned int lostBits);
-
+    VideoCodec(unsigned int initial_m, parameterEstimationMode estimation, lossMode loss, unsigned int lostBits);
     virtual ~VideoCodec();
 
-    void compress(std::string inputFile, std::string compressedFile);
-    void decompress(std::string outputFile, std::string compressedFile);
+    void setIntraCodingParameters(predictorType predictor, unsigned int intraFramePeriodicity, unsigned int estimationBlockSize);
+    void setInterCodingParameters(unsigned int blockSize, unsigned int searchArea);
 
-
-    /* delete later, files are used for debug purposes */
-    std::ofstream file;
-    std::ofstream file2;
-    std::ofstream decodedMotion;
-    std::ofstream encodedMotion;
-    std::ofstream decodedRefBlockPos;
-    std::ofstream encodedRefBlockPos;
-    std::ofstream decodedBlockFrameValue;
-    std::ofstream originalBlockFrameValue;
-
-    std::ofstream decodedBlockPos;
-    std::ofstream encodedBlockPos;
-    std::ofstream originalFrame;
-    std::ofstream decodedFrame;
-
+    void compress(std::string &inputFile, std::string &compressedFile);
+    void decompress(std::string &outputFile, std::string &compressedFile);
 
 private:
+    std::ofstream originalFrame;
+    std::ofstream decodedFrame;
 
     typedef struct {
         std::string header;
@@ -107,35 +94,35 @@ private:
             this->x = x;
             this->y = y;
         }
-        void setX(int x) {
-            this->x = x;
-        }
-        void setY(int y) {
-            this->y = y;
-        }
     };
 
 
     class blockEstimationData {
         public:
-            //blockData block;
+
             int size;
             Point motionVector_y, motionVector_u, motionVector_v;
-            std::vector<int> residuals_y, residuals_u, residuals_v;
-
-            /* delete later */
-            Point ref_y, ref_u, ref_v;
-
+            std::vector<short> residuals_y, residuals_u, residuals_v;
 
             void setMotionVectors(Point motionVector_y, Point motionVector_u, Point motionVector_v ) {
                 this->motionVector_y = motionVector_y;
                 this->motionVector_u = motionVector_u;
                 this->motionVector_v = motionVector_v;
             }
-            void setResiduals(std::vector<int> residuals_y, std::vector<int> residuals_u, std::vector<int> residuals_v) {
+
+            void setResiduals(std::vector<short> residuals_y, std::vector<short> residuals_u, std::vector<short> residuals_v) {
                 this->residuals_y = residuals_y;
                 this->residuals_u = residuals_u;
                 this->residuals_v = residuals_v;
+            }
+            void setResiduals(std::vector<short> residuals, planeComponent plane) {
+                if(plane == Y) {
+                    this->residuals_y = residuals;
+                } else if(plane == U){
+                    this->residuals_u = residuals;
+                } else if(plane == V) {
+                    this->residuals_v = residuals;
+                }
             }
             void setMotionVector(Point motionVector, planeComponent plane) {
                 if(plane == Y) {
@@ -146,24 +133,9 @@ private:
                     motionVector_v = motionVector;
                 }
             }
-            void setReferenceBlockPos(Point p, planeComponent plane) {
-                if(plane == Y) {
-                    p = ref_y;
-                } else if(plane == U) {
-                    p = ref_u;
-                } else {
-                    p = ref_v;
-                }
+            void setSize(int size) {
+                this->size = size;
             }
-            void setReferenceBlockPos(Point y, Point u, Point v) {
-                ref_y = y;
-                ref_u = u;
-                ref_v = v;
-            }
-
-        void setSize(int size) {
-            this->size = size;
-        }
     };
 
     class blockLimits {
@@ -189,34 +161,33 @@ private:
 
     fileData inFileData;
     fileData outFileData;
-    unsigned char* lastFrameBuf;
-    unsigned char* frame2Bufencode;
-    unsigned char* frame2Bufdecode;
+
     /* Video Coded configurations */
     predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
     parameterEstimationMode estimation = ESTIMATION_NONE;        // M parameter estimation mode
     lossMode loss = MODE_LOSSLESS;                               // codec loss mode
-    unsigned int estimation_block_size;
+    unsigned int estimationBlockSize;
     unsigned int lostBits;
     unsigned int initial_m;
-    frameEncodingMode encodingMode;
 
+    unsigned int blockSize;
+    unsigned int searchArea;
+    unsigned int intraFramePeriodicity; // a cada 20 frames 1 é codificada como intra
 
-
-    void encodeIntra(GolombEncoder& encoder, unsigned char* frameBuf);
-    void encodeInter(GolombEncoder& encoder, unsigned char* frameBuf, int blockSize, int searchArea);
+    void encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf);
+    void encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, unsigned char* &lastFrameBuf, int blockSize, int searchArea);
 
     unsigned char* decodeIntra(GolombDecoder& decoder);
-    unsigned char* decodeInter(GolombDecoder& decoder, int blockSize);
+    unsigned char* decodeInter(GolombDecoder& decoder, unsigned char* &lastFrameBuf, int blockSize);
 
-    void encodeFrameBlock(GolombEncoder& encoder, blockEstimationData bestMatchData, planeComponent plane);
+    void encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, planeComponent plane);
 
     //unsigned char* decodeFrameBlock(GolombDecoder& decoder, int blockSize, int x, int y);
-    unsigned char* decodeFrameBlock(GolombDecoder& decoder, int blockSize, int x, int y);
+    unsigned char* decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFrameBuf, int blockSize, int x, int y);
 
-    unsigned char* getFrameBlock(unsigned char* frameBuf, int x, int y, int blocksize, planeComponent plane);
+    unsigned char* getFrameBlock(unsigned char* &frameBuf, int x, int y, int blockSize, planeComponent plane);
 
-    blockEstimationData motionEstimation(unsigned char* frameBlockBuf, int block_x, int block_y, int blockSize, int searchArea, planeComponent plane, blockSearchMode searchMode);
+    blockEstimationData motionEstimation(unsigned char* &frameBlockBuf, unsigned char* &lastFrameBuf, int block_x, int block_y, int blockSize, int searchArea, planeComponent plane, blockSearchMode searchMode);
 
     blockLimits calculateBlockLimits(int x, int y, int blockSize, int searchArea);
     // Returns the next frame in the file, in the specified color format
@@ -237,6 +208,8 @@ private:
     int predict(int left_sample, int top_sample, int top_left_sample, predictorType predictor);
 
     unsigned int estimateM_fromBlock(unsigned int sum, unsigned int blockSize);
+
+    unsigned char* getFrameBlock_component(unsigned char* &frameBuf, int x, int y, int blockSize, planeComponent plane);
 };
 
 
