@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Read.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/BitStream_Read.h
 stdio.h
 -
 stdint.h
@@ -18,7 +18,7 @@ iostream
 string
 -
 
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Write.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/BitStream_Write.h
 stdio.h
 -
 stdint.h
@@ -30,7 +30,7 @@ iostream
 string
 -
 
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombDecoder.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/GolombDecoder.h
 stdio.h
 -
 stdint.h
@@ -40,9 +40,9 @@ fstream
 iostream
 -
 BitStream_Read.h
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Read.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/BitStream_Read.h
 
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombEncoder.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/GolombEncoder.h
 stdio.h
 -
 stdint.h
@@ -52,9 +52,13 @@ fstream
 iostream
 -
 BitStream_Write.h
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Write.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/BitStream_Write.h
 
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/VideoCodec.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/VideoCodec.cpp
+VideoCodec.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/VideoCodec.h
+
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/VideoCodec.h
 iostream
 -
 string
@@ -68,13 +72,13 @@ fstream
 numeric
 -
 GolombEncoder.h
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombEncoder.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/GolombEncoder.h
 GolombDecoder.h
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombDecoder.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/GolombDecoder.h
 
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/testeCodec.cpp
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/testeCodec.cpp
 VideoCodec.h
-/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/VideoCodec.h
+/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/VideoCodec.h
 string
 -
 fstream

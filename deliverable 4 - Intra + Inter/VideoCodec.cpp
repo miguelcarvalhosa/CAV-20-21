@@ -19,8 +19,13 @@ void VideoCodec::setInterCodingParameters(unsigned int blockSize, unsigned int s
     if(log2(blockSize)==ceil(log2(blockSize))) {
         this->blockSize = blockSize;
     } else {
-        this->blockSize = pow(2,floor(log2(blockSize)));
-        std::wcerr << "The specified block size value is not a power of 2, the value was rounded down to the neareast power of 2 " << this->blockSize << std::endl;
+        // round to the nearest power of two that minimizes the diff between the specified value and the used one
+        if(abs(blockSize-pow(2,floor(log2(blockSize)))) < abs(blockSize-pow(2,ceil(log2(blockSize))))) {
+            this->blockSize = pow(2,floor(log2(blockSize)));
+        } else {
+            this->blockSize = pow(2,ceil(log2(blockSize)));
+        }
+        std::wcerr << "The specified block size value is not a power of 2, the value was rounded down to the neareast power of 2 -> " << this->blockSize << std::endl;
     }
     this->searchArea = searchArea;
 }

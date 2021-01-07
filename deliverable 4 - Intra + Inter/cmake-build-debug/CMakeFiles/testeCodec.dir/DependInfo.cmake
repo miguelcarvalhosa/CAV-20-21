@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Read.cpp" "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o"
-  "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/BitStream_Write.cpp" "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o"
-  "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombDecoder.cpp" "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o"
-  "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/GolombEncoder.cpp" "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o"
-  "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/VideoCodec.cpp" "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/cmake-build-debug/CMakeFiles/testeCodec.dir/VideoCodec.cpp.o"
-  "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/testeCodec.cpp" "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/cmake-build-debug/CMakeFiles/testeCodec.dir/testeCodec.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/BitStream_Read.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/BitStream_Write.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/GolombDecoder.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/GolombEncoder.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/VideoCodec.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/cmake-build-debug/CMakeFiles/testeCodec.dir/VideoCodec.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/testeCodec.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/cmake-build-debug/CMakeFiles/testeCodec.dir/testeCodec.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

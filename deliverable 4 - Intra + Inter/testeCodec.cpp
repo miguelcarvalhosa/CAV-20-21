@@ -31,7 +31,7 @@ int main() {
 
 
     unsigned int initial_m = 10, estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
-    unsigned int blockSize = 16, searchArea = 16;
+    unsigned int blockSize = 5, searchArea = 16;
 
     // Codec instance
     VideoCodec my_codec(initial_m, VideoCodec::ESTIMATION_ADAPTATIVE, VideoCodec::MODE_LOSSLESS, lostBits);

@@ -1,4 +1,4 @@
-# Install script for directory: /home/tania/Desktop/CAV/deliverable 4 - versão revista funcional
+# Install script for directory: /home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/tania/Desktop/CAV/deliverable 4 - versão revista funcional/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/tania/Desktop/CAV-20-21/deliverable 4 - Intra + Inter/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
