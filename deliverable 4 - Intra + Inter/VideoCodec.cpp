@@ -46,19 +46,21 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
     encoder.encodeHeader(headerStr.substr(0,34));
 
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height * 3 / 2 ];
-    unsigned char* frameBuf;
+    unsigned char* frameBuf = NULL;
     unsigned int nFrames=0;
 
     originalFrame.open ("originalFrame_v.txt", std::ofstream::out | std::ofstream::app);
 
     // !inFile.eof()
-    while(nFrames<20) {
+    while(nFrames<500) {
         if(inFileData.format == VIDEO_FORMAT_444) {
+            delete frameBuf;
             frameBuf = convertFrame_444to420(readFrame(&inFile, VIDEO_FORMAT_444));
             // new frame dimensions
             inFileData.uv_width = inFileData.width/2;
             inFileData.uv_height = inFileData.height/2;
         } else {
+            delete frameBuf;
             frameBuf = readFrame(&inFile, VIDEO_FORMAT_420);
         }
         if((nFrames%intraFramePeriodicity) == 0) {
@@ -67,13 +69,13 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
         } else {
             encodeInter(encoder, frameBuf, lastFrameBuf, blockSize, searchArea);
             /* file to compare computed frameBuf values for first frame encoded with inter with the actual transmitted */
-            if(nFrames == 1) {
+            if(nFrames == 499) {
                 for (int i = 0; i < inFileData.uv_width * inFileData.uv_height; i++) {
                     originalFrame << (int) frameBuf[i + inFileData.width * inFileData.height +
                                                     inFileData.uv_width * inFileData.uv_height] << "\n";
                 }
             }
-            printf("encoded frame %d -> INTER\n", nFrames);
+            //printf("encoded frame %d -> INTER\n", nFrames);
         }
         nFrames++;
         memcpy(lastFrameBuf, frameBuf, inFileData.width * inFileData.height * 3 / 2 );
@@ -101,31 +103,31 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
 
     unsigned int i=0;
 
-    unsigned char* frameBuf = new unsigned char[inFileData.width * inFileData.height * 3 / 2];
+    unsigned char* frameBuf = NULL;
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
     printf("---------------decoding------------\n");
     decodedFrame.open ("decodedFrame_v.txt", std::ofstream::out | std::ofstream::app);
 
-    while(i<20) { // FRAME NUMBER NEEDS TO BE DETERMINED AND BE PASSED AS AN ARGUMENT
+    while(i<500) { // FRAME NUMBER NEEDS TO BE DETERMINED AND BE PASSED AS AN ARGUMENT
+        delete frameBuf;
         if((i%intraFramePeriodicity)==0) {
             frameBuf = decodeIntra(decoder);
             printf("decoded frame %d -> INTRA\n", i);
         } else {
             frameBuf = decodeInter(decoder, lastFrameBuf, blockSize);
             /* file to compare computed frameBuf values for first frame encoded with inter with the actual transmitted */
-            if(i==1) {
+            if(i==499) {
                 for (int k = 0; k < inFileData.uv_width * inFileData.uv_height; k++) {
                     decodedFrame << (int) frameBuf[k + inFileData.width * inFileData.height +
                                                    inFileData.uv_width * inFileData.uv_height] << "\n";
                 }
             }
-            printf("decoded frame %d -> INTER\n", i);
+            //printf("decoded frame %d -> INTER\n", i);
         }
         memcpy(lastFrameBuf, frameBuf, inFileData.width * inFileData.height * 3 / 2);
-
-        i++;
         writeFrame(&outFile, frameBuf);
+        i++;
     }
     decoder.close();
     outFile.close();
@@ -237,16 +239,17 @@ void VideoCodec::encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, u
     blockEstimationData bestBlockMatch;
     bestBlockMatch.setSize(blockSize);
 
-    unsigned char* frameBlockBuf = new unsigned char [blockSize*blockSize*3];
-
+    unsigned char* frameBlockBuf = NULL;
 
     for(int r=0; r<inFileData.height; r=r+blockSize) {
         for (int c = 0; c < inFileData.width; c=c+blockSize ) {
             if(r < inFileData.uv_height && c < inFileData.uv_width) {
+                delete frameBlockBuf;
                 frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize,YUV);
                 bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, YUV, INTERSPERSED);
                 encodeFrameBlock(encoder, bestBlockMatch, YUV);
             } else {
+                delete frameBlockBuf;
                 frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize,Y);
                 bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, Y, INTERSPERSED);
                 encodeFrameBlock(encoder, bestBlockMatch, Y);
@@ -292,9 +295,6 @@ void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& b
 
             for (int i=0; i< blockSize*blockSize; i++) {
                 encoder.encode(bestMatchData.residuals_y[i]);
-                /*if(nBlock < 20) {
-                    std::cout << "res_y res_u res_v: " << bestMatchData.residuals_y[i] << " " << bestMatchData.residuals_u[i] << " "<< bestMatchData.residuals_v[i] << std::endl;
-                }*/
                 encoder.encode(bestMatchData.residuals_u[i]);
                 encoder.encode(bestMatchData.residuals_v[i]);
                 if(estimation == ESTIMATION_ADAPTATIVE) {
@@ -332,13 +332,16 @@ VideoCodec::blockEstimationData VideoCodec::motionEstimation(unsigned char* &fra
     double bestError_u = std::numeric_limits<double>::max(), blockError_u=0;
     double bestError_v = std::numeric_limits<double>::max(), blockError_v=0;
 
-    unsigned char* refBlockBuf_y = new unsigned char[blockSize*blockSize];
-    unsigned char* refBlockBuf_u = new unsigned char[blockSize*blockSize];
-    unsigned char* refBlockBuf_v = new unsigned char[blockSize*blockSize];
+    unsigned char* refBlockBuf_y = NULL;
+    unsigned char* refBlockBuf_u = NULL;
+    unsigned char* refBlockBuf_v = NULL;
 
     if(searchMode == EXHAUSTIVE) {
         for(int y=limits.topLeftPos.y; y<limits.bottomLeftPos.y; y++) {
             for(int x=limits.topLeftPos.x; x<limits.topRightPos.x; x++) {
+                delete refBlockBuf_y;
+                delete refBlockBuf_u;
+                delete refBlockBuf_v;
                 /* get each block from the specified previous frame' search area  */
                 refBlockBuf_y = getFrameBlock_component(lastFrameBuf, x, y, blockSize, Y);
                 if(plane == YUV) {
@@ -388,6 +391,9 @@ VideoCodec::blockEstimationData VideoCodec::motionEstimation(unsigned char* &fra
     } else {
         for(int y=limits.topLeftPos.y; y<limits.bottomLeftPos.y; y=y+4) {
             for(int x=limits.topLeftPos.x; x<limits.topRightPos.x; x=x+4) {
+                delete refBlockBuf_y;
+                delete refBlockBuf_u;
+                delete refBlockBuf_v;
                 /* get each block from the specified previous frame' search area  */
                 refBlockBuf_y = getFrameBlock_component(lastFrameBuf, x, y, blockSize, Y);
                 if(plane == YUV) {
@@ -436,10 +442,6 @@ VideoCodec::blockEstimationData VideoCodec::motionEstimation(unsigned char* &fra
             }
         }
     }
-
-    delete refBlockBuf_y;
-    delete refBlockBuf_u;
-    delete refBlockBuf_v;
     return bestBlockMatch;
 }
 
@@ -548,13 +550,14 @@ unsigned char* VideoCodec::decodeIntra(GolombDecoder& decoder) {
 
 unsigned char* VideoCodec::decodeInter(GolombDecoder& decoder, unsigned char* &lastFrameBuf, int blockSize) {
 
-    unsigned char * frameBuf = new unsigned char[inFileData.width*inFileData.height * 3 / 2 ];
-    unsigned char * frameBlockBuf = new unsigned char[blockSize*blockSize * 3];
+    unsigned char * frameBuf = new unsigned char[inFileData.height * inFileData.width * 3 /2];
+    unsigned char * frameBlockBuf = NULL;
 
     int nLines = blockSize;
 
     for(int r = 0; r < inFileData.height; r=r+blockSize) {
         for (int c = 0; c < inFileData.width; c=c+blockSize) {
+            delete frameBlockBuf;
             frameBlockBuf = decodeFrameBlock(decoder, lastFrameBuf, blockSize, c, r);
             for(int n = 0; n < nLines; n++) {
                 memcpy(frameBuf + inFileData.width*(n+r) + c, frameBlockBuf + n*blockSize, blockSize);
@@ -573,9 +576,9 @@ unsigned char* VideoCodec::decodeFrameBlock(GolombDecoder& decoder, unsigned cha
     Point motionVector_y, motionVector_u, motionVector_v, refPos_y, refPos_u, refPos_v;
 
     unsigned char * frameBlockBuf = new unsigned char[blockSize*blockSize*3];
-    unsigned char * refBlockBuf_y = new unsigned char[blockSize*blockSize];
-    unsigned char * refBlockBuf_u = new unsigned char[blockSize*blockSize];
-    unsigned char * refBlockBuf_v = new unsigned char[blockSize*blockSize];
+    unsigned char * refBlockBuf_y = NULL;
+    unsigned char * refBlockBuf_u = NULL;
+    unsigned char * refBlockBuf_v = NULL;
 
     int res_y, res_u, res_v;
 
@@ -585,6 +588,9 @@ unsigned char* VideoCodec::decodeFrameBlock(GolombDecoder& decoder, unsigned cha
     refPos_y.x =  x - motionVector_y.x;
     refPos_y.y =  y - motionVector_y.y;
 
+    delete refBlockBuf_y;
+    delete refBlockBuf_u;
+    delete refBlockBuf_v;
 
      if(x<inFileData.uv_width && y< inFileData.uv_height) {
          motionVector_u.x = decoder.decode();

@@ -40,7 +40,7 @@ int main() {
     my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, intraFramePeriodicity, estimationBlockSize);
     my_codec.setInterCodingParameters(blockSize,searchArea);
 
-    my_codec.compress(inFile, cmpFile);
+    //my_codec.compress(inFile, cmpFile);
     my_codec.decompress(outFile, cmpFile);
 
 
