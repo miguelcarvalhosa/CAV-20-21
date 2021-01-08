@@ -50,16 +50,22 @@ public:
         MODE_LOSSY                  /**< Mode with losses */
     } lossMode;
 
+    typedef enum {
+        EXHAUSTIVE,             /**< Mode with no losses */
+        INTERSPERSED,
+    } blockSearchMode;
+
     VideoCodec(unsigned int initial_m, parameterEstimationMode estimation, lossMode loss, unsigned int lostBits);
     virtual ~VideoCodec();
 
     void setIntraCodingParameters(predictorType predictor, unsigned int intraFramePeriodicity, unsigned int estimationBlockSize);
-    void setInterCodingParameters(unsigned int blockSize, unsigned int searchArea);
+    void setInterCodingParameters(blockSearchMode searchMode, unsigned int blockSize, unsigned int searchArea);
 
     void compress(std::string &inputFile, std::string &compressedFile);
     void decompress(std::string &outputFile, std::string &compressedFile);
 
 private:
+    /* delete later, files to compare if the decoded is done properly */
     std::ofstream originalFrame;
     std::ofstream decodedFrame;
 
@@ -153,11 +159,6 @@ private:
         MODE_INTER                  /**< Mode with losses */
     } frameEncodingMode;
 
-    typedef enum {
-        EXHAUSTIVE,             /**< Mode with no losses */
-        INTERSPERSED,
-    } blockSearchMode;
-
 
     fileData inFileData;
     fileData outFileData;
@@ -172,6 +173,7 @@ private:
 
     unsigned int blockSize;
     unsigned int searchArea;
+    blockSearchMode searchMode;
     unsigned int intraFramePeriodicity; // a cada 20 frames 1 é codificada como intra
 
     void encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf);

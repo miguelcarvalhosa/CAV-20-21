@@ -15,7 +15,7 @@ void VideoCodec::setIntraCodingParameters(predictorType predictor, unsigned int 
     this->estimationBlockSize = estimationBlockSize;
     this->intraFramePeriodicity = intraFramePeriodicity;
 }
-void VideoCodec::setInterCodingParameters(unsigned int blockSize, unsigned int searchArea) {
+void VideoCodec::setInterCodingParameters(blockSearchMode searchMode, unsigned int blockSize, unsigned int searchArea) {
     if(log2(blockSize)==ceil(log2(blockSize))) {
         this->blockSize = blockSize;
     } else {
@@ -25,9 +25,10 @@ void VideoCodec::setInterCodingParameters(unsigned int blockSize, unsigned int s
         } else {
             this->blockSize = pow(2,ceil(log2(blockSize)));
         }
-        std::wcerr << "The specified block size value is not a power of 2, the value was rounded down to the neareast power of 2 -> " << this->blockSize << std::endl;
+        std::wcerr << "The specified block size value is not a power of 2, the value was rounded to the neareast power of 2 -> " << this->blockSize << std::endl;
     }
     this->searchArea = searchArea;
+    this->searchMode = searchMode;
 }
 VideoCodec::~VideoCodec() {
 
@@ -51,8 +52,7 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
 
     originalFrame.open ("originalFrame_v.txt", std::ofstream::out | std::ofstream::app);
 
-    // !inFile.eof()
-    while(nFrames<500) {
+    while(!inFile.eof()) {
         if(inFileData.format == VIDEO_FORMAT_444) {
             delete frameBuf;
             frameBuf = convertFrame_444to420(readFrame(&inFile, VIDEO_FORMAT_444));
@@ -106,7 +106,6 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
     unsigned char* frameBuf = NULL;
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
-    printf("---------------decoding------------\n");
     decodedFrame.open ("decodedFrame_v.txt", std::ofstream::out | std::ofstream::app);
 
     while(i<500) { // FRAME NUMBER NEEDS TO BE DETERMINED AND BE PASSED AS AN ARGUMENT
@@ -246,12 +245,12 @@ void VideoCodec::encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, u
             if(r < inFileData.uv_height && c < inFileData.uv_width) {
                 delete frameBlockBuf;
                 frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize,YUV);
-                bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, YUV, INTERSPERSED);
+                bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, YUV, searchMode);
                 encodeFrameBlock(encoder, bestBlockMatch, YUV);
             } else {
                 delete frameBlockBuf;
                 frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize,Y);
-                bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, Y, INTERSPERSED);
+                bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, Y, searchMode);
                 encodeFrameBlock(encoder, bestBlockMatch, Y);
             }
         }
