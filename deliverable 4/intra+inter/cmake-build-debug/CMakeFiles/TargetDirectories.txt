@@ -1,0 +1,3 @@
+/home/miguel/Desktop/CAV-20-21/deliverable 4/intra+inter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/miguel/Desktop/CAV-20-21/deliverable 4/intra+inter/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/miguel/Desktop/CAV-20-21/deliverable 4/intra+inter/cmake-build-debug/CMakeFiles/testeCodec.dir

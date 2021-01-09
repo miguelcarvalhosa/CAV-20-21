@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/intra_inter.dir/main.cpp.o  -o intra_inter 
