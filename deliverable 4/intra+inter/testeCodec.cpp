@@ -25,13 +25,13 @@ long getFileSize(string fileName);
 
 int main() {
 
-    string inFile = "ducks_take_off_422_720p50.y4m";         // Input audio file
+    string inFile = "ducks_take_off_420_720p50.y4m";         // Input audio file
     string outFile = "restored_video.y4m";         // Input audio file
     string cmpFile = "video.cmp";        // Output compressed file
 
 
     unsigned int initial_m = 10, estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
-    unsigned int blockSize = 4, searchArea = 16;
+    unsigned int blockSize = 16, searchArea = 32;
 
     // Codec instance
     VideoCodec my_codec(initial_m, VideoCodec::ESTIMATION_ADAPTATIVE, VideoCodec::MODE_LOSSLESS, lostBits);

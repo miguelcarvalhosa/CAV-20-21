@@ -54,13 +54,13 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
         if(inFileData.format == VIDEO_FORMAT_444) {
             delete frameBuf;
             frameBuf = convertFrame_444to420(readFrame(&inFile));
-            // new frame dimensions of 420 format
+            /* new frame dimensions of 420 format */
             inFileData.uv_width = inFileData.width/2;
             inFileData.uv_height = inFileData.height/2;
         } else if(inFileData.format == VIDEO_FORMAT_422) {
             delete frameBuf;
             frameBuf = convertFrame_422to420(readFrame(&inFile));
-            // new frame dimensions of 420 format
+            /* new frame dimensions of 420 format */
             inFileData.uv_width = inFileData.width/2;
             inFileData.uv_height = inFileData.height/2;
         } else {
@@ -75,6 +75,7 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
             encodeInter(encoder, frameBuf, lastFrameBuf, blockSize, searchArea);
             printf("encoded frame %d -> INTER\n", nFrames);
         }
+
         memcpy(lastFrameBuf, frameBuf, inFileData.width * inFileData.height * 3 / 2 );
         if(inFileData.format == VIDEO_FORMAT_444) {
             /* restore frame dimensions to 444 frame dimensions */
@@ -103,13 +104,12 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
 
     outFile << headerStr << std::endl;
 
-    unsigned int i=0;
     unsigned int nFrames = 500;
-
     unsigned char* frameBuf = NULL;
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
-    while(i < nFrames) { // FRAME NUMBER NEEDS TO BE DETERMINED AND BE PASSED AS AN ARGUMENT
+    unsigned int i=0;
+    while(i<nFrames) {
         delete frameBuf;
         if((i%intraFramePeriodicity)==0) {
             frameBuf = decodeIntra(decoder);
