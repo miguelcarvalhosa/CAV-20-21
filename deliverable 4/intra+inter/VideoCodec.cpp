@@ -73,7 +73,7 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
             printf("encoded frame %d -> INTRA\n", nFrames);
         } else {
             encodeInter(encoder, frameBuf, lastFrameBuf, blockSize, searchArea);
-            printf("encoded frame %d -> INTER\n", nFrames);
+            //printf("encoded frame %d -> INTER\n", nFrames);
         }
 
         memcpy(lastFrameBuf, frameBuf, inFileData.width * inFileData.height * 3 / 2 );
@@ -116,7 +116,7 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
             printf("decoded frame %d -> INTRA\n", i);
         } else {
             frameBuf = decodeInter(decoder, lastFrameBuf, blockSize);
-            printf("decoded frame %d -> INTER\n", i);
+            //printf("decoded frame %d -> INTER\n", i);
         }
         memcpy(lastFrameBuf, frameBuf, inFileData.width * inFileData.height * 3 / 2);
         writeFrame(&outFile, lastFrameBuf);
@@ -237,12 +237,12 @@ void VideoCodec::encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, u
         for (int c = 0; c < inFileData.width; c=c+blockSize ) {
             if(r < inFileData.uv_height && c < inFileData.uv_width) {
                 delete frameBlockBuf;
-                frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize,YUV);
+                frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize);
                 bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, YUV, searchMode);
                 encodeFrameBlock(encoder, bestBlockMatch, YUV);
             } else {
                 delete frameBlockBuf;
-                frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize,Y);
+                frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize);
                 bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, Y, searchMode);
                 encodeFrameBlock(encoder, bestBlockMatch, Y);
             }
@@ -648,22 +648,14 @@ unsigned char* VideoCodec::getFrameBlock_component(unsigned char* &frameBuf, int
     return frameBlockBuf;
 }
 
-unsigned char* VideoCodec::getFrameBlock(unsigned char* &frameBuf, int x, int y, int blockSize, planeComponent plane) {
+unsigned char* VideoCodec::getFrameBlock(unsigned char* &frameBuf, int x, int y, int blockSize) {
     unsigned char* frameBlockBuf = new unsigned char [blockSize*blockSize*3];
 
     for (int r = 0; r < blockSize; r++) {
         for (int c = 0; c < blockSize; c++) {
-            if(plane == Y) {
-                frameBlockBuf[r * blockSize + c] = frameBuf[(y+r)*inFileData.width + (x+c)];
-            } else if(plane == U) {
-                frameBlockBuf[r* blockSize + c + blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height];
-            } else if(plane == V) {
-                frameBlockBuf[r * blockSize + c + 2*blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height + inFileData.uv_width*inFileData.uv_height];
-            } else {
                 frameBlockBuf[r * blockSize + c] = frameBuf[(y+r)*inFileData.width + (x+c)];
                 frameBlockBuf[r* blockSize + c + blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height];
                 frameBlockBuf[r* blockSize + c + 2*blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height + inFileData.uv_width*inFileData.uv_height];
-            }
         }
     }
     return frameBlockBuf;
