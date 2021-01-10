@@ -767,15 +767,15 @@ unsigned char* VideoCodec::convertFrame_444to420(unsigned char* frameBuf) {
 }
 
 unsigned char* VideoCodec::convertFrame_422to420(unsigned char* frameBuf) {
-    unsigned char* frameBuf422 = new unsigned char[inFileData.width * inFileData.height * 2];
-    memcpy(frameBuf422, frameBuf, inFileData.width * inFileData.height);
+    unsigned char* frameBuf420 = new unsigned char[inFileData.width * inFileData.height * 3/2];
+    memcpy(frameBuf420, frameBuf, inFileData.width * inFileData.height);
     for (int r = 0; r < inFileData.height; r+=2) {
-        for (int c = 0; c < inFileData.width; c++) {
-            frameBuf422[(r/2)*(inFileData.width/2)+(c/2) + inFileData.width*inFileData.height] = frameBuf[r*inFileData.width + c + inFileData.width*inFileData.height];
-            frameBuf422[(r/2)*(inFileData.width/2)+(c/2) + inFileData.width*inFileData.height + inFileData.width*inFileData.height/4] = frameBuf[r*inFileData.width + c + inFileData.width*inFileData.height*2];
+        for (int c = 0; c < inFileData.uv_width; c++) {
+            frameBuf420[(r/2)*(inFileData.uv_width)+(c) + inFileData.width*inFileData.height] = frameBuf[r*inFileData.uv_width + c + inFileData.width*inFileData.height];
+            frameBuf420[(r/2)*(inFileData.uv_width)+(c) + inFileData.width*inFileData.height + inFileData.width*inFileData.height/4] = frameBuf[r*inFileData.uv_width + c + inFileData.width*inFileData.height*3/2];
         }
     }
-    return frameBuf422;
+    return frameBuf420;
 }
 
 VideoCodec::fileData VideoCodec::parseHeader(std::string header) {
