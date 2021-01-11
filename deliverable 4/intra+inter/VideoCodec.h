@@ -121,10 +121,18 @@ private:
     } fileData;
 
     typedef struct {
-        std::string inFileHeader;
-        int frameCount;
-        predictorType predictor;
+        std::string header;
+        int width;
+        int height;
+        int uv_width;
+        int uv_height;
+        double fps;
+        videoFormat format;
         int golombM;
+        int frameCount;
+        int blockSize;
+        parameterEstimationMode estimation;
+        predictorType predictor;
     } compressedFileData;
 
     /**
@@ -221,6 +229,7 @@ private:
 
 
     fileData inFileData;
+    compressedFileData compFileData;
 
     /* Video Coded configurations */
     predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
@@ -360,6 +369,15 @@ private:
     int predict(int left_sample, int top_sample, int top_left_sample, predictorType predictor);
 
     unsigned int estimateM_fromBlock(unsigned int sum, unsigned int blockSize);
+
+    void compressedHeaderBuild(std::string& compressedHeader, int m, int nFrames);
+
+    int calcNFrames(std::string inputFile, fileData inFileData);
+
+    int estToInt(parameterEstimationMode estimation);
+
+    compressedFileData parseCompressedHeader(std::string header);
+
 };
 
 

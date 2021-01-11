@@ -39,12 +39,17 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
 
     std::ifstream inFile(inputFile);
 
-    GolombEncoder encoder(initial_m, compressedFile);   // ATENCAO AO M!! 40
+    GolombEncoder encoder(40, compressedFile);
 
     std::string headerStr;
     getline(inFile, headerStr);
     inFileData = parseHeader(headerStr);
-    encoder.encodeHeader(headerStr.substr(0,34));
+    unsigned int numFrames = calcNFrames(inputFile, inFileData);
+    compressedHeaderBuild(headerStr, this -> initial_m, numFrames);
+    std::cout << "Tamanho do cabeçalho: " <<headerStr.size() << std::endl;
+    encoder.encode(headerStr.size());                                   // encodes the header size at the begining
+    encoder.encodeHeader(headerStr.substr(0,headerStr.size())); // encodes the header
+    encoder.update(initial_m);
 
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height * 3 / 2];
     unsigned char* frameBuf = NULL;
@@ -95,21 +100,21 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
 
     std::ofstream outFile(outputFile);
 
-    GolombDecoder decoder(initial_m, compressedFile);
+    GolombDecoder decoder(40, compressedFile);
 
-    std::string headerStr;
-    headerStr = decoder.decodeHeader(34);//34 in 420 and 39 chars in 444/422 mode
+    unsigned int headerSize = decoder.decode();
+    std::string headerStr = decoder.decodeHeader(headerSize);
+    compFileData = parseCompressedHeader(headerStr);
+    outFile << headerStr.substr(headerStr.find("Y"),headerStr.find("m") - headerStr.find("Y")-1) << std::endl;
 
-    inFileData = parseHeader(headerStr);
+    decoder.update(initial_m);
 
-    outFile << headerStr << std::endl;
-
-    unsigned int nFrames = 500;
+    unsigned int nFrames = 50;
     unsigned char* frameBuf = NULL;
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
     unsigned int i=0;
-    while(i<nFrames) {
+    while(i<1) {
         delete frameBuf;
         if((i%intraFramePeriodicity)==0) {
             frameBuf = decodeIntra(decoder);
@@ -896,4 +901,142 @@ unsigned int VideoCodec::estimateM_fromBlock(unsigned int sum, unsigned int bloc
         m = 2;
     }
     return m;
+}
+
+
+// makes the string to be written in the header. Counts with the basic info from the input file already
+void VideoCodec::compressedHeaderBuild(std::string& compressedHeader, int m, int nFrames) {
+
+    if(inFileData.format == VIDEO_FORMAT_444){
+        compressedHeader.replace(compressedHeader.find("C") + 1, 3, "420");
+    }
+    else if(inFileData.format == VIDEO_FORMAT_422){
+        compressedHeader.replace(compressedHeader.find("C") + 1, 3, "420");
+    }
+    else{
+
+    }
+
+    std::string str_m = " m" + std::to_string(m);
+    compressedHeader += str_m;
+    std::string str_nFrames = " NF" + std::to_string(nFrames);
+    compressedHeader += str_nFrames;
+    std::string str_estimationBlockSize = " BS" + std::to_string(this->estimationBlockSize);
+    compressedHeader += str_estimationBlockSize;
+    std::string str_estimation = " ES" + std::to_string(estToInt(this->estimation)) + " Z\n";
+    compressedHeader += str_estimation;
+    std::cout << compressedHeader;
+}
+
+int VideoCodec::calcNFrames(std::string inputFile, fileData inFileData) {
+    std::ifstream in_file(inputFile, std::ios::binary);
+    in_file.seekg(0, std::ios::end);
+    int file_size = in_file.tellg();
+    int nFrames;
+    if(inFileData.format == VIDEO_FORMAT_444) {
+        nFrames = file_size/(inFileData.width*inFileData.height*3);
+    }
+    else if(inFileData.format == VIDEO_FORMAT_422) {
+        nFrames = file_size/(inFileData.width*inFileData.height*2);
+    }
+    else{
+        nFrames = file_size/(inFileData.width*inFileData.height*(3/2));
+    }
+    return nFrames;
+    //std::cout<<"Number of frames is"<<" "<< nFrames<<" "<<"bytes";
+}
+
+int VideoCodec::estToInt(parameterEstimationMode estimation) {
+    switch(estimation) {
+        case ESTIMATION_NONE:
+            return 0;
+        case ESTIMATION_ADAPTATIVE:
+            return 1;
+        default:
+            return -1;
+    }
+}
+
+VideoCodec::compressedFileData VideoCodec::parseCompressedHeader(std::string header) {
+    compressedFileData data;        // Create a file data structure
+    data.header = header;     // Store the header in the file data structure
+
+    // Extract the frame width from the header and store it in the file data structure
+    data.width = stoi(data.header.substr(data.header.find(" W") + 2, data.header.find(" H") - data.header.find(" W") - 2));
+
+    // Extract the frame height from the header and store it in the file data structure
+    data.height = stoi(data.header.substr(data.header.find(" H") + 2, data.header.find(" F") - data.header.find(" H") - 2));
+
+    // Extract the framerate from the header and store it in the file data structure
+    std::string fps_string = data.header.substr(data.header.find(" F") + 2, data.header.find(" I") - data.header.find(" F") - 2);
+    data.fps = (double)stoi(fps_string.substr(0, fps_string.find(":"))) / (double)stoi(fps_string.substr(fps_string.find(":") + 1));
+
+    // Extract the color subsampling format from the header and store it in the file data structure
+    if(data.header.find("C") != -1) {
+        switch(stoi(data.header.substr(data.header.find("C") + 1, 4))) {
+            case 444:
+                data.format = VIDEO_FORMAT_444;
+                break;
+            case 422:
+                data.format = VIDEO_FORMAT_422;
+                break;
+            case 420:
+                data.format = VIDEO_FORMAT_420;
+                break;
+            default:
+                std::cerr << "Error: Invalid video format" << std::endl;
+                break;
+        }
+    }
+    else {
+        data.format = VIDEO_FORMAT_420;
+    }
+
+    // Print the data in the terminal
+    std::cout << "Header: " << data.header << std::endl;
+    std::cout << "Width: " << data.width << std::endl;
+    std::cout << "Height: " << data.height << std::endl;
+    std::cout << "FPS: " << data.fps << std::endl;
+
+    // Based on the color subsampling format, calculate the U and V frame dimensions and store them in the file data structure
+    if(data.format == VIDEO_FORMAT_444) {
+        std::cout << "Format: 444" << std::endl;
+        data.uv_width = data.width;
+        data.uv_height = data.height;
+    }
+    else if(data.format == VIDEO_FORMAT_422) {
+        std::cout << "Format: 422" << std::endl;
+        data.uv_width = data.width / 2;
+        data.uv_height = data.height;
+    }
+    else if(data.format == VIDEO_FORMAT_420) {
+        std::cout << "Format: 420" << std::endl;
+        data.uv_width = data.width / 2;
+        data.uv_height = data.height / 2;
+    }
+    else {
+        std::cerr << "Error: Invalid video format" << std::endl;
+    }
+
+    data.golombM = stoi(data.header.substr(data.header.find(" m") + 2, data.header.find(" m") - data.header.find(" N") - 2));
+    std::cout << "m: " << data.golombM << std::endl;
+
+    data.frameCount = stoi(data.header.substr(data.header.find(" N") + 3, data.header.find(" N") - data.header.find(" B") - 2));
+    std::cout << "N frames: " << data.frameCount << std::endl;
+
+    data.blockSize = stoi(data.header.substr(data.header.find(" B") + 3, data.header.find(" B") - data.header.find(" E") - 2));
+    std::cout << "Block Size: " << data.blockSize << std::endl;
+
+    int estimation = stoi(data.header.substr(data.header.find(" E") + 3, data.header.find(" E") - data.header.find(" Z") - 2));
+
+    if(estimation == 0) {
+        data.estimation = ESTIMATION_NONE;
+    }
+    else{
+        data.estimation = ESTIMATION_ADAPTATIVE;
+    }
+    std::cout << "Estimation:" << data.estimation << std::endl;
+
+
+    return data;
 }
