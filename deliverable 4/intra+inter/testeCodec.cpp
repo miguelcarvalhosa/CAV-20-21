@@ -25,7 +25,7 @@ long getFileSize(string fileName);
 
 int main() {
 
-    string inFile = "ducks_take_off_420_720p50.y4m";         // Input audio file
+    string inFile = "422_.y4m";         // Input audio file
     string outFile = "restored_video.y4m";         // Input audio file
     string cmpFile = "video.cmp";        // Output compressed file
 
