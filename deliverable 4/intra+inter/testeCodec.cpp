@@ -30,17 +30,17 @@ int main() {
     string cmpFile = "video.cmp";        // Output compressed file
 
 
-    unsigned int initial_m = 10, estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
-    unsigned int blockSize = 4, searchArea = 16;
+    unsigned int estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
+    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 0, lostbitsU = 0, lostbitsV =0;
 
     // Codec instance
-    VideoCodec my_codec(initial_m, VideoCodec::ESTIMATION_NONE, VideoCodec::MODE_LOSSLESS, lostBits);
+    VideoCodec my_codec(VideoCodec::MODE_LOSSLESS, lostbitsY,lostbitsU,lostbitsV);
 
     /* configure codec settings for both intra and inter mode */
-    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, intraFramePeriodicity, estimationBlockSize);
-    my_codec.setInterCodingParameters(VideoCodec::INTERSPERSED, blockSize, searchArea);
+   // my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, intraFramePeriodicity, estimationBlockSize);
+    //my_codec.setInterCodingParameters(VideoCodec::INTERSPERSED, blockSize, searchArea);
 
-    my_codec.compress(inFile, cmpFile);
+    //my_codec.compress(inFile, cmpFile,10,VideoCodec::ESTIMATION_ADAPTATIVE);
     my_codec.decompress(outFile, cmpFile);
 
 

@@ -4,11 +4,11 @@
 
 #include "VideoCodec.h"
 
-VideoCodec::VideoCodec(unsigned int initial_m, parameterEstimationMode estimation, lossMode loss, unsigned int lostBits) {
-    this->initial_m = initial_m;
+VideoCodec::VideoCodec(lossMode loss, unsigned int lostBitsY,unsigned int lostBitsU, unsigned int lostBitsV) {
     this->loss = loss;
-    this->estimation = estimation;
-    this->lostBits = lostBits;
+    this->lostBitsY = lostBitsY;
+    this->lostBitsU = lostBitsU;
+    this->lostBitsV = lostBitsV;
 }
 
 void VideoCodec::setIntraCodingParameters(predictorType predictor, unsigned int intraFramePeriodicity, unsigned int estimationBlockSize) {
@@ -35,7 +35,7 @@ VideoCodec::~VideoCodec() {
 
 }
 
-void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
+void VideoCodec::compress( std::string &inputFile, std::string &compressedFile, unsigned int initial_m, parameterEstimationMode estimation) {
 
     std::ifstream inFile(inputFile);
 
@@ -44,6 +44,10 @@ void VideoCodec::compress(std::string &inputFile, std::string &compressedFile) {
     std::string headerStr;
     getline(inFile, headerStr);
     inFileData = parseHeader(headerStr);
+
+    this->initial_m = initial_m;
+    this->estimation = estimation;
+
     unsigned int numFrames = calcNFrames(inputFile, inFileData);
     compressedHeaderBuild(headerStr, this -> initial_m, numFrames);
     std::cout << "Tamanho do cabeçalho: " <<headerStr.size() << std::endl;
@@ -104,8 +108,21 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
 
     unsigned int headerSize = decoder.decode();
     std::string headerStr = decoder.decodeHeader(headerSize);
-    compFileData = parseCompressedHeader(headerStr);
+    inFileData = parseCompressedHeader(headerStr);
+
+    this->initial_m = inFileData.golombM;
+    this->estimationBlockSize = inFileData.estimationBlockSize;
+    this->estimation = inFileData.estimation;
+    this->predictor = inFileData.predictor;
+    this->intraFramePeriodicity = inFileData.intraFramePeriodicity;
+    this->searchMode = inFileData.searchMode;
+    this->blockSize = inFileData.blockSize;
+    this->searchArea = inFileData.searchArea;
+
     outFile << headerStr.substr(headerStr.find("Y"),headerStr.find("m") - headerStr.find("Y")-1) << std::endl;
+
+    inFileData.uv_width = inFileData.width/2;
+    inFileData.uv_height = inFileData.height/2;
 
     decoder.update(initial_m);
 
@@ -114,7 +131,7 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
     unsigned int i=0;
-    while(i<1) {
+    while(i<inFileData.frameCount) {
         delete frameBuf;
         if((i%intraFramePeriodicity)==0) {
             frameBuf = decodeIntra(decoder);
@@ -916,16 +933,26 @@ void VideoCodec::compressedHeaderBuild(std::string& compressedHeader, int m, int
     else{
 
     }
-
     std::string str_m = " m" + std::to_string(m);
     compressedHeader += str_m;
     std::string str_nFrames = " NF" + std::to_string(nFrames);
     compressedHeader += str_nFrames;
-    std::string str_estimationBlockSize = " BS" + std::to_string(this->estimationBlockSize);
+    std::string str_estimationBlockSize = " EBS" + std::to_string(this->estimationBlockSize);
     compressedHeader += str_estimationBlockSize;
-    std::string str_estimation = " ES" + std::to_string(estToInt(this->estimation)) + " Z\n";
+    std::string str_estimation = " ES" + std::to_string(estToInt(estimation));
     compressedHeader += str_estimation;
+    std::string str_predictor = " PR" + std::to_string(this->predictor);
+    compressedHeader += str_predictor;
+    std::string str_intraFramePeriodicity  = " IFP" + std::to_string(this->intraFramePeriodicity);
+    compressedHeader += str_intraFramePeriodicity;
+    std::string str_searchMode  = " SM" + std::to_string(this->searchMode);
+    compressedHeader += str_searchMode;
+    std::string str_blockSize  = " BS" + std::to_string(this->blockSize);
+    compressedHeader += str_blockSize;
+    std::string str_searchArea  = " SA" + std::to_string(this->searchArea) + " Z\n";
+    compressedHeader += str_searchArea;
     std::cout << compressedHeader;
+
 }
 
 int VideoCodec::calcNFrames(std::string inputFile, fileData inFileData) {
@@ -957,8 +984,8 @@ int VideoCodec::estToInt(parameterEstimationMode estimation) {
     }
 }
 
-VideoCodec::compressedFileData VideoCodec::parseCompressedHeader(std::string header) {
-    compressedFileData data;        // Create a file data structure
+VideoCodec::fileData VideoCodec::parseCompressedHeader(std::string header) {
+    fileData data;            // Create a file data structure
     data.header = header;     // Store the header in the file data structure
 
     // Extract the frame width from the header and store it in the file data structure
@@ -1024,11 +1051,10 @@ VideoCodec::compressedFileData VideoCodec::parseCompressedHeader(std::string hea
     data.frameCount = stoi(data.header.substr(data.header.find(" N") + 3, data.header.find(" N") - data.header.find(" B") - 2));
     std::cout << "N frames: " << data.frameCount << std::endl;
 
-    data.blockSize = stoi(data.header.substr(data.header.find(" B") + 3, data.header.find(" B") - data.header.find(" E") - 2));
-    std::cout << "Block Size: " << data.blockSize << std::endl;
+    data.estimationBlockSize = stoi(data.header.substr(data.header.find("EBS") + 3, data.header.find("EBS") - data.header.find("ES") - 1));
+    std::cout << "Estimation Block Size: " << data.estimationBlockSize << std::endl;
 
-    int estimation = stoi(data.header.substr(data.header.find(" E") + 3, data.header.find(" E") - data.header.find(" Z") - 2));
-
+    int estimation = stoi(data.header.substr(data.header.find("ES") + 2, data.header.find(" E") - data.header.find(" Z") - 2));
     if(estimation == 0) {
         data.estimation = ESTIMATION_NONE;
     }
@@ -1036,6 +1062,22 @@ VideoCodec::compressedFileData VideoCodec::parseCompressedHeader(std::string hea
         data.estimation = ESTIMATION_ADAPTATIVE;
     }
     std::cout << "Estimation:" << data.estimation << std::endl;
+
+    data.predictor = (predictorType) stoi(data.header.substr(data.header.find("PR") + 2, data.header.find("PR") - data.header.find("IFP") - 1));
+    std::cout << "Predictor: " << data.predictor << std::endl;
+
+    data.intraFramePeriodicity = stoi(data.header.substr(data.header.find("IFP") + 3, data.header.find("IFP") - data.header.find("SM") - 1));
+    std::cout << "Intra Frame Periodicity: " << data.intraFramePeriodicity << std::endl;
+
+    data.searchMode = (blockSearchMode) stoi(data.header.substr(data.header.find("SM") + 2, data.header.find("SM") - data.header.find("BS") - 1));
+    std::cout << "Search Mode: " << data.searchMode << std::endl;
+
+    data.blockSize = stoi(data.header.substr(data.header.find(" B") + 3, data.header.find(" B") - data.header.find(" E") - 2));
+    std::cout << "Block Size: " << data.blockSize << std::endl;
+
+    data.searchArea = stoi(data.header.substr(data.header.find("SA") + 2, data.header.find("SA") - data.header.find("Z") - 1));
+    std::cout << "Search Area: " << data.searchArea << std::endl;
+
 
 
     return data;

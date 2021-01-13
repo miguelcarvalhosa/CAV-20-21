@@ -70,7 +70,7 @@ public:
      * \param[in] loss         Loss mode of video coded
      * \param[in] lostBits     Quantization step
      */
-    VideoCodec(unsigned int initial_m, parameterEstimationMode estimation, lossMode loss, unsigned int lostBits);
+    VideoCodec(lossMode loss, unsigned int lostBitsY,unsigned int lostBitsU, unsigned int lostBitsV);
     /**
      * \brief Destructor.
      */
@@ -99,7 +99,7 @@ public:
     *  \param[in] inputFile            A string with the input video file path
     *  \param[out] compressedFile      A string with the output compressed file path
     */
-    void compress(std::string &inputFile, std::string &compressedFile);
+    void compress(std::string &inputFile, std::string &compressedFilen, unsigned int initialm,parameterEstimationMode estimation);
     /**
     *  \brief A function to decompress a video file
     *
@@ -110,15 +110,6 @@ public:
 
 private:
 
-    typedef struct {
-        std::string header;
-        int width;
-        int height;
-        int uv_width;
-        int uv_height;
-        double fps;
-        videoFormat format;
-    } fileData;
 
     typedef struct {
         std::string header;
@@ -130,10 +121,15 @@ private:
         videoFormat format;
         int golombM;
         int frameCount;
-        int blockSize;
+        unsigned int estimationBlockSize;
+        unsigned int blockSize;
+        unsigned int intraFramePeriodicity;
+        unsigned int searchArea;
+
+        blockSearchMode searchMode;
         parameterEstimationMode estimation;
         predictorType predictor;
-    } compressedFileData;
+    } fileData;
 
     /**
     * Enumeration of the different image planes combinations
@@ -229,7 +225,6 @@ private:
 
 
     fileData inFileData;
-    compressedFileData compFileData;
 
     /* Video Coded configurations */
     predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
@@ -242,6 +237,9 @@ private:
     unsigned int initial_m;                                      // Initial m parameter of the Golomb encoder
     unsigned int blockSize;                                      // Width and height of each frame block
     unsigned int searchArea;                                     // Area investigated around the previous frame block
+    unsigned int lostBitsY;
+    unsigned int lostBitsU;
+    unsigned int lostBitsV;
     blockSearchMode searchMode;                                  // Type of search used to find the best block match within the search area
 
 
@@ -376,7 +374,7 @@ private:
 
     int estToInt(parameterEstimationMode estimation);
 
-    compressedFileData parseCompressedHeader(std::string header);
+    fileData parseCompressedHeader(std::string header);
 
 };
 
