@@ -2,9 +2,8 @@
 /**
  * \file testeCodec.cpp
  *
- * \brief Contains the resolution of the Deliverable 3.
- *        This program creates an instance of the codec, compresses an audio file and then decompresses the file.
- *        The program also computes the files histograms, entropies and the compression ratio.
+ * \brief Contains the resolution of point 17 of the Deliverable 4.
+ *        This program creates an instance of the codec, compresses a video file and then decompresses the file.
  *
  * \author Miguel Carvalhosa
  * \author Tânia Ferreira
@@ -23,36 +22,32 @@ using namespace std;
 long getFileSize(string fileName);
 
 
-int main(int argc, char *argv[]) {
+int main() {
 
-    string inFile = "ducks_take_off_444_720p50.y4m";         // Input audio file
-    string outFile = "restored_video.y4m";         // Input audio file
-    string cmpFile = "video.cmp";        // Output compressed file
-    //string decFile = "sample01_out.wav";    // Output audio file
+    string inFile = "444_.y4m";                     // Input video file
+    string outFile = "restored_video.y4m";          // Output video file
+    string cmpFile = "video.cmp";                   // Output compressed file
+
+    unsigned int estimationBlockSize = 1000, initial_m = 10;
 
     // Codec instance
-    unsigned int initial_m = 40, block_size = 1000, lostBits = 0;
-    VideoCodec my_codec(VideoCodec::PREDICTOR_LINEAR_JPEG_1, initial_m, VideoCodec::ESTIMATION_ADAPTATIVE, block_size, VideoCodec::MODE_LOSSLESS, lostBits);
+    VideoCodec my_codec;
 
-    my_codec.compress(inFile, cmpFile);
+    /* configure codec settings for intra mode */
+    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, estimationBlockSize);
+
+    my_codec.compress(inFile, cmpFile, initial_m, VideoCodec::ESTIMATION_ADAPTATIVE);
     my_codec.decompress(outFile, cmpFile);
 
+
     // Print the results
-//    cout << "\nInput file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;
-//    cout << "\t right channel entropy: " << inFileEntropy[0] << endl;
-//    cout << "\t left channel entropy: " << inFileEntropy[1] << endl;
-//    cout << "\t mono channel entropy: " << inFileEntropy[2] << endl;
-//
-//    cout << "Compressed file '" << cmpFile << "' size (bytes) :" << getFileSize(cmpFile) << endl;
-//    cout << "\t first channel entropy: " << cmpFileEntropy[0] << endl;
-//    cout << "\t second channel entropy: " << cmpFileEntropy[1] << endl;
-//
-//    cout << "Decompressed file '" << decFile << "' size (bytes) :" << getFileSize(decFile) << endl;
-//    cout << "\t right channel entropy: " << decFileEntropy[0] << endl;
-//    cout << "\t left channel entropy: " << decFileEntropy[1] << endl;
-//    cout << "\t mono channel entropy: " << decFileEntropy[2] << endl;
-//
-//    cout << "Compression Ratio: " << (float)getFileSize(inFile)/(float)getFileSize(cmpFile) << endl;
+    cout << "\nInput file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;
+
+    cout << "Compressed file '" << cmpFile << "' size (bytes) :" << getFileSize(cmpFile) << endl;
+
+    cout << "Decompressed file '" << outFile << "' size (bytes) :" << getFileSize(outFile) << endl;
+
+    cout << "Compression Ratio: " << (float)getFileSize(inFile)/(float)getFileSize(cmpFile) << endl;
 
     return 0;
 }

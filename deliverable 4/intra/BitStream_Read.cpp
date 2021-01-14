@@ -41,9 +41,10 @@ uint8_t BitStream_Read::readBit() {
         bit = (buffer >> pos) & 0x1;    // Isolate each bit, using shifts and a mask
         pos--;                          // Decrement the position pointer
     }
-    if(bit == 0xFF) {       // If the return value is invalid, print an error message
+
+    /* if(bit == 0xFF) {       // If the return value is invalid, print an error message
         std::cerr << "ERROR in BitStream_Read::readBit: invalid return value." << std::endl;
-    }
+    } */
     return bit;
 }
 
