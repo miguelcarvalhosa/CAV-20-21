@@ -1,6 +1,3 @@
-//
-// Created by miguel on 17/12/20.
-//
 
 #include "VideoCodec.h"
 
@@ -17,6 +14,7 @@ void VideoCodec::setIntraCodingParameters(predictorType predictor, unsigned int 
     this->estimationBlockSize = estimationBlockSize;
     this->intraFramePeriodicity = intraFramePeriodicity;
 }
+
 void VideoCodec::setInterCodingParameters(blockSearchMode searchMode, unsigned int blockSize, unsigned int searchArea) {
     if(log2(blockSize)==ceil(log2(blockSize))) {
         this->blockSize = blockSize;
@@ -32,7 +30,6 @@ void VideoCodec::setInterCodingParameters(blockSearchMode searchMode, unsigned i
     this->searchArea = searchArea;
     this->searchMode = searchMode;
 }
-
 
 void VideoCodec::compress( std::string &inputFile, std::string &compressedFile, unsigned int initial_m, parameterEstimationMode estimation) {
 

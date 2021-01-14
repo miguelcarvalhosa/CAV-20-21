@@ -1,4 +1,18 @@
-
+/**
+ * \brief A class to compress and decompress a .y4m video file.
+ *        This codec works with YUV4MPEG2 uncompressed video files in three different color formats: YUV444, YUV422 and
+ *        YUV420. The output of the decompressor is always in YUV420 color format.
+ *        This lossless version of the codec includes an hybrid intra and inter-frame encoder using predictive coding
+ *        and motion compensation.
+ *        The user can choose the inter-frame block size and search area, as well as the periodicity of the intra-frame
+ *        encoding.
+ *        The user can also choose the type of predictor among the seven linear JPEG predictors or the JPEG-LS
+ *        non-linear predictor.
+ *
+ * \author Miguel Carvalhosa
+ * \author Tânia Ferreira
+ * \author Gonçalo Cardoso
+ */
 
 #ifndef VIDEOCODEC_H
 #define VIDEOCODEC_H
@@ -17,14 +31,19 @@ class VideoCodec {
 
 public:
 
+    /**
+     * Enumeration with the types of video color format.
+     */
     typedef enum {
-        VIDEO_FORMAT_444,
-        VIDEO_FORMAT_422,
-        VIDEO_FORMAT_420
+        VIDEO_FORMAT_444,       // YUV444
+        VIDEO_FORMAT_422,       // YUV422
+        VIDEO_FORMAT_420        // YUV420
     } videoFormat;
 
+    /**
+     * Enumeration with the types of predictors (seven linear JPEG and one non-linear JPEG-LS).
+     */
     typedef enum {
-        /* the 7 JPEG linear predictors */
         PREDICTOR_LINEAR_JPEG_1,
         PREDICTOR_LINEAR_JPEG_2,
         PREDICTOR_LINEAR_JPEG_3,
@@ -32,7 +51,6 @@ public:
         PREDICTOR_LINEAR_JPEG_5,
         PREDICTOR_LINEAR_JPEG_6,
         PREDICTOR_LINEAR_JPEG_7,
-        /* non-linear predictor of JPEG-LS */
         PREDICTOR_NON_LINEAR_JPEGLS
     } predictorType;
 
@@ -44,10 +62,8 @@ public:
         ESTIMATION_ADAPTATIVE       /**< Adaptative estimation of the Golomb encoder parameter */
     } parameterEstimationMode;
 
-
     /**
-     * Enumeration with the search modes that can be used during
-     * motion estimation
+     * Enumeration with the search modes that can be used during motion estimation.
      */
     typedef enum {
         EXHAUSTIVE,             /**< Mode where all possible blocks within the search area are tested */
@@ -72,6 +88,7 @@ public:
      * \param[in] estimationBlockSize      Size of the block used to estimate the m parameter during intra coding
      */
     void setIntraCodingParameters(predictorType predictor, unsigned int intraFramePeriodicity, unsigned int estimationBlockSize);
+
     /**
      * \brief A function to set the options of the inter coding mode
      *
@@ -84,10 +101,13 @@ public:
     /**
     *  \brief A function to compress a video file
     *
-    *  \param[in] inputFile            A string with the input video file path
+    *  \param[in]  inputFile           A string with the input video file path
     *  \param[out] compressedFile      A string with the output compressed file path
+    *  \param[in]  initialm            Initial value of the Golomb encoder parameter
+    *  \param[in]  estimation          Mode of the Golomb encoder parameter estimation
     */
-    void compress(std::string &inputFile, std::string &compressedFilen, unsigned int initialm,parameterEstimationMode estimation);
+    void compress(std::string &inputFile, std::string &compressedFile, unsigned int initialm, parameterEstimationMode estimation);
+
     /**
     *  \brief A function to decompress a video file
     *
@@ -96,31 +116,34 @@ public:
     */
     void decompress(std::string &outputFile, std::string &compressedFile);
 
+
 private:
 
-
+    /**
+     * Structure with some file data parameters.
+     */
     typedef struct {
-        std::string header;
-        int width;
-        int height;
-        int uv_width;
-        int uv_height;
-        double fps;
-        videoFormat format;
-        int golombM;
-        int frameCount;
-        unsigned int estimationBlockSize;
-        unsigned int blockSize;
-        unsigned int intraFramePeriodicity;
-        unsigned int searchArea;
+        std::string header;                     // File header
+        int width;                              // Frame Y component width in pixels
+        int height;                             // Frame Y component height in pixels
+        int uv_width;                           // Frame U and V component width in pixels
+        int uv_height;                          // Frame U and V component height in pixels
+        double fps;                             // Video frames per second
+        videoFormat format;                     // Video color format
+        int golombM;                            // Golomb encoder m parameter
+        int frameCount;                         // Number of frames in the video
+        unsigned int estimationBlockSize;       // Size of the block used to estimate the m parameter during intra coding
+        unsigned int blockSize;                 // Width and height of each frame block used during inter coding
+        unsigned int intraFramePeriodicity;     // Periodicity of the intra frame coding
+        unsigned int searchArea;                // Area investigated around the previous frame block during inter coding
 
-        blockSearchMode searchMode;
-        parameterEstimationMode estimation;
-        predictorType predictor;
+        blockSearchMode searchMode;             // Type of search used to find the best block match within the search area during inter coding
+        parameterEstimationMode estimation;     // Mode of the Golomb encoder parameter estimation
+        predictorType predictor;                // Spatial predictor type used during intra coding
     } fileData;
 
     /**
-    * Enumeration of the different image planes combinations
+    * Enumeration with the different image planes combinations.
     */
     typedef enum {
         Y,              /**< Mode with no losses */
@@ -128,6 +151,17 @@ private:
         V,
         YUV               /**< Mode with losses */
     } planeComponent;
+
+    fileData inFileData;
+    predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
+    parameterEstimationMode estimation = ESTIMATION_NONE;
+    unsigned int estimationBlockSize;
+    unsigned int intraFramePeriodicity;
+    unsigned int initial_m;
+    unsigned int blockSize;
+    unsigned int searchArea;
+    blockSearchMode searchMode;
+
 
     /**
     * Class used to store the (x,y) coordinates of a point or vector
@@ -206,30 +240,6 @@ private:
         }
     };
 
-    typedef enum {
-        MODE_INTRA,              /**< Mode that uses spatial prediction */
-        MODE_INTER               /**< Mode that uses temporal prediction */
-    } frameEncodingMode;
-
-
-    fileData inFileData;
-
-    /* Video Coded configurations */
-    predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
-    parameterEstimationMode estimation = ESTIMATION_NONE;        // M parameter estimation mode
-    unsigned int estimationBlockSize;                            // Size of the block used to estimate the m parameter during intra coding
-    unsigned int lostBits;                                       // Quantization step
-    unsigned int intraFramePeriodicity;                          // Indication of the periodicity of the key frames
-
-    unsigned int initial_m;                                      // Initial m parameter of the Golomb encoder
-    unsigned int blockSize;                                      // Width and height of each frame block
-    unsigned int searchArea;                                     // Area investigated around the previous frame block
-    unsigned int lostBitsY;
-    unsigned int lostBitsU;
-    unsigned int lostBitsV;
-    blockSearchMode searchMode;                                  // Type of search used to find the best block match within the search area
-
-
     /**
     *  \brief A function to encode a frame in INTRA mode
     *
@@ -289,6 +299,7 @@ private:
 
     /**
     *  \brief A function to fetch the YUV blocks with x,y coordinates from a frame
+    *
     *  \param[in] frameBuf      Pointer to the data buffer of the frame
     *  \param[in] x             x coordinate of the block
     *  \param[in] y             y coordinate of the block
@@ -299,6 +310,7 @@ private:
 
     /**
     *  \brief A function to fetch a block with x,y coordinates from a frame for a particular image plane
+    *
     *  \param[in] frameBuf      Pointer to the data buffer of the frame
     *  \param[in] x             x coordinate of the block
     *  \param[in] y             y coordinate of the block
@@ -310,6 +322,7 @@ private:
 
     /**
     *  \brief A function to perform motion estimation on the current frame block
+    *
     *  \param[in] frameBlockBuf   Pointer to the data buffer of the current block frame
     *  \param[in] lastFrameBuf    Pointer to the data buffer of the previous decoded frame
     *  \param[in] block_x         x coordinate of the current block
@@ -324,6 +337,7 @@ private:
 
     /**
     *  \brief A function to calculate the coordinates of the search area around a block
+    *
     *  \param[in] x             x coordinate of the block
     *  \param[in] y             y coordinate of the block
     *  \param[in] blockSize     Size of the block
@@ -333,26 +347,81 @@ private:
     */
     blockLimits calculateBlockLimits(int x, int y, int blockSize, int searchArea);
 
-
-    // Returns the next frame in the file, in the specified color format
-    // only works with the infiledata structure
+    /**
+     *  \brief     A function to read the next frame in the file
+     *
+     *  \param[in] fp            Input file stream
+     *  \return    A pointer to the frame
+     */
     unsigned char* readFrame(std::ifstream* fp);
 
+    /**
+     *  \brief     A function to write a frame to the file
+     *
+     *  \param[in]  fp              Output file stream
+     *  \param[out] frameBuf        A pointer to the frame
+     */
     void writeFrame(std::ofstream* fp, unsigned char* frameBuf);
 
+    /**
+     *  \brief     A function to convert a frame in color format 422 to 444
+     *
+     *  \param[in] frameBuf         A pointer to the input frame
+     *  \return    A pointer to the output frame
+     */
     unsigned char* convertFrame_422to444(unsigned char* frameBuf);
 
+    /**
+     *  \brief     A function to convert a frame in color format 420 to 444
+     *
+     *  \param[in] frameBuf         A pointer to the input frame
+     *  \return    A pointer to the output frame
+     */
     unsigned char* convertFrame_420to444(unsigned char* frameBuf);
 
+    /**
+     *  \brief     A function to convert a frame in color format 444 to 420
+     *
+     *  \param[in] frameBuf         A pointer to the input frame
+     *  \return    A pointer to the output frame
+     */
     unsigned char* convertFrame_444to420(unsigned char* frameBuf);
 
+    /**
+     *  \brief     A function to convert a frame in color format 422 to 420
+     *
+     *  \param[in] frameBuf         A pointer to the input frame
+     *  \return    A pointer to the output frame
+     */
     unsigned char* convertFrame_422to420(unsigned char* frameBuf);
 
-    // Returns a structure containing the data extracted from the header of the file
+    /**
+     *  \brief     A function to parse the file header and extract the data
+     *
+     *  \param[in] header           A string with the header
+     *  \return    A structure with the file data
+     */
     fileData parseHeader(std::string header);
 
+    /**
+     *  \brief     A function compute the prediction from a sample using a predictor
+     *
+     *  \param[in] left_sample          The sample on the left of the sample to be predicted
+     *  \param[in] top_sample           The sample on the top of the sample to be predicted
+     *  \param[in] top_left_sample      The sample on the top and left of the sample to be predicted
+     *  \param[in] predictor            The predictor type to be used
+     *  \return    The predicted sample
+     */
     int predict(int left_sample, int top_sample, int top_left_sample, predictorType predictor);
 
+    /**
+     *  \brief A function to estimate the best Golomb encoder parameter 'm' value for a block of the video file
+     *
+     *  \param[in] sum                  The sum of the samples values in the block
+     *  \param[in] blockSize            The number of samples in the block
+     *
+     *  \return The best value for parameter 'm'
+     */
     unsigned int estimateM_fromBlock(unsigned int sum, unsigned int blockSize);
 
     void compressedHeaderBuild(std::string& compressedHeader, int m, int nFrames);
