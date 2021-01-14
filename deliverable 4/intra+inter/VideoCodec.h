@@ -44,13 +44,6 @@ public:
         ESTIMATION_ADAPTATIVE       /**< Adaptative estimation of the Golomb encoder parameter */
     } parameterEstimationMode;
 
-    /**
-     * Enumeration with the modes of losses during encoding.
-     */
-    typedef enum {
-        MODE_LOSSLESS,              /**< Mode with no losses */
-        MODE_LOSSY                  /**< Mode with losses */
-    } lossMode;
 
     /**
      * Enumeration with the search modes that can be used during
@@ -63,14 +56,9 @@ public:
 
     /**
      * \brief Constructor.
-     *
-     * \param[in] initial_m    Initial m parameter of the Golomb encoder. If the estimation type
-     *                         chosen is NONE this value is kept constant during all encoding process
-     * \param[in] estimation   Estimation mode of m parameter of the Golomb encoder
-     * \param[in] loss         Loss mode of video coded
-     * \param[in] lostBits     Quantization step
      */
-    VideoCodec(lossMode loss, unsigned int lostBitsY,unsigned int lostBitsU, unsigned int lostBitsV);
+    VideoCodec();
+
     /**
      * \brief Destructor.
      */
@@ -229,7 +217,6 @@ private:
     /* Video Coded configurations */
     predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
     parameterEstimationMode estimation = ESTIMATION_NONE;        // M parameter estimation mode
-    lossMode loss = MODE_LOSSLESS;                               // codec loss mode
     unsigned int estimationBlockSize;                            // Size of the block used to estimate the m parameter during intra coding
     unsigned int lostBits;                                       // Quantization step
     unsigned int intraFramePeriodicity;                          // Indication of the periodicity of the key frames

@@ -4,11 +4,12 @@
 
 #include "VideoCodec.h"
 
-VideoCodec::VideoCodec(lossMode loss, unsigned int lostBitsY,unsigned int lostBitsU, unsigned int lostBitsV) {
-    this->loss = loss;
-    this->lostBitsY = lostBitsY;
-    this->lostBitsU = lostBitsU;
-    this->lostBitsV = lostBitsV;
+VideoCodec::VideoCodec() {
+
+}
+
+VideoCodec::~VideoCodec() {
+
 }
 
 void VideoCodec::setIntraCodingParameters(predictorType predictor, unsigned int intraFramePeriodicity, unsigned int estimationBlockSize) {
@@ -31,9 +32,7 @@ void VideoCodec::setInterCodingParameters(blockSearchMode searchMode, unsigned i
     this->searchArea = searchArea;
     this->searchMode = searchMode;
 }
-VideoCodec::~VideoCodec() {
 
-}
 
 void VideoCodec::compress( std::string &inputFile, std::string &compressedFile, unsigned int initial_m, parameterEstimationMode estimation) {
 
