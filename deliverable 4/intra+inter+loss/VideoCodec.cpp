@@ -131,7 +131,7 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
     unsigned int i=0;
-    while(i<inFileData.frameCount) {
+    while(i < inFileData.frameCount) {
         delete frameBuf;
         if((i%intraFramePeriodicity)==0) {
             frameBuf = decodeIntra(decoder);
@@ -999,12 +999,10 @@ int VideoCodec::calcNFrames(std::string inputFile, fileData inFileData) {
     }
     else if(inFileData.format == VIDEO_FORMAT_422) {
         nFrames = file_size/(inFileData.width*inFileData.height*2);
-    }
-    else{
-        nFrames = file_size/(inFileData.width*inFileData.height*(3/2));
+    } else{
+        nFrames = file_size/(inFileData.width*inFileData.height*3/2);
     }
     return nFrames;
-    //std::cout<<"Number of frames is"<<" "<< nFrames<<" "<<"bytes";
 }
 
 int VideoCodec::estToInt(parameterEstimationMode estimation) {
@@ -1111,8 +1109,6 @@ VideoCodec::fileData VideoCodec::parseCompressedHeader(std::string header) {
 
     data.searchArea = stoi(data.header.substr(data.header.find("SA") + 2, data.header.find("SA") - data.header.find("Z") - 1));
     std::cout << "Search Area: " << data.searchArea << std::endl;
-
-
 
     return data;
 }

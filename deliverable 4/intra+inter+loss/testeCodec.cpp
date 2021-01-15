@@ -25,7 +25,7 @@ long getFileSize(string fileName);
 
 int main() {
 
-    string inFile = "444_.y4m";         // Input audio file
+    string inFile = "420_.y4m";         // Input audio file
     string outFile = "restored_video.y4m";         // Input audio file
     string cmpFile = "video.cmp";        // Output compressed file
 
@@ -34,7 +34,7 @@ int main() {
     unsigned int blockSize = 4, searchArea = 16, lostbitsY = 0, lostbitsU = 0, lostbitsV = 0;
 
     // Codec instance
-    VideoCodec my_codec(VideoCodec::MODE_LOSSY, lostbitsY,lostbitsU,lostbitsV);
+    VideoCodec my_codec(VideoCodec::MODE_LOSSLESS, lostbitsY,lostbitsU,lostbitsV);
 
     /* configure codec settings for both intra and inter mode */
     my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, intraFramePeriodicity, estimationBlockSize);
