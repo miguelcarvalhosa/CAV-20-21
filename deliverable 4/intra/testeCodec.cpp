@@ -24,7 +24,7 @@ long getFileSize(string fileName);
 
 int main() {
 
-    string inFile = "444_.y4m";                     // Input video file
+    string inFile = "ducks_take_off_420_720p50.y4m";                     // Input video file
     string outFile = "restored_video.y4m";          // Output video file
     string cmpFile = "video.cmp";                   // Output compressed file
 
@@ -34,7 +34,7 @@ int main() {
     VideoCodec my_codec;
 
     /* configure codec settings for intra mode */
-    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, estimationBlockSize);
+    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_NON_LINEAR_JPEGLS, estimationBlockSize);
 
     my_codec.compress(inFile, cmpFile, initial_m, VideoCodec::ESTIMATION_ADAPTATIVE);
     my_codec.decompress(outFile, cmpFile);

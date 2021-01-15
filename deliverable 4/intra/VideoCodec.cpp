@@ -96,7 +96,7 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
 
     decoder.update(initial_m);
 
-    unsigned int nFrames = 50;
+
     unsigned char* frameBuf = NULL;
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
@@ -626,8 +626,10 @@ VideoCodec::fileData VideoCodec::parseCompressedHeader(std::string header) {
     data.golombM = stoi(data.header.substr(data.header.find(" m") + 2, data.header.find(" m") - data.header.find(" N") - 2));
     std::cout << "m: " << data.golombM << std::endl;
 
-    data.frameCount = stoi(data.header.substr(data.header.find(" N") + 3, data.header.find(" N") - data.header.find(" B") - 2));
-    std::cout << "N frames: " << data.frameCount << std::endl;
+    /* delete this after bug is corrected*/
+    data.frameCount = 500;
+            //stoi(data.header.substr(data.header.find(" N") + 3, data.header.find(" N") - data.header.find(" B") - 2));
+    //std::cout << "N frames: " << data.frameCount << std::endl;
 
     data.estimationBlockSize = stoi(data.header.substr(data.header.find("EBS") + 3, data.header.find("EBS") - data.header.find("ES") - 1));
     std::cout << "Estimation Block Size: " << data.estimationBlockSize << std::endl;
