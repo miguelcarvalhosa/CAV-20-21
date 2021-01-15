@@ -1,0 +1,196 @@
+\hypertarget{classVideoCodec}{}\doxysection{Video\+Codec Class Reference}
+\label{classVideoCodec}\index{VideoCodec@{VideoCodec}}
+
+
+A class to compress and decompress a .y4m video file. This codec works with Y\+U\+V4\+M\+P\+E\+G2 uncompressed video files in three different color formats\+: Y\+U\+V444, Y\+U\+V422 and Y\+U\+V420. The output of the decompressor is always in Y\+U\+V420 color format. This lossless version of the codec includes an hybrid intra and inter-\/frame encoder using predictive coding and motion compensation. The user can choose the inter-\/frame block size and search area, as well as the periodicity of the intra-\/frame encoding. The user can also choose the type of predictor among the seven linear J\+P\+EG predictors or the J\+P\+E\+G-\/\+LS non-\/linear predictor.  
+
+
+
+
+{\ttfamily \#include $<$Video\+Codec.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classVideoCodec_a5f150be9f910c54c5a5d0bb476df8507}{video\+Format}} \{ {\bfseries V\+I\+D\+E\+O\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+444}, 
+{\bfseries V\+I\+D\+E\+O\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+422}, 
+{\bfseries V\+I\+D\+E\+O\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+420}
+ \}
+\item 
+enum \mbox{\hyperlink{classVideoCodec_a49482b6cb49625ab9a7dada9c365e097}{predictor\+Type}} \{ \newline
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+\_\+1}, 
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+\_\+2}, 
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+\_\+3}, 
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+\_\+4}, 
+\newline
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+\_\+5}, 
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+\_\+6}, 
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+\_\+7}, 
+{\bfseries P\+R\+E\+D\+I\+C\+T\+O\+R\+\_\+\+N\+O\+N\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+J\+P\+E\+G\+LS}
+ \}
+\item 
+enum \mbox{\hyperlink{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13}{parameter\+Estimation\+Mode}} \{ \mbox{\hyperlink{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13a03514ace616d10054e0f7cafd8d1c6f6}{E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+N\+O\+NE}}, 
+\mbox{\hyperlink{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13a9e1404881484e48297b64cdea3a61e7e}{E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+A\+D\+A\+P\+T\+A\+T\+I\+VE}}
+ \}
+\item 
+enum \mbox{\hyperlink{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8}{block\+Search\+Mode}} \{ \mbox{\hyperlink{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8a1515757d43220f2ca4f9166126bd351c}{E\+X\+H\+A\+U\+S\+T\+I\+VE}}, 
+{\bfseries I\+N\+T\+E\+R\+S\+P\+E\+R\+S\+ED}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classVideoCodec_aa1b4748226f3ca36438e022c881c590c}\label{classVideoCodec_aa1b4748226f3ca36438e022c881c590c}} 
+\mbox{\hyperlink{classVideoCodec_aa1b4748226f3ca36438e022c881c590c}{Video\+Codec}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classVideoCodec_a82081b22d1474ccb4beb0b3635267b52}\label{classVideoCodec_a82081b22d1474ccb4beb0b3635267b52}} 
+virtual \mbox{\hyperlink{classVideoCodec_a82081b22d1474ccb4beb0b3635267b52}{$\sim$\+Video\+Codec}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVideoCodec_a4be42ee15d7facb0f3ff101698690d12}{set\+Intra\+Coding\+Parameters}} (\mbox{\hyperlink{classVideoCodec_a49482b6cb49625ab9a7dada9c365e097}{predictor\+Type}} predictor, unsigned int intra\+Frame\+Periodicity, unsigned int estimation\+Block\+Size)
+\begin{DoxyCompactList}\small\item\em A function to set the options of the intra coding mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVideoCodec_a9345b3ff408ad2596ceb6411abcf7d4c}{set\+Inter\+Coding\+Parameters}} (\mbox{\hyperlink{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8}{block\+Search\+Mode}} search\+Mode, unsigned int block\+Size, unsigned int search\+Area)
+\begin{DoxyCompactList}\small\item\em A function to set the options of the inter coding mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVideoCodec_a8d66b34a8a9a03e89cf33571148885ac}{compress}} (std\+::string \&input\+File, std\+::string \&compressed\+File, unsigned int initialm, \mbox{\hyperlink{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13}{parameter\+Estimation\+Mode}} estimation)
+\begin{DoxyCompactList}\small\item\em A function to compress a video file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVideoCodec_ab076ad52b7012a99e4f2a4ed623a0ea5}{decompress}} (std\+::string \&output\+File, std\+::string \&compressed\+File)
+\begin{DoxyCompactList}\small\item\em A function to decompress a video file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class to compress and decompress a .y4m video file. This codec works with Y\+U\+V4\+M\+P\+E\+G2 uncompressed video files in three different color formats\+: Y\+U\+V444, Y\+U\+V422 and Y\+U\+V420. The output of the decompressor is always in Y\+U\+V420 color format. This lossless version of the codec includes an hybrid intra and inter-\/frame encoder using predictive coding and motion compensation. The user can choose the inter-\/frame block size and search area, as well as the periodicity of the intra-\/frame encoding. The user can also choose the type of predictor among the seven linear J\+P\+EG predictors or the J\+P\+E\+G-\/\+LS non-\/linear predictor. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8}\label{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8}} 
+\index{VideoCodec@{VideoCodec}!blockSearchMode@{blockSearchMode}}
+\index{blockSearchMode@{blockSearchMode}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{blockSearchMode}{blockSearchMode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8}{Video\+Codec\+::block\+Search\+Mode}}}
+
+Enumeration with the search modes that can be used during motion estimation. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXHAUSTIVE@{EXHAUSTIVE}!VideoCodec@{VideoCodec}}\index{VideoCodec@{VideoCodec}!EXHAUSTIVE@{EXHAUSTIVE}}}\mbox{\Hypertarget{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8a1515757d43220f2ca4f9166126bd351c}\label{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8a1515757d43220f2ca4f9166126bd351c}} 
+E\+X\+H\+A\+U\+S\+T\+I\+VE&Mode where all possible blocks within the search area are tested \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13}\label{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13}} 
+\index{VideoCodec@{VideoCodec}!parameterEstimationMode@{parameterEstimationMode}}
+\index{parameterEstimationMode@{parameterEstimationMode}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{parameterEstimationMode}{parameterEstimationMode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13}{Video\+Codec\+::parameter\+Estimation\+Mode}}}
+
+Enumeration with the modes of the Golomb encoder parameter estimation. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESTIMATION\_NONE@{ESTIMATION\_NONE}!VideoCodec@{VideoCodec}}\index{VideoCodec@{VideoCodec}!ESTIMATION\_NONE@{ESTIMATION\_NONE}}}\mbox{\Hypertarget{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13a03514ace616d10054e0f7cafd8d1c6f6}\label{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13a03514ace616d10054e0f7cafd8d1c6f6}} 
+E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+N\+O\+NE&No estimation of the Golomb encoder parameter \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESTIMATION\_ADAPTATIVE@{ESTIMATION\_ADAPTATIVE}!VideoCodec@{VideoCodec}}\index{VideoCodec@{VideoCodec}!ESTIMATION\_ADAPTATIVE@{ESTIMATION\_ADAPTATIVE}}}\mbox{\Hypertarget{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13a9e1404881484e48297b64cdea3a61e7e}\label{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13a9e1404881484e48297b64cdea3a61e7e}} 
+E\+S\+T\+I\+M\+A\+T\+I\+O\+N\+\_\+\+A\+D\+A\+P\+T\+A\+T\+I\+VE&Adaptative estimation of the Golomb encoder parameter \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classVideoCodec_a49482b6cb49625ab9a7dada9c365e097}\label{classVideoCodec_a49482b6cb49625ab9a7dada9c365e097}} 
+\index{VideoCodec@{VideoCodec}!predictorType@{predictorType}}
+\index{predictorType@{predictorType}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{predictorType}{predictorType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classVideoCodec_a49482b6cb49625ab9a7dada9c365e097}{Video\+Codec\+::predictor\+Type}}}
+
+Enumeration with the types of predictors (seven linear J\+P\+EG and one non-\/linear J\+P\+E\+G-\/\+LS). \mbox{\Hypertarget{classVideoCodec_a5f150be9f910c54c5a5d0bb476df8507}\label{classVideoCodec_a5f150be9f910c54c5a5d0bb476df8507}} 
+\index{VideoCodec@{VideoCodec}!videoFormat@{videoFormat}}
+\index{videoFormat@{videoFormat}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{videoFormat}{videoFormat}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classVideoCodec_a5f150be9f910c54c5a5d0bb476df8507}{Video\+Codec\+::video\+Format}}}
+
+Enumeration with the types of video color format. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classVideoCodec_a8d66b34a8a9a03e89cf33571148885ac}\label{classVideoCodec_a8d66b34a8a9a03e89cf33571148885ac}} 
+\index{VideoCodec@{VideoCodec}!compress@{compress}}
+\index{compress@{compress}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{compress()}{compress()}}
+{\footnotesize\ttfamily void Video\+Codec\+::compress (\begin{DoxyParamCaption}\item[{std\+::string \&}]{input\+File,  }\item[{std\+::string \&}]{compressed\+File,  }\item[{unsigned int}]{initialm,  }\item[{\mbox{\hyperlink{classVideoCodec_ad347d043ced8df7d1dcbebe6211b7a13}{parameter\+Estimation\+Mode}}}]{estimation }\end{DoxyParamCaption})}
+
+
+
+A function to compress a video file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em input\+File} & A string with the input video file path \\
+\hline
+\mbox{\texttt{ out}}  & {\em compressed\+File} & A string with the output compressed file path \\
+\hline
+\mbox{\texttt{ in}}  & {\em initialm} & Initial value of the Golomb encoder parameter \\
+\hline
+\mbox{\texttt{ in}}  & {\em estimation} & Mode of the Golomb encoder parameter estimation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classVideoCodec_ab076ad52b7012a99e4f2a4ed623a0ea5}\label{classVideoCodec_ab076ad52b7012a99e4f2a4ed623a0ea5}} 
+\index{VideoCodec@{VideoCodec}!decompress@{decompress}}
+\index{decompress@{decompress}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{decompress()}{decompress()}}
+{\footnotesize\ttfamily void Video\+Codec\+::decompress (\begin{DoxyParamCaption}\item[{std\+::string \&}]{output\+File,  }\item[{std\+::string \&}]{compressed\+File }\end{DoxyParamCaption})}
+
+
+
+A function to decompress a video file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em output\+File} & A string with the output video file path \\
+\hline
+\mbox{\texttt{ out}}  & {\em compressed\+File} & A string with the output compressed file path \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classVideoCodec_a9345b3ff408ad2596ceb6411abcf7d4c}\label{classVideoCodec_a9345b3ff408ad2596ceb6411abcf7d4c}} 
+\index{VideoCodec@{VideoCodec}!setInterCodingParameters@{setInterCodingParameters}}
+\index{setInterCodingParameters@{setInterCodingParameters}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{setInterCodingParameters()}{setInterCodingParameters()}}
+{\footnotesize\ttfamily void Video\+Codec\+::set\+Inter\+Coding\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVideoCodec_a9c6427ea566bace8820e8bcf245003a8}{block\+Search\+Mode}}}]{search\+Mode,  }\item[{unsigned int}]{block\+Size,  }\item[{unsigned int}]{search\+Area }\end{DoxyParamCaption})}
+
+
+
+A function to set the options of the inter coding mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em search\+Mode} & Type of search used to find the best block match within the search area \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & Width and height of each frame block \\
+\hline
+\mbox{\texttt{ in}}  & {\em search\+Area} & Area investigated around the previous frame block \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classVideoCodec_a4be42ee15d7facb0f3ff101698690d12}\label{classVideoCodec_a4be42ee15d7facb0f3ff101698690d12}} 
+\index{VideoCodec@{VideoCodec}!setIntraCodingParameters@{setIntraCodingParameters}}
+\index{setIntraCodingParameters@{setIntraCodingParameters}!VideoCodec@{VideoCodec}}
+\doxysubsubsection{\texorpdfstring{setIntraCodingParameters()}{setIntraCodingParameters()}}
+{\footnotesize\ttfamily void Video\+Codec\+::set\+Intra\+Coding\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVideoCodec_a49482b6cb49625ab9a7dada9c365e097}{predictor\+Type}}}]{predictor,  }\item[{unsigned int}]{intra\+Frame\+Periodicity,  }\item[{unsigned int}]{estimation\+Block\+Size }\end{DoxyParamCaption})}
+
+
+
+A function to set the options of the intra coding mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em predictor} & Spatial predictor type \\
+\hline
+\mbox{\texttt{ in}}  & {\em intra\+Frame\+Periodicity} & Periodicity of the intra frames \\
+\hline
+\mbox{\texttt{ in}}  & {\em estimation\+Block\+Size} & Size of the block used to estimate the m parameter during intra coding \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Video\+Codec.\+h\item 
+Video\+Codec.\+cpp\end{DoxyCompactItemize}
