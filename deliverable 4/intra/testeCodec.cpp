@@ -34,7 +34,7 @@ int main() {
     VideoCodec my_codec;
 
     /* configure codec settings for intra mode */
-    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_NON_LINEAR_JPEGLS, estimationBlockSize);
+    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_7, estimationBlockSize);
 
     my_codec.compress(inFile, cmpFile, initial_m, VideoCodec::ESTIMATION_ADAPTATIVE);
     my_codec.decompress(outFile, cmpFile);

@@ -28,8 +28,10 @@ void VideoCodec::compress( std::string &inputFile, std::string &compressedFile, 
     this->estimation = estimation;
 
     unsigned int numFrames = calcNFrames(inputFile, inFileData);
+
     compressedHeaderBuild(headerStr, this -> initial_m, numFrames);
-    std::cout << "Tamanho do cabeçalho: " <<headerStr.size() << std::endl;
+    std::cout << "Tamanho do cabeçalho: " << headerStr.size() << std::endl;
+
     encoder.encode(headerStr.size());                                   // encodes the header size at the begining
     encoder.encodeHeader(headerStr.substr(0,headerStr.size())); // encodes the header
     encoder.update(initial_m);
@@ -545,10 +547,9 @@ int VideoCodec::calcNFrames(std::string inputFile, fileData inFileData) {
         nFrames = file_size/(inFileData.width*inFileData.height*2);
     }
     else{
-        nFrames = file_size/(inFileData.width*inFileData.height*(3/2));
+        nFrames = file_size/(inFileData.width*inFileData.height* 3/2);
     }
     return nFrames;
-    //std::cout<<"Number of frames is"<<" "<< nFrames<<" "<<"bytes";
 }
 
 int VideoCodec::estToInt(parameterEstimationMode estimation) {
@@ -627,8 +628,7 @@ VideoCodec::fileData VideoCodec::parseCompressedHeader(std::string header) {
     std::cout << "m: " << data.golombM << std::endl;
 
     /* delete this after bug is corrected*/
-    data.frameCount = 500;
-            //stoi(data.header.substr(data.header.find(" N") + 3, data.header.find(" N") - data.header.find(" B") - 2));
+    data.frameCount = stoi(data.header.substr(data.header.find(" N") + 3, data.header.find(" N") - data.header.find(" B") - 2));
     //std::cout << "N frames: " << data.frameCount << std::endl;
 
     data.estimationBlockSize = stoi(data.header.substr(data.header.find("EBS") + 3, data.header.find("EBS") - data.header.find("ES") - 1));
