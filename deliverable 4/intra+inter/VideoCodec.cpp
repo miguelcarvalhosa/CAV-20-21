@@ -963,7 +963,7 @@ int VideoCodec::calcNFrames(std::string inputFile, fileData inFileData) {
         nFrames = file_size/(inFileData.width*inFileData.height*2);
     }
     else{
-        nFrames = file_size/(inFileData.width*inFileData.height*(3/2));
+        nFrames = file_size/(inFileData.width*inFileData.height* 3/2);
     }
     return nFrames;
     //std::cout<<"Number of frames is"<<" "<< nFrames<<" "<<"bytes";
