@@ -169,6 +169,8 @@ private:
              * the best block match values found in the previous frame */
             std::vector<short> residuals_y, residuals_u, residuals_v;
 
+            Point pos;
+
             void setMotionVectors(Point motionVector_y, Point motionVector_u, Point motionVector_v ) {
                 this->motionVector_y = motionVector_y;
                 this->motionVector_u = motionVector_u;
@@ -286,7 +288,7 @@ private:
     *  \param[in] bestMatchData   Best block match data obtained during motion estimation
     *  \param[in] plane           Indication of the image planes that have information to be encoded
     */
-    void encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, planeComponent plane);
+    unsigned char* encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, planeComponent plane, unsigned char* &lastFrameBuf);
 
     /**
     *  \brief A function to decode a frame block in INTER mode

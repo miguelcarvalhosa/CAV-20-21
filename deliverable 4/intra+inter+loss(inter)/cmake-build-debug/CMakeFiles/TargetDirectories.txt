@@ -1,0 +1,3 @@
+/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/testeCodec.dir

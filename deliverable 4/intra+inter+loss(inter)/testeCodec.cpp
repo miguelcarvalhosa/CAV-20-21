@@ -31,7 +31,7 @@ int main() {
 
 
     unsigned int estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
-    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 0, lostbitsU = 0, lostbitsV = 0;
+    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 1, lostbitsU = 0, lostbitsV =0;
 
     // Codec instance
     VideoCodec my_codec(VideoCodec::MODE_LOSSY, lostbitsY,lostbitsU,lostbitsV);
@@ -60,7 +60,7 @@ int main() {
 //    cout << "\t mono channel entropy: " << decFileEntropy[2] << endl;
 //
 //    cout << "Compression Ratio: " << (float)getFileSize(inFile)/(float)getFileSize(cmpFile) << endl;
-
+    printf("O PINTO ESTEVE AQUI");
     return 0;
 }
 

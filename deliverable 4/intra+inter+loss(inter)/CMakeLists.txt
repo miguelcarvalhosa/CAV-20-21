@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(deliverable_4_intra_inter_loss)
+project(deliverable_4_intra_inter)
 
 find_package( OpenCV REQUIRED )
 INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIR})
