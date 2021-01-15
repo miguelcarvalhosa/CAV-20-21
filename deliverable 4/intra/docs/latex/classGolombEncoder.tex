@@ -1,0 +1,100 @@
+\hypertarget{classGolombEncoder}{}\doxysection{Golomb\+Encoder Class Reference}
+\label{classGolombEncoder}\index{GolombEncoder@{GolombEncoder}}
+
+
+A class that implements an entropy encoder using Golomb codes. Includes methods to encode both positive and negative numbers.  
+
+
+
+
+{\ttfamily \#include $<$Golomb\+Encoder.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGolombEncoder_ac2eb7a9a67a519c60924be53bc004c3a}{Golomb\+Encoder}} (unsigned int m, std\+::string file\+Name)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGolombEncoder_a42bd23fb791b83bbae7b4dfe94b0561e}\label{classGolombEncoder_a42bd23fb791b83bbae7b4dfe94b0561e}} 
+virtual \mbox{\hyperlink{classGolombEncoder_a42bd23fb791b83bbae7b4dfe94b0561e}{$\sim$\+Golomb\+Encoder}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGolombEncoder_aaa677d9fbb57d5d6427ffd986b1c9a11}{update}} (unsigned int m)
+\begin{DoxyCompactList}\small\item\em A function to update the m parameter used by the encoder. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGolombEncoder_a9a84bd032a45776e74d1cd206a13bfa4}{encode}} (signed int value)
+\begin{DoxyCompactList}\small\item\em A function to encode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus a total number of 1 + q + b bits is written in the bitstream to represent each coded value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGolombEncoder_a86034670402e9c6fd6c5268fc7bbabe6}\label{classGolombEncoder_a86034670402e9c6fd6c5268fc7bbabe6}} 
+void {\bfseries encode\+Header} (std\+::basic\+\_\+string$<$ char $>$ str)
+\item 
+\mbox{\Hypertarget{classGolombEncoder_a8382097a027a19edf4cefb61ccf70d2f}\label{classGolombEncoder_a8382097a027a19edf4cefb61ccf70d2f}} 
+void {\bfseries close} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class that implements an entropy encoder using Golomb codes. Includes methods to encode both positive and negative numbers. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Carvalhosa 
+
+Tânia Ferreira 
+
+Gonçalo Cardoso 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGolombEncoder_ac2eb7a9a67a519c60924be53bc004c3a}\label{classGolombEncoder_ac2eb7a9a67a519c60924be53bc004c3a}} 
+\index{GolombEncoder@{GolombEncoder}!GolombEncoder@{GolombEncoder}}
+\index{GolombEncoder@{GolombEncoder}!GolombEncoder@{GolombEncoder}}
+\doxysubsubsection{\texorpdfstring{GolombEncoder()}{GolombEncoder()}}
+{\footnotesize\ttfamily Golomb\+Encoder\+::\+Golomb\+Encoder (\begin{DoxyParamCaption}\item[{unsigned int}]{m,  }\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em m} & Parameter m of the Golomb code \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+Name} & A string with the file name to be written by the encoder \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGolombEncoder_a9a84bd032a45776e74d1cd206a13bfa4}\label{classGolombEncoder_a9a84bd032a45776e74d1cd206a13bfa4}} 
+\index{GolombEncoder@{GolombEncoder}!encode@{encode}}
+\index{encode@{encode}!GolombEncoder@{GolombEncoder}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily void Golomb\+Encoder\+::encode (\begin{DoxyParamCaption}\item[{signed int}]{value }\end{DoxyParamCaption})}
+
+
+
+A function to encode both signed and unsigned numbers using the Golomb code. The representation of both signed and unsigned numbers is made by adding an additional bit before each quotient representation. Thus a total number of 1 + q + b bits is written in the bitstream to represent each coded value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em value} & The value to be encoded \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGolombEncoder_aaa677d9fbb57d5d6427ffd986b1c9a11}\label{classGolombEncoder_aaa677d9fbb57d5d6427ffd986b1c9a11}} 
+\index{GolombEncoder@{GolombEncoder}!update@{update}}
+\index{update@{update}!GolombEncoder@{GolombEncoder}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Golomb\+Encoder\+::update (\begin{DoxyParamCaption}\item[{unsigned int}]{m }\end{DoxyParamCaption})}
+
+
+
+A function to update the m parameter used by the encoder. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em m} & new value for the m parameter \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Golomb\+Encoder.\+h\item 
+Golomb\+Encoder.\+cpp\end{DoxyCompactItemize}
