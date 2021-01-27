@@ -353,6 +353,7 @@ unsigned char* VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimat
 
     switch (plane) {
         case Y:
+            std::cout <<  "Y" << std::endl;
             encoder.encode(bestMatchData.motionVector_y.x);
             encoder.encode(bestMatchData.motionVector_y.y);
             if(loss == MODE_LOSSY) {
@@ -369,6 +370,7 @@ unsigned char* VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimat
                 encoder.encode(bestMatchData.residuals_y[i]);
                 if(loss == MODE_LOSSY) {
                     frameblock_desc_y[i] = frameBlock_ref_y[i] + bestMatchData.residuals_y[i];
+
                 }
 
                 if(estimation == ESTIMATION_ADAPTATIVE) {
@@ -383,9 +385,23 @@ unsigned char* VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimat
                     }
                 }
             }
+            if(loss == MODE_LOSSY) {
+                for (int r = 0; r < blockSize; r++) {
+                    for (int c = 0; c < blockSize; c++) {
+                        frameBlockBuf[r * blockSize + c] = frameblock_desc_y[r + c];
+                        frameBlockBuf[r * blockSize + c + blockSize * blockSize] = frameblock_desc_u[r + c];
+                        frameBlockBuf[r * blockSize + c + 2 * blockSize * blockSize] = frameblock_desc_v[r + c];
+                        //std::cout << "frameblockbuff: " << frameBlockBuf[r * blockSize + c] << std::endl;
+                    }
+                }
+            }
+            //std::cout << "frameblockbuff: " << frameBlockBuf << std::endl;
+            //delete frameblock_desc_y, frameblock_desc_u, frameblock_desc_v;
+            return frameBlockBuf;
+
             break;
         case YUV:
-
+            std::cout <<  "YUV" << std::endl;
             encoder.encode(bestMatchData.motionVector_y.x);
             encoder.encode(bestMatchData.motionVector_y.y);
 
@@ -396,13 +412,13 @@ unsigned char* VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimat
             encoder.encode(bestMatchData.motionVector_v.y);
 
             if(loss == MODE_LOSSY) {
-                std::cout << "Pos x: " << bestMatchData.pos.x + bestMatchData.motionVector_y.x << std::endl;
-                std::cout << "Pos y: " << bestMatchData.pos.y + bestMatchData.motionVector_y.y << std::endl;
+                //std::cout << "Pos x: " << bestMatchData.pos.x + bestMatchData.motionVector_y.x << std::endl;
+                // std::cout << "Pos y: " << bestMatchData.pos.y + bestMatchData.motionVector_y.y << std::endl;
 
                 frameBlock_ref_y = getFrameBlock_component
                         (lastFrameBuf, bestMatchData.pos.x - bestMatchData.motionVector_y.x,
                          bestMatchData.pos.y - bestMatchData.motionVector_y.y, blockSize, Y);
-                std::cout << "foo" << std::endl;
+                // std::cout << "foo" << std::endl;
 
                 frameBlock_ref_v = getFrameBlock_component
                         (lastFrameBuf, bestMatchData.pos.x - bestMatchData.motionVector_v.x,
@@ -464,7 +480,7 @@ unsigned char* VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimat
                     }
                 }
             }
-            std::cout << "frameblockbuff: " << frameBlockBuf << std::endl;
+            //std::cout << "frameblockbuff: " << frameBlockBuf << std::endl;
             delete frameblock_desc_y, frameblock_desc_u, frameblock_desc_v;
             return frameBlockBuf;
 
@@ -770,24 +786,24 @@ unsigned char* VideoCodec::decodeFrameBlock(GolombDecoder& decoder, unsigned cha
     delete refBlockBuf_u;
     delete refBlockBuf_v;
 
-     if(x<inFileData.uv_width && y< inFileData.uv_height) {
-         motionVector_u.x = decoder.decode();
-         motionVector_u.y = decoder.decode();
-         motionVector_v.x = decoder.decode();
-         motionVector_v.y = decoder.decode();
+    if(x<inFileData.uv_width && y< inFileData.uv_height) {
+        motionVector_u.x = decoder.decode();
+        motionVector_u.y = decoder.decode();
+        motionVector_v.x = decoder.decode();
+        motionVector_v.y = decoder.decode();
 
-         refPos_u.x =  x - motionVector_u.x;
-         refPos_u.y =  y - motionVector_u.y;
-         refPos_v.x =  x - motionVector_v.x;
-         refPos_v.y =  y - motionVector_v.y;
+        refPos_u.x =  x - motionVector_u.x;
+        refPos_u.y =  y - motionVector_u.y;
+        refPos_v.x =  x - motionVector_v.x;
+        refPos_v.y =  y - motionVector_v.y;
 
-         refBlockBuf_y = getFrameBlock_component(lastFrameBuf, refPos_y.x, refPos_y.y, blockSize,Y);
-         refBlockBuf_u = getFrameBlock_component(lastFrameBuf, refPos_u.x, refPos_u.y, blockSize,U);
-         refBlockBuf_v = getFrameBlock_component(lastFrameBuf, refPos_v.x, refPos_v.y, blockSize,V);
+        refBlockBuf_y = getFrameBlock_component(lastFrameBuf, refPos_y.x, refPos_y.y, blockSize,Y);
+        refBlockBuf_u = getFrameBlock_component(lastFrameBuf, refPos_u.x, refPos_u.y, blockSize,U);
+        refBlockBuf_v = getFrameBlock_component(lastFrameBuf, refPos_v.x, refPos_v.y, blockSize,V);
 
-     } else {
-         refBlockBuf_y = getFrameBlock_component(lastFrameBuf, refPos_y.x, refPos_y.y, blockSize,Y);
-     }
+    } else {
+        refBlockBuf_y = getFrameBlock_component(lastFrameBuf, refPos_y.x, refPos_y.y, blockSize,Y);
+    }
 
     unsigned int sum_y = 0, estimatedBlocks = 0, m, res_y_mod;
     for (int r = 0; r < blockSize; r++) {
@@ -840,9 +856,9 @@ unsigned char* VideoCodec::getFrameBlock(unsigned char* &frameBuf, int x, int y,
 
     for (int r = 0; r < blockSize; r++) {
         for (int c = 0; c < blockSize; c++) {
-                frameBlockBuf[r * blockSize + c] = frameBuf[(y+r)*inFileData.width + (x+c)];
-                frameBlockBuf[r* blockSize + c + blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height];
-                frameBlockBuf[r* blockSize + c + 2*blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height + inFileData.uv_width*inFileData.uv_height];
+            frameBlockBuf[r * blockSize + c] = frameBuf[(y+r)*inFileData.width + (x+c)];
+            frameBlockBuf[r* blockSize + c + blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height];
+            frameBlockBuf[r* blockSize + c + 2*blockSize*blockSize] = frameBuf[(y+r)*inFileData.uv_width + (x+c) + inFileData.width*inFileData.height + inFileData.uv_width*inFileData.uv_height];
         }
     }
     return frameBlockBuf;
