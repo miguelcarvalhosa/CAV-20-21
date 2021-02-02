@@ -25,16 +25,16 @@ long getFileSize(string fileName);
 
 int main() {
 
-    string inFile = "ducks_take_off_420_720p50.y4m";         // Input audio file
+    string inFile = "ducks_take_off_444_720p50.y4m";         // Input audio file
     string outFile = "restored_video.y4m";         // Input audio file
     string cmpFile = "video.cmp";        // Output compressed file
 
 
     unsigned int estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
-    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 5, lostbitsU = 2, lostbitsV = 2;
+    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 2, lostbitsU = 5, lostbitsV = 5;
 
     // Codec instance
-    VideoCodec my_codec(VideoCodec::MODE_LOSSY, lostbitsY,lostbitsU,lostbitsV);
+    VideoCodec my_codec(VideoCodec::MODE_LOSSY, lostbitsY,lostbitsU,lostbitsV, VideoCodec::MODE_RESIDUAL_HISTOGRAM);
 
     /* configure codec settings for both intra and inter mode */
     my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, intraFramePeriodicity, estimationBlockSize);
@@ -43,23 +43,6 @@ int main() {
     my_codec.compress(inFile, cmpFile,10,VideoCodec::ESTIMATION_ADAPTATIVE);
     my_codec.decompress(outFile, cmpFile);
 
-
-    // Print the results
-//    cout << "\nInput file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;
-//    cout << "\t right channel entropy: " << inFileEntropy[0] << endl;
-//    cout << "\t left channel entropy: " << inFileEntropy[1] << endl;
-//    cout << "\t mono channel entropy: " << inFileEntropy[2] << endl;
-//
-//    cout << "Compressed file '" << cmpFile << "' size (bytes) :" << getFileSize(cmpFile) << endl;
-//    cout << "\t first channel entropy: " << cmpFileEntropy[0] << endl;
-//    cout << "\t second channel entropy: " << cmpFileEntropy[1] << endl;
-//
-//    cout << "Decompressed file '" << decFile << "' size (bytes) :" << getFileSize(decFile) << endl;
-//    cout << "\t right channel entropy: " << decFileEntropy[0] << endl;
-//    cout << "\t left channel entropy: " << decFileEntropy[1] << endl;
-//    cout << "\t mono channel entropy: " << decFileEntropy[2] << endl;
-//
-//    cout << "Compression Ratio: " << (float)getFileSize(inFile)/(float)getFileSize(cmpFile) << endl;
     return 0;
 }
 

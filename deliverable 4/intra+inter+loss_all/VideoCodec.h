@@ -10,6 +10,7 @@
 #include <opencv2/videoio.hpp>
 #include <fstream>
 #include <numeric>
+#include <vector>
 #include "GolombEncoder.h"
 #include "GolombDecoder.h"
 
@@ -61,6 +62,11 @@ public:
         INTERSPERSED,
     } blockSearchMode;
 
+    typedef enum {
+        MODE_NO_HISTOGRAM,          /**< Do not compute histograms */
+        MODE_RESIDUAL_HISTOGRAM     /**< Compute residuals histogram */
+    } histogramMode;
+
     /**
      * \brief Constructor.
      *
@@ -70,7 +76,7 @@ public:
      * \param[in] loss         Loss mode of video coded
      * \param[in] lostBits     Quantization step
      */
-    VideoCodec(lossMode loss, unsigned int lostBitsY,unsigned int lostBitsU, unsigned int lostBitsV);
+    VideoCodec(lossMode loss, unsigned int lostBitsY,unsigned int lostBitsU, unsigned int lostBitsV, histogramMode histMode);
     /**
      * \brief Destructor.
      */
@@ -129,6 +135,7 @@ private:
         blockSearchMode searchMode;
         parameterEstimationMode estimation;
         predictorType predictor;
+        int numFrames;
     } fileData;
 
     /**
@@ -225,7 +232,6 @@ private:
 
 
     fileData inFileData;
-
     /* Video Coded configurations */
     predictorType predictor = PREDICTOR_LINEAR_JPEG_7;
     parameterEstimationMode estimation = ESTIMATION_NONE;        // M parameter estimation mode
@@ -241,7 +247,7 @@ private:
     unsigned int lostBitsU;
     unsigned int lostBitsV;
     blockSearchMode searchMode;                                  // Type of search used to find the best block match within the search area
-
+    histogramMode histMode;
 
     /**
     *  \brief A function to encode a frame in INTRA mode
@@ -249,7 +255,7 @@ private:
     *  \param[in] encoder      Golomb encoder object used to write to the compressed video file
     *  \param[in] frameBuf     Pointer to the data buffer of the frame to be encoded
     */
-    void encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf);
+    void encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf, short* &residualsFrameBuf);
 
     /**
     *  \brief A function to encode a frame in INTER mode
@@ -259,8 +265,8 @@ private:
     *  \param[in] lastFrameBuf   Pointer to the data buffer of the previous encoded frame
     *  \param[in] blockSize      Size of each frame block
     */
-    //void encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, unsigned char* &lastFrameBuf, int blockSize, int searchArea);
-    void encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, unsigned char* &lastFrameBuf,unsigned char* &decodedFrameBuf, int blockSize, int searchArea);
+
+    void encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, unsigned char* &lastFrameBuf,unsigned char* &decodedFrameBuf, short* &residualsFrameBuf, int blockSize, int searchArea);
     /**
     *  \brief A function to decode a frame in INTRA mode
     *
@@ -286,8 +292,8 @@ private:
     *  \param[in] bestMatchData   Best block match data obtained during motion estimation
     *  \param[in] plane           Indication of the image planes that have information to be encoded
     */
-    //void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, unsigned  int x, unsigned int y, unsigned char* &lastFrameBuf, unsigned char* &decodedFrameBuf, planeComponent plane);
-    void encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, unsigned  int x, unsigned int y, unsigned char* &lastFrameBuf, unsigned char* &decodedFrameBuf, planeComponent plane);
+
+    void encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, unsigned  int x, unsigned int y, unsigned char* &lastFrameBuf, unsigned char* &decodedFrameBuf, short* &residualsFrameBuf, planeComponent plane);
 
     /**
     *  \brief A function to decode a frame block in INTER mode
@@ -299,7 +305,7 @@ private:
     *  \param[in] y             y coordinate of the block to be decoded
     *  \return Pointer to the data buffer of the decoded frame block
     */
-    //unsigned char* decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFrameBuf, int blockSize, int x, int y);
+
     void decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFrameBuf, unsigned  char* &frameBlockBuf, int blockSize, int x, int y);
     /**
     *  \brief A function to fetch the YUV blocks with x,y coordinates from a frame
@@ -377,7 +383,13 @@ private:
 
     fileData parseCompressedHeader(std::string header);
 
+    /* Calculate compressed video statistics */
+    void calculateFrameHist(unsigned char* &frameBuf, std::vector<long unsigned> &hist_y, std::vector<long unsigned> &hist_u, std::vector<long unsigned> &hist_v);
+    void calculateResFrameHist(short* &residualsFrameBuf,std::vector<long unsigned> &hist_res_y, std::vector<long unsigned> &hist_res_u, std::vector<long unsigned> &hist_res_v);
+
+    std::vector<float> videoEntropy(std::vector<long unsigned> &hist_y, std::vector<long unsigned> &hist_u, std::vector<long unsigned> &hist_v);
+    std::vector<float> residualsEntropy(std::vector<long unsigned> &hist_res_y, std::vector<long unsigned> &hist_res_u, std::vector<long unsigned> &hist_res_v);
 };
 
 
-#endif //VIDEOCODEC_H
+    #endif //VIDEOCODEC_H

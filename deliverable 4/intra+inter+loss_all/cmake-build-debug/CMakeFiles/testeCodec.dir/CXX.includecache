@@ -71,6 +71,8 @@ fstream
 -
 numeric
 -
+vector
+-
 GolombEncoder.h
 /home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/GolombEncoder.h
 GolombDecoder.h
