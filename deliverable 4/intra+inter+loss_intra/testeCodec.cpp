@@ -25,13 +25,13 @@ long getFileSize(string fileName);
 
 int main() {
 
-    string inFile = "420_.y4m";         // Input audio file
+    string inFile = "444_.y4m";         // Input audio file
     string outFile = "restored_video.y4m";         // Input audio file
     string cmpFile = "video.cmp";        // Output compressed file
 
 
     unsigned int estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
-    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 0, lostbitsU = 0, lostbitsV = 0;
+    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 0, lostbitsU = 2, lostbitsV =2;
 
     // Codec instance
     VideoCodec my_codec(VideoCodec::MODE_LOSSLESS, lostbitsY,lostbitsU,lostbitsV);
@@ -60,7 +60,6 @@ int main() {
 //    cout << "\t mono channel entropy: " << decFileEntropy[2] << endl;
 //
 //    cout << "Compression Ratio: " << (float)getFileSize(inFile)/(float)getFileSize(cmpFile) << endl;
-
     return 0;
 }
 

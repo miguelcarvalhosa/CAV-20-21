@@ -131,7 +131,7 @@ void VideoCodec::decompress(std::string &outputFile, std::string &compressedFile
     unsigned char* lastFrameBuf = new unsigned char[inFileData.width*inFileData.height* 3 / 2];
 
     unsigned int i=0;
-    while(i < inFileData.frameCount) {
+    while(i<inFileData.frameCount) {
         delete frameBuf;
         if((i%intraFramePeriodicity)==0) {
             frameBuf = decodeIntra(decoder);
@@ -153,15 +153,12 @@ void VideoCodec::encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf) {
     short y, u, v, pred_y, pred_u, pred_v, res_y, res_u, res_v;
     short left_sample, top_sample, top_left_sample;
     int pred_prev = 0, pred_input = 0, res_y_prev = 0;
+    short res_y_quant, res_u_quant, res_v_quant;
 
     for(int r=0; r<inFileData.height; r++) {
         for(int c=0; c<inFileData.width; c++) {
             y = frameBuf[r*inFileData.width + c];
-            if(loss == MODE_LOSSY) {
-                pred_input = res_y + pred_y;
-                //std::cout << "pred input:" << pred_input << std::endl;
-                frameBuf[r*inFileData.width + c] = pred_input;
-            }
+
             if(r == 0 && c == 0) {
                 left_sample = 0;
                 top_sample = 0;
@@ -186,13 +183,15 @@ void VideoCodec::encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf) {
             res_y = y - pred_y;
             if(loss == MODE_LOSSY) {
                 res_y = res_y >> lostBitsY;
-                res_y_prev = res_y;
+                //res_y_prev = res_y;
+
             }
-            //std::cout << "res_y: " << res_y << std::endl;
-            //std::cout << "res_y: " << res_y << std::endl;
             encoder.encode(res_y);
             if(loss == MODE_LOSSY){
-                res_y = res_y << lostBitsY;
+                res_y_quant = res_y << lostBitsY;
+                pred_input = res_y_quant + pred_y;
+                frameBuf[r*inFileData.width + c] = pred_input;
+
             }
 
             if(r < inFileData.uv_height && c < inFileData.uv_width) {
@@ -219,7 +218,16 @@ void VideoCodec::encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf) {
                 }
                 pred_u = predict(left_sample, top_sample, top_left_sample, predictor);
                 res_u = u - pred_u;
+                if(loss == MODE_LOSSY) {
+                    res_u = res_u >> lostBitsU;
+                }
                 encoder.encode(res_u);
+                if(loss == MODE_LOSSY){
+                    res_u_quant = res_u << lostBitsU;
+                    pred_input = res_u_quant + pred_u;
+                    frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width] = pred_input;
+                }
+
                 v = frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width + inFileData.uv_height*inFileData.uv_width];
                 if(r == 0 && c == 0) {
                     left_sample = 0;
@@ -243,7 +251,15 @@ void VideoCodec::encodeIntra(GolombEncoder& encoder, unsigned char* &frameBuf) {
                 }
                 pred_v = predict(left_sample, top_sample, top_left_sample, predictor);
                 res_v = v - pred_v;
+                if(loss == MODE_LOSSY) {
+                    res_v = res_v >> lostBitsV;
+                }
                 encoder.encode(res_v);
+                if(loss == MODE_LOSSY){
+                    res_v_quant = res_v << lostBitsV;
+                    pred_input = res_v_quant + pred_v;
+                    frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width + inFileData.uv_height*inFileData.uv_width] = pred_input;
+                }
             }
 
             if(estimation == ESTIMATION_ADAPTATIVE) {
@@ -290,6 +306,7 @@ void VideoCodec::encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, u
 void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, planeComponent plane) {
     unsigned int sum_y = 0, m, res_y_mod;
     int blockSize = bestMatchData.size;
+
     switch (plane) {
         case Y:
             encoder.encode(bestMatchData.motionVector_y.x);
@@ -474,13 +491,13 @@ VideoCodec::blockEstimationData VideoCodec::motionEstimation(unsigned char* &fra
 
 unsigned char* VideoCodec::decodeIntra(GolombDecoder& decoder) {
     unsigned char* frameBuf = new unsigned char[inFileData.width * inFileData.height * 3 / 2];
-    unsigned char* frameBuf_pred = new unsigned char[inFileData.width * inFileData.height * 3 / 2];
+    //unsigned char* frameBuf_pred = new unsigned char[inFileData.width * inFileData.height * 3 / 2];
 
     unsigned int sum_y = 0, estimatedBlocks = 0, m, res_y_mod;
     short y, u, v, pred_y, pred_u, pred_v, res_y, res_u, res_v;
     short left_sample, top_sample, top_left_sample;
     short res_y_rep = 0, pred_y_act = 0, pred_y_anterior = 0;
-    short res_y_quant, pred_input;
+    short res_y_quant, res_u_quant, res_v_quant, pred_input;
 
     for(int r=0; r<inFileData.height; r++) {
         for(int c=0; c<inFileData.width; c++) {
@@ -490,39 +507,32 @@ unsigned char* VideoCodec::decodeIntra(GolombDecoder& decoder) {
                 top_left_sample = 0;
             }
             else if(r == 0) {
-                left_sample = frameBuf_pred[r*inFileData.width + c - 1];
+                left_sample = frameBuf[r*inFileData.width + c - 1];
                 top_sample = 0;
                 top_left_sample = 0;
             }
             else if(c == 0) {
                 left_sample = 0;
-                top_sample = frameBuf_pred[(r-1)*inFileData.width + c];
+                top_sample = frameBuf[(r-1)*inFileData.width + c];
                 top_left_sample = 0;
             }
             else {
-                left_sample = frameBuf_pred[r*inFileData.width + c - 1];
-                top_sample = frameBuf_pred[(r-1)*inFileData.width + c];
-                top_left_sample = frameBuf_pred[(r-1)*inFileData.width + c - 1];
+                left_sample = frameBuf[r*inFileData.width + c - 1];
+                top_sample = frameBuf[(r-1)*inFileData.width + c];
+                top_left_sample = frameBuf[(r-1)*inFileData.width + c - 1];
             }
             res_y = decoder.decode();
-            //std::cout << "res_y: " << res_y << std::endl;
-            //std::cout << "lostbitsY: " << lostBitsY << std::endl;
+            pred_y = predict(left_sample, top_sample, top_left_sample, predictor);
             if(loss == MODE_LOSSLESS){
                 y = res_y + pred_y;
                 frameBuf[r*inFileData.width + c] = y;
-                frameBuf_pred[r*inFileData.width + c] = y;
+                //frameBuf_pred[r*inFileData.width + c] = y;
             }
             else{
-                pred_input = res_y + pred_y;
-                pred_y = predict(left_sample, top_sample, top_left_sample, predictor);
-                frameBuf_pred[r*inFileData.width + c] = pred_input; // manda para o preditor
                 res_y_quant = res_y << lostBitsY;
                 y = res_y_quant + pred_y;
                 frameBuf[r*inFileData.width + c] = y;
-                pred_y_anterior = pred_y;
-                res_y = res_y_quant;
             }
-
 
             if(r < inFileData.uv_height && c < inFileData.uv_width) {
                 if(r == 0 && c == 0) {
@@ -546,10 +556,16 @@ unsigned char* VideoCodec::decodeIntra(GolombDecoder& decoder) {
                     top_left_sample = frameBuf[(r-1)*inFileData.uv_width + c - 1 + inFileData.height*inFileData.width];
                 }
                 res_u = decoder.decode();
-                //std::cout << "res_u:" << res_u << std::endl;
                 pred_u = predict(left_sample, top_sample, top_left_sample, predictor);
-                u = res_u + pred_u;
-                frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width] = u;
+                if(loss == MODE_LOSSLESS){
+                    u = res_u + pred_u;
+                    frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width] = u;
+                }
+                else{
+                    res_u_quant = res_u << lostBitsU;
+                    u = res_u_quant + pred_u;
+                    frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width] = u;
+                }
 
                 if(r == 0 && c == 0) {
                     left_sample = 0;
@@ -572,10 +588,17 @@ unsigned char* VideoCodec::decodeIntra(GolombDecoder& decoder) {
                     top_left_sample = frameBuf[(r-1)*inFileData.uv_width + c - 1 + inFileData.height*inFileData.width + inFileData.uv_height*inFileData.uv_width];
                 }
                 res_v = decoder.decode();
-                //std::cout << "res_v:" << res_v << std::endl;
                 pred_v = predict(left_sample, top_sample, top_left_sample, predictor);
-                v = res_v + pred_v;
-                frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width + inFileData.uv_height*inFileData.uv_width] = v;
+                if(loss == MODE_LOSSLESS){
+                    v = res_v + pred_v;
+                    frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width + inFileData.uv_height*inFileData.uv_width] = v;
+                }
+                else{
+                    res_v_quant = res_v << lostBitsV;
+                    v = res_v_quant + pred_v;
+                    frameBuf[r*inFileData.uv_width + c + inFileData.height*inFileData.width + inFileData.uv_height*inFileData.uv_width] = v;
+                }
+
             }
             if(estimation == ESTIMATION_ADAPTATIVE) {
                 estimatedBlocks++;
@@ -999,10 +1022,13 @@ int VideoCodec::calcNFrames(std::string inputFile, fileData inFileData) {
     }
     else if(inFileData.format == VIDEO_FORMAT_422) {
         nFrames = file_size/(inFileData.width*inFileData.height*2);
-    } else{
-        nFrames = file_size/(inFileData.width*inFileData.height*3/2);
+    }
+    else{
+        double factor = (double)inFileData.width*(double)inFileData.height*(3/2);
+        nFrames = file_size/factor;
     }
     return nFrames;
+    //std::cout<<"Number of frames is"<<" "<< nFrames<<" "<<"bytes";
 }
 
 int VideoCodec::estToInt(parameterEstimationMode estimation) {
@@ -1109,6 +1135,8 @@ VideoCodec::fileData VideoCodec::parseCompressedHeader(std::string header) {
 
     data.searchArea = stoi(data.header.substr(data.header.find("SA") + 2, data.header.find("SA") - data.header.find("Z") - 1));
     std::cout << "Search Area: " << data.searchArea << std::endl;
+
+
 
     return data;
 }
