@@ -169,8 +169,6 @@ private:
              * the best block match values found in the previous frame */
             std::vector<short> residuals_y, residuals_u, residuals_v;
 
-            Point pos;
-
             void setMotionVectors(Point motionVector_y, Point motionVector_u, Point motionVector_v ) {
                 this->motionVector_y = motionVector_y;
                 this->motionVector_u = motionVector_u;
@@ -261,8 +259,8 @@ private:
     *  \param[in] lastFrameBuf   Pointer to the data buffer of the previous encoded frame
     *  \param[in] blockSize      Size of each frame block
     */
-    void encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, unsigned char* &lastFrameBuf, int blockSize, int searchArea);
-
+    //void encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, unsigned char* &lastFrameBuf, int blockSize, int searchArea);
+    void encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, unsigned char* &lastFrameBuf,unsigned char* &decodedFrameBuf, int blockSize, int searchArea);
     /**
     *  \brief A function to decode a frame in INTRA mode
     *
@@ -288,7 +286,8 @@ private:
     *  \param[in] bestMatchData   Best block match data obtained during motion estimation
     *  \param[in] plane           Indication of the image planes that have information to be encoded
     */
-    unsigned char* encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, planeComponent plane, unsigned char* &lastFrameBuf);
+    //void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, unsigned  int x, unsigned int y, unsigned char* &lastFrameBuf, unsigned char* &decodedFrameBuf, planeComponent plane);
+    void encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& bestMatchData, unsigned  int x, unsigned int y, unsigned char* &lastFrameBuf, unsigned char* &decodedFrameBuf, planeComponent plane);
 
     /**
     *  \brief A function to decode a frame block in INTER mode
@@ -300,8 +299,8 @@ private:
     *  \param[in] y             y coordinate of the block to be decoded
     *  \return Pointer to the data buffer of the decoded frame block
     */
-    unsigned char* decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFrameBuf, int blockSize, int x, int y);
-
+    //unsigned char* decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFrameBuf, int blockSize, int x, int y);
+    void decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFrameBuf, unsigned  char* &frameBlockBuf, int blockSize, int x, int y);
     /**
     *  \brief A function to fetch the YUV blocks with x,y coordinates from a frame
     *  \param[in] frameBuf      Pointer to the data buffer of the frame

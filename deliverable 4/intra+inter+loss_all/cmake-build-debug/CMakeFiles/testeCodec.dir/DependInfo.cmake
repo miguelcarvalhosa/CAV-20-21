@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/goncalo/Desktop/intra+inter+loss/BitStream_Read.cpp" "/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o"
-  "/home/goncalo/Desktop/intra+inter+loss/BitStream_Write.cpp" "/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o"
-  "/home/goncalo/Desktop/intra+inter+loss/GolombDecoder.cpp" "/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o"
-  "/home/goncalo/Desktop/intra+inter+loss/GolombEncoder.cpp" "/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o"
-  "/home/goncalo/Desktop/intra+inter+loss/VideoCodec.cpp" "/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/testeCodec.dir/VideoCodec.cpp.o"
-  "/home/goncalo/Desktop/intra+inter+loss/testeCodec.cpp" "/home/goncalo/Desktop/intra+inter+loss/cmake-build-debug/CMakeFiles/testeCodec.dir/testeCodec.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/BitStream_Read.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Read.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/BitStream_Write.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/cmake-build-debug/CMakeFiles/testeCodec.dir/BitStream_Write.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/GolombDecoder.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombDecoder.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/GolombEncoder.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/cmake-build-debug/CMakeFiles/testeCodec.dir/GolombEncoder.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/VideoCodec.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/cmake-build-debug/CMakeFiles/testeCodec.dir/VideoCodec.cpp.o"
+  "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/testeCodec.cpp" "/home/tania/Desktop/CAV-20-21/deliverable 4/intra+inter+loss_all/cmake-build-debug/CMakeFiles/testeCodec.dir/testeCodec.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
