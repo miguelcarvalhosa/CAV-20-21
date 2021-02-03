@@ -106,7 +106,6 @@ void VideoCodec::compress( std::string &inputFile, std::string &compressedFile, 
             calculateFrameHist(frameBuf, hist_y, hist_u, hist_v);
             calculateResFrameHist(residualsFrameBuf, hist_res_y, hist_res_u, hist_res_v);
         }
-
         if(inFileData.format == VIDEO_FORMAT_444) {
             /* restore frame dimensions to 444 frame dimensions */
             inFileData.uv_width = inFileData.width;
