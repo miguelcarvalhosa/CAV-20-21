@@ -106,7 +106,6 @@ void VideoCodec::compress( std::string &inputFile, std::string &compressedFile, 
             calculateFrameHist(frameBuf, hist_y, hist_u, hist_v);
             calculateResFrameHist(residualsFrameBuf, hist_res_y, hist_res_u, hist_res_v);
         }
-
         if(inFileData.format == VIDEO_FORMAT_444) {
             /* restore frame dimensions to 444 frame dimensions */
             inFileData.uv_width = inFileData.width;
@@ -327,16 +326,17 @@ void VideoCodec::encodeInter(GolombEncoder& encoder, unsigned char* &frameBuf, u
     for(int r=0; r<inFileData.height; r=r+blockSize) {
         for (int c = 0; c < inFileData.width; c=c+blockSize ) {
             if(r < inFileData.uv_height && c < inFileData.uv_width) {
-                delete frameBlockBuf;
+                //delete frameBlockBuf;
                 frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize);
                 bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, YUV, searchMode);
                 encodeFrameBlock(encoder, bestBlockMatch, c, r, lastFrameBuf,decodedFrameBuf, residualsFrameBuf, YUV);
             } else {
-                delete frameBlockBuf;
+                //delete frameBlockBuf;
                 frameBlockBuf = getFrameBlock(frameBuf, c, r, blockSize);
                 bestBlockMatch = motionEstimation(frameBlockBuf, lastFrameBuf, c, r, blockSize, searchArea, Y, searchMode);
                 encodeFrameBlock(encoder, bestBlockMatch, c, r, lastFrameBuf,decodedFrameBuf, residualsFrameBuf, Y);
             }
+            delete frameBlockBuf;
         }
     }
 }
@@ -351,7 +351,6 @@ void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& b
     unsigned char* frameblock_desc_u = new unsigned char[blockSize*blockSize];
     unsigned char*  frameBlock_ref_v = NULL;
     unsigned char* frameblock_desc_v = new unsigned char[blockSize*blockSize];
-
 
     switch (plane) {
         case Y:
@@ -372,6 +371,7 @@ void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& b
                     frameblock_desc_y[i] = frameBlock_ref_y[i] + bestMatchData.residuals_y[i];
                 }
 
+
                 if(estimation == ESTIMATION_ADAPTATIVE) {
                     /* convert samples values to a positive range in order to perform the M estimation */
                     res_y_mod = bestMatchData.residuals_y[i] > 0    ?   2 * bestMatchData.residuals_y[i] - 1  :   -2 * bestMatchData.residuals_y[i];
@@ -390,6 +390,13 @@ void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& b
                     if(histMode == MODE_RESIDUAL_HISTOGRAM) memcpy(residualsFrameBuf + inFileData.width * (n + y) + x, bestMatchData.residuals_y.data() + n * blockSize, blockSize);
                 }
             }
+            delete frameBlock_ref_y;
+            delete frameBlock_ref_u;
+            delete frameBlock_ref_v;
+            delete frameblock_desc_y;
+            delete frameblock_desc_u;
+            delete frameblock_desc_v;
+
             break;
         case YUV:
             encoder.encode(bestMatchData.motionVector_y.x);
@@ -429,6 +436,7 @@ void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& b
                     frameblock_desc_u[i] = frameBlock_ref_u[i] + bestMatchData.residuals_u[i];
                     frameblock_desc_v[i] = frameBlock_ref_v[i] + bestMatchData.residuals_v[i];
                 }
+
                 if(estimation == ESTIMATION_ADAPTATIVE) {
                     /* convert samples values to a positive range in order to perform the M estimation */
                     res_y_mod = bestMatchData.residuals_y[i] > 0    ?   2 * bestMatchData.residuals_y[i] - 1  :   -2 * bestMatchData.residuals_y[i];
@@ -457,6 +465,12 @@ void VideoCodec::encodeFrameBlock(GolombEncoder& encoder, blockEstimationData& b
                     }
                 }
             }
+            delete frameBlock_ref_y;
+            delete frameBlock_ref_u;
+            delete frameBlock_ref_v;
+            delete frameblock_desc_y;
+            delete frameblock_desc_u;
+            delete frameblock_desc_v;
             break;
         default:
             break;
@@ -536,12 +550,13 @@ VideoCodec::blockEstimationData VideoCodec::motionEstimation(unsigned char* &fra
                 }
             }
         }
+
     } else {
         for(int y=limits.topLeftPos.y; y<limits.bottomLeftPos.y; y=y+4) {
             for(int x=limits.topLeftPos.x; x<limits.topRightPos.x; x=x+4) {
-                delete refBlockBuf_y;
-                delete refBlockBuf_u;
-                delete refBlockBuf_v;
+               delete refBlockBuf_y;
+               delete refBlockBuf_u;
+               delete refBlockBuf_v;
                 /* get each block from the specified previous frame' search area  */
                 refBlockBuf_y = getFrameBlock_component(lastFrameBuf, x, y, blockSize, Y);
                 if(plane == YUV) {
@@ -560,6 +575,7 @@ VideoCodec::blockEstimationData VideoCodec::motionEstimation(unsigned char* &fra
                             res_v[r*blockSize + c] = frameBlockBuf[r*blockSize + c + 2*blockSize*blockSize] - refBlockBuf_v[r*blockSize + c];
                             blockError_u = blockError_u + std::abs(res_u[r*blockSize + c]);
                             blockError_v = blockError_v + std::abs(res_v[r*blockSize + c]);
+
                         }
                     }
                 }
@@ -590,6 +606,7 @@ VideoCodec::blockEstimationData VideoCodec::motionEstimation(unsigned char* &fra
             }
         }
     }
+
     return bestBlockMatch;
 }
 
@@ -759,9 +776,6 @@ void VideoCodec::decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFr
     refPos_y.x =  x - motionVector_y.x;
     refPos_y.y =  y - motionVector_y.y;
 
-    delete refBlockBuf_y;
-    delete refBlockBuf_u;
-    delete refBlockBuf_v;
 
     if(x<inFileData.uv_width && y< inFileData.uv_height) {
         motionVector_u.x = decoder.decode();
@@ -785,6 +799,7 @@ void VideoCodec::decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFr
     unsigned int sum_y = 0, estimatedBlocks = 0, m, res_y_mod;
     for (int r = 0; r < blockSize; r++) {
         for (int c = 0; c < blockSize; c++) {
+
             res_y = decoder.decode();
             if(loss == MODE_LOSSY) {
                 res_y = res_y << lostBitsY;
@@ -813,8 +828,12 @@ void VideoCodec::decodeFrameBlock(GolombDecoder& decoder, unsigned char* &lastFr
                     estimatedBlocks = 0;
                 }
             }
+
         }
     }
+    delete refBlockBuf_y;
+    delete refBlockBuf_u;
+    delete refBlockBuf_v;
 }
 
 unsigned char* VideoCodec::getFrameBlock_component(unsigned char* &frameBuf, int x, int y, int blockSize, planeComponent plane){
