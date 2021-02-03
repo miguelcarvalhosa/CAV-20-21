@@ -12,3 +12,6 @@ SET (CMAKE_CXX_FLAGS_DEBUG "-g3 -fsanitize=address")
 
 add_executable(testeCodec testeCodec.cpp BitStream_Write.h BitStream_Read.h BitStream_Write.cpp BitStream_Read.cpp GolombDecoder.cpp GolombDecoder.h GolombEncoder.cpp GolombEncoder.h VideoCodec.cpp VideoCodec.h)
 target_link_libraries(testeCodec ${OpenCV_LIBS})
+
+add_executable(testeCodecIntra testeCodecIntra.cpp BitStream_Write.h BitStream_Read.h BitStream_Write.cpp BitStream_Read.cpp GolombDecoder.cpp GolombDecoder.h GolombEncoder.cpp GolombEncoder.h VideoCodec.cpp VideoCodec.h)
+target_link_libraries(testeCodecIntra ${OpenCV_LIBS})
