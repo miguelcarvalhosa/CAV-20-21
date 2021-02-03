@@ -2,9 +2,8 @@
 /**
  * \file testeCodec.cpp
  *
- * \brief Contains the resolution of the Deliverable 3.
- *        This program creates an instance of the codec, compresses an audio file and then decompresses the file.
- *        The program also computes the files histograms, entropies and the compression ratio.
+ * \brief Contains the resolution of point 19 of the Deliverable 4.
+ *        This program creates an instance of the codec, compresses a video file and then decompresses the file.
  *
  * \author Miguel Carvalhosa
  * \author Tânia Ferreira
@@ -14,7 +13,9 @@
 #include "VideoCodec.h"
 #include <string>
 #include <fstream>
-
+#include <chrono>
+#include <ratio>
+#include <ctime>
 using namespace std;
 
 /*
@@ -25,23 +26,37 @@ long getFileSize(string fileName);
 
 int main() {
 
-    string inFile = "ducks_take_off_444_720p50.y4m";         // Input audio file
-    string outFile = "restored_video.y4m";         // Input audio file
-    string cmpFile = "video.cmp";        // Output compressed file
+    string inFile = "444_.y4m";                     // Input video file
+    string outFile = "restored_video.y4m";          // Output video file
+    string cmpFile = "video.cmp";                   // Output compressed file
 
+    chrono::steady_clock::time_point t1, t2;
 
-    unsigned int estimationBlockSize = 1000, lostBits = 0, intraFramePeriodicity=10;
-    unsigned int blockSize = 4, searchArea = 16, lostbitsY = 2, lostbitsU = 5, lostbitsV = 5;
+    unsigned int lostBitsY = 0, lostBitsU = 0, lostBitsV = 0;
+    unsigned int estimationBlockSize = 1000, initial_m = 10;
+    unsigned int intraFramePeriodicity = 1, blockSize = 4, searchArea = 1;
 
     // Codec instance
-    VideoCodec my_codec(VideoCodec::MODE_LOSSY, lostbitsY,lostbitsU,lostbitsV, VideoCodec::MODE_RESIDUAL_HISTOGRAM);
+    VideoCodec my_codec(VideoCodec::MODE_LOSSLESS, lostBitsY, lostBitsU, lostBitsV, VideoCodec::MODE_NO_HISTOGRAM);
 
-    /* configure codec settings for both intra and inter mode */
-    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_1, intraFramePeriodicity, estimationBlockSize);
-    my_codec.setInterCodingParameters(VideoCodec::INTERSPERSED, blockSize, searchArea);
+    /* configure codec settings for intra and inter modes */
+    my_codec.setIntraCodingParameters(VideoCodec::PREDICTOR_LINEAR_JPEG_7, intraFramePeriodicity, estimationBlockSize);
+    my_codec.setInterCodingParameters(VideoCodec::EXHAUSTIVE, blockSize, searchArea);
 
-    my_codec.compress(inFile, cmpFile,10,VideoCodec::ESTIMATION_ADAPTATIVE);
+    t1 = chrono::steady_clock::now();
+    my_codec.compress(inFile, cmpFile, initial_m, VideoCodec::ESTIMATION_ADAPTATIVE);
     my_codec.decompress(outFile, cmpFile);
+    t2 = chrono::steady_clock::now();
+
+    chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
+
+
+    // Print the results
+    cout << "\nInput file '" << inFile << "' size (bytes) :" << getFileSize(inFile) << endl;
+    cout << "Compressed file '" << cmpFile << "' size (bytes) :" << getFileSize(cmpFile) << endl;
+    cout << "Decompressed file '" << outFile << "' size (bytes) :" << getFileSize(outFile) << endl;
+    cout << "Compression Ratio: " << (float)getFileSize(inFile)/(float)getFileSize(cmpFile) << endl;
+    cout << "Duration: " << time_span.count() << " seconds"<< endl;
 
     return 0;
 }

@@ -90,6 +90,7 @@ public:
      * \param[in] estimationBlockSize      Size of the block used to estimate the m parameter during intra coding
      */
     void setIntraCodingParameters(predictorType predictor, unsigned int intraFramePeriodicity, unsigned int estimationBlockSize);
+
     /**
      * \brief A function to set the options of the inter coding mode
      *
